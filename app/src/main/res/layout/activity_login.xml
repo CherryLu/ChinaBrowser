@@ -55,6 +55,7 @@
                         android:background="@color/color_line_gray"/>
                 </LinearLayout>
                 <LinearLayout
+                    android:gravity="center_vertical"
                     android:paddingTop="20dp"
                     android:paddingRight="55dp"
                     android:paddingLeft="55dp"
@@ -62,9 +63,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <ImageView
+                        android:padding="5dp"
                         android:id="@+id/rember_psw"
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:src="@mipmap/rember_psw_uncheck"/>
                     <TextView
                         android:textSize="13sp"
@@ -140,6 +142,7 @@
                         android:background="@color/color_line_gray"/>
                 </RelativeLayout>
                 <LinearLayout
+                    android:layout_marginTop="10dp"
                     android:paddingRight="30dp"
                     android:paddingLeft="30dp"
                     android:orientation="horizontal"

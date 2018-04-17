@@ -9,6 +9,7 @@ import com.chinabrowser.bean.UserKeeper;
 import com.chinabrowser.net.UpUserPageData;
 import com.chinabrowser.net.UserProtocolPage;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Vector;
@@ -56,6 +57,9 @@ public class UserManager {
         notifyObservers(login);
         saveUserData();
     }
+    public void refreshData(){
+        readUserData();
+    }
 
     public boolean isLogin() {
         return isLogin;
@@ -73,6 +77,24 @@ public class UserManager {
             CommUtils.setUserPassword(keeper.userData.getSuserno());
         }
         CommUtils.saveObjectData(keeper, path);
+    }
+
+    private void readUserData() {
+        String path = FileUtils.getAppBasePath() + "userKeeper.dat";
+        Object obj = CommUtils.loadObjectData(path);
+        if (obj != null) {
+            UserKeeper keeper = (UserKeeper) obj;
+            this.isLogin = keeper.isLogin;
+            this.loginMode = keeper.mode;
+            this.userData = keeper.userData;
+            if (userData != null) {
+                CommUtils.setUserName(userData.getSmail());
+                CommUtils.setUserPassword(userData.getSuserno());
+            }
+            LogUtils.d("readUserData","obj ok");
+        } else {
+            LogUtils.d("readUserData","obj null");
+        }
     }
 
 
@@ -106,10 +128,8 @@ public class UserManager {
         }
     }
 
-    @SuppressWarnings("unchecked")
     private Enumeration<LoginStateInterface> observers() {
-        return ((Vector<LoginStateInterface>) observersVector.clone())
-                .elements();
+        return ((Vector<LoginStateInterface>) observersVector.clone()).elements();
     }
 
     private UserManager() {
@@ -119,12 +139,13 @@ public class UserManager {
                 switch (msg.what){
                     case UserProtocolPage.MSG_WHAT_ERROE:
                     case UserProtocolPage.MSG_WHAT_NOTCHANGE:
-                        sendOutEmptyMsg(MSG_WAHT_MAIL_SUCCESS);
+                        sendOutEmptyMsg(MSG_WAHT_MAIL_FAIL);
                         updateLoginState(false,LoginMode.NONE,userProtocolPage.userData);
                         break;
                     case UserProtocolPage.MSG_WHAT_OK:
                         sendOutEmptyMsg(MSG_WAHT_MAIL_SUCCESS);
                         updateLoginState(true,LoginMode.MAIL,userProtocolPage.userData);
+                        refreshData();
                         break;
                 }
                 super.dispatchMessage(msg);

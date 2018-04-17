@@ -14,8 +14,5 @@ public class UserKeeper implements Serializable {
 
 	public boolean isLogin = false;
 	public LoginMode mode = LoginMode.NONE;
-	public String nickName;
-	public String sex;
-	public String headPhoto;
 	public UserData userData;
 }

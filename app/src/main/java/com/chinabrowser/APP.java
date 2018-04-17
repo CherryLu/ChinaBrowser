@@ -91,6 +91,6 @@ public class APP extends Application {
     }
 
     public static String getAppBaseFolder() {
-            return "com.chinabrowser";
+            return "com.chinabrowser.browser";
     }
 }

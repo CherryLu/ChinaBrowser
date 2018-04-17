@@ -1,8 +1,11 @@
 package com.chinabrowser.activity;
 
+import android.app.Activity;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.TextView;
@@ -13,6 +16,7 @@ import com.chinabrowser.utils.CommUtils;
 import com.chinabrowser.utils.Constant;
 import com.chinabrowser.utils.Navigator;
 import com.chinabrowser.utils.SharedPreferencesUtils;
+import com.chinabrowser.utils.UserManager;
 
 import java.util.Locale;
 
@@ -35,8 +39,6 @@ public class SelectActivity extends BaseActivity {
     @Bind(R.id.turkish_line)
     View turkishLine;
 
-    private boolean ischina = true;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +46,9 @@ public class SelectActivity extends BaseActivity {
         init();
         setContentView(R.layout.activity_select);
         ButterKnife.bind(this);
+        UserManager.getInstance().refreshData();
     }
+
 
     private void getDefalutLan(){
         Constant.language = (int) SharedPreferencesUtils.getParam(this, Constant.LAG, 0);

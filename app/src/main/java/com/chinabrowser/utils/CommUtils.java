@@ -13,9 +13,12 @@ import com.chinabrowser.APP;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.security.MessageDigest;
 import java.util.Locale;
@@ -459,6 +462,40 @@ public class CommUtils {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    // 从文件中读取数据。
+    public static Object loadObjectData(String path) {
+        Object ret = null;
+        if (path == null)
+            return ret;
+
+        File file = new File(path);
+        if (!file.exists())
+            return ret;
+
+        try {
+            FileInputStream fis = new FileInputStream(file);
+            ret = loadObjectData(fis);
+            fis.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ret;
+    }
+
+    // 从文件输入流中读取数据
+    public static Object loadObjectData(InputStream inputStream) {
+        Object ret = null;
+        try {
+            ObjectInputStream istream = null;
+            istream = new ObjectInputStream(inputStream);
+            ret = istream.readObject();
+            istream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ret;
     }
 
 }

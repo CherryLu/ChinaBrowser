@@ -456,8 +456,7 @@ public class FileUtils {
 
 		APP.gFileFolderAudioAD = path + "/" + APP.getAppBaseFolder() + "/AudioAD";
 
-		APP.gFileFolderHistoryPlay = path + "/" + APP.getAppBaseFolder()
-				+ "/HistoryPlay";
+		APP.gFileFolderHistoryPlay = path + "/" + APP.getAppBaseFolder() + "/HistoryPlay";
 
 
 		APP.gMyFilePath = context.getFilesDir().getPath() + "/";
@@ -480,16 +479,25 @@ public class FileUtils {
 				} else {
 					APP.gFilePath = path + "/" + APP.getAppBaseFolder() + "/";
 					newFolder(APP.gFileFolder);
+					LogUtils.e("ZX","gFileFolder : "+APP.gFilePath);
 					newFolder(APP.gFileFolderAudio);
+					LogUtils.e("ZX","gFileFolderAudio : "+APP.gFileFolderAudio);
 					newFolder(APP.gFileFolderAudioPack);
+					LogUtils.e("ZX","gFileFolderAudioPack : "+APP.gFileFolderAudioPack);
 					newFolder(APP.gFileFolderUpImage);
+					LogUtils.e("ZX","gFileFolderUpImage : "+APP.gFileFolderUpImage);
 					newFolder(APP.gFileFolderDownImage);
+					LogUtils.e("ZX","gFileFolderDownImage : "+APP.gFileFolderDownImage);
 					newFolder(APP.gFileFolderAudioAD);
+					LogUtils.e("ZX","gFileFolderAudioAD : "+APP.gFileFolderAudioAD);
 					newFolder(APP.gFileProtocolCachePath);
+					LogUtils.e("ZX","gFileProtocolCachePath : "+APP.gFileProtocolCachePath);
 					newFolder(APP.gFileFolderHistoryPlay);
+					LogUtils.e("ZX","gFileFolderHistoryPlay : "+APP.gFileFolderHistoryPlay);
 				}
 			} catch (Exception e) {
 				// TODO: handle exception
+				e.printStackTrace();
 			}
 		}
 

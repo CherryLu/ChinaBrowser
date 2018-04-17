@@ -72,6 +72,6 @@ public class UserProtocolPage extends BaseProtocolPage {
             userData = new UserData();
             userData.parse(object);
         }
-        return null;
+        return userData;
     }
 }

@@ -33,7 +33,6 @@ public class TwoLineViewHolder extends BaseViewHolder implements View.OnClickLis
     public void setRecommend(Recommend recommend) {
         if (recommend!=null&&recommend.getMaintitle()!=null){
             String str_title = recommend.getMaintitle().getTitle_name();
-            LogUtils.e("ZX",str_title);
             if (!TextUtils.isEmpty(str_title)){
                 if (title.getResources().getText(R.string.travel).equals(str_title)){
                     title.setText(str_title);

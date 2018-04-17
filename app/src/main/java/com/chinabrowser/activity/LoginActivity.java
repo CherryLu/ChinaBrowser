@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chinabrowser.R;
+import com.chinabrowser.utils.LoginStateInterface;
 import com.chinabrowser.utils.Navigator;
 import com.chinabrowser.utils.SharedPreferencesUtils;
 import com.chinabrowser.utils.UserManager;
@@ -79,6 +80,14 @@ public class LoginActivity extends BaseActivity {
         ButterKnife.bind(this);
         title.setText(R.string.str_login);
         getRemember();
+        UserManager.getInstance().attach(new LoginStateInterface() {
+            @Override
+            public void update(boolean isLogin) {
+                if (isLogin){
+                    Navigator.finishActivity(LoginActivity.this);
+                }
+            }
+        });
     }
 
     private void getRemember(){
@@ -87,6 +96,7 @@ public class LoginActivity extends BaseActivity {
             String psw = (String) SharedPreferencesUtils.getParam(this,"PSW","");
             userNameInput.setText(name);
             userPswInput.setText(psw);
+            userNameInput.setSelection(name.length());
         }
     }
 
@@ -122,6 +132,7 @@ public class LoginActivity extends BaseActivity {
                     showToash(getResources().getString(R.string.str_login_notmail));
                 }else {
                     UserManager.getInstance().loginBymails(handler,name,psw);
+                    setRememberNumber(name,psw);
                 }
                 break;
             case R.id.regist:

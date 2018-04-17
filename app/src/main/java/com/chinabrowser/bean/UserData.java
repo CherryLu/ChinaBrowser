@@ -4,11 +4,13 @@ import com.chinabrowser.utils.JsonUtils;
 
 import org.json.JSONObject;
 
+import java.io.Serializable;
+
 /**
  * Created by 95470 on 2018/4/17.
  */
 
-public class UserData {
+public class UserData implements Serializable{
     private String iusertype;//登录方式
     private String dtinsert;
     private String suserno;//三方id
