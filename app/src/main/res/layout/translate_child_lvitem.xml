@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" 
+    android:orientation="vertical" >
+ 
+    <TextView android:id="@+id/translate_child_lvitem_from"
+        android:text="我想订张机票"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/font_size_15"
+        android:textColor="#737373" />
+    
+    <LinearLayout android:paddingTop="5dp"
+        android:paddingLeft="20dp"
+        android:paddingBottom="10dp"
+        android:paddingRight="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/translate_child_lvitem_to"
+            android:text="I'd like to book a flight."
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/font_size_16"
+            android:textColor="#323232" />
+        <ImageView
+            android:id="@+id/translate_child_lvitem_voice"
+            android:padding="2dp"
+            android:layout_marginLeft="10dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@mipmap/translate_voice"/>
+    </LinearLayout>
+    
+    <View android:id="@+id/translate_child_lvitem_line"
+        android:layout_marginLeft="20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="0.6dp"
+        android:background="@color/color_gray" />
+    
+</LinearLayout>

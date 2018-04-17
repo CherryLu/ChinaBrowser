@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+    <!-- 父类 -->
+    <LinearLayout android:id="@+id/translate_sort_lvitem_open"
+        android:background="@drawable/translate_sort_tvbg_selected"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <TextView
+            android:id="@+id/translate_sort_lvitem_title"
+            android:text="问询"
+            android:singleLine="true"
+            android:padding="10dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/font_size_16"
+            android:textColor="#323232"/>
+        <ImageView android:id="@+id/translate_sort_lvitem_arrow"
+            android:layout_marginRight="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/arrow_bottom"/>
+    </LinearLayout>
+
+    <!-- 子详情 -->
+    <com.chinabrowser.ui.CustomListView
+        android:id="@+id/translate_sort_lvitem_listview"
+        android:visibility="gone"
+        android:dividerHeight="0dp"
+        android:divider="@null"
+        android:fadingEdge="none"
+        android:cacheColorHint="@color/color_transparent"
+        android:listSelector="@drawable/common_btnbg_white2gray_selector"
+        android:background="@color/color_white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>

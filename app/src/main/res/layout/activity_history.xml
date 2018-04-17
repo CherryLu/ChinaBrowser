@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+    <include layout="@layout/layout_title" />
+    <View
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="9dp"
+        android:layout_width="300dp"
+        android:layout_height="0.5dp"
+        android:background="@color/color_txt_gray"/>
+    <LinearLayout
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:layout_width="301dp"
+        android:layout_height="31dp"
+        android:background="@drawable/line_bac">
+        <TextView
+            android:id="@+id/today"
+            android:background="@color/color_base"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:layout_width="99dp"
+            android:layout_height="30dp"
+            android:text="@string/history_today"/>
+        <View
+            android:layout_width="1dp"
+            android:layout_height="30dp"
+            android:background="@color/color_txt_gray"/>
+        <TextView
+            android:id="@+id/lastweek"
+            android:background="@color/white"
+            android:textColor="@color/color_txt_gray"
+            android:gravity="center"
+            android:layout_width="99dp"
+            android:layout_height="30dp"
+            android:text="@string/history_lastweek"/>
+        <View
+            android:layout_width="1dp"
+            android:layout_height="30dp"
+            android:background="@color/color_txt_gray"/>
+        <TextView
+            android:id="@+id/lastmonth"
+            android:background="@color/white"
+            android:textColor="@color/color_txt_gray"
+            android:gravity="center"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:text="@string/history_lastmonth"/>
+
+    </LinearLayout>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>

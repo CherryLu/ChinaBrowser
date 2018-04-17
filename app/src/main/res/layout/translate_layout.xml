@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" >
+    <!-- 主题背景 -->
+    <ImageView android:id="@+id/mWallPaper" android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="centerCrop" />
+  
+    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" >
+        <!-- 顶部操作栏 -->
+        <include layout="@layout/layout_title" />
+        
+        <!-- 底部语言翻译设置 -->
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:background="@color/color_white" >
+            <ImageView android:id="@+id/translate_sort_icon" android:layout_width="45dp" android:layout_height="45dp" android:padding="5dp" android:src="@mipmap/airport" android:scaleType="fitXY" />
+            <TextView android:id="@+id/translate_sort_name" android:text="机场" android:gravity="center" android:layout_width="0dp" android:layout_weight="1" android:singleLine="true" android:layout_height="match_parent" android:textColor="@color/color_black" android:textSize="@dimen/font_size_16"/>
+            
+            <View android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1" />
+            
+            <LinearLayout android:gravity="center" android:background="@drawable/translate_round_bg" android:layout_width="wrap_content" android:layout_height="match_parent" android:orientation="horizontal" android:layout_marginTop="7dp" android:layout_marginBottom="7dp" android:layout_marginRight="6dp" >
+                <Button android:id="@+id/translate_choose_btn_from" android:text="中文" android:background="@null" android:textSize="@dimen/font_size_14" android:textColor="@color/color_txt_deep_black" android:singleLine="true" android:layout_width="70dp" android:layout_height="match_parent" />
+                <View android:layout_width="1.0dp" android:layout_height="match_parent" android:background="@color/color_gray"/>
+                <ImageView android:id="@+id/translate_iv_exchange" android:src="@mipmap/translate_exchange" android:layout_width="32dp" android:layout_height="wrap_content" />
+                <View android:layout_width="1.0dp" android:layout_height="match_parent" android:background="@color/color_gray"/>
+                <Button android:id="@+id/translate_choose_btn_to" android:text="英文" android:background="@null" android:textSize="@dimen/font_size_14" android:textColor="@color/color_txt_deep_black" android:singleLine="true" android:layout_width="70dp" android:layout_height="match_parent" />
+            </LinearLayout>
+        
+        </LinearLayout>
+         
+        <View android:id="@+id/translate_child_lvitem_line" android:layout_alignParentBottom="true" android:layout_width="match_parent" android:layout_height="0.6dp" android:background="@color/color_gray" />
+    
+        <!-- 翻译内容或语言设置区域 -->
+        <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent">
+             <!-- 翻译内容 -->
+             <ListView android:id="@+id/translate_content_listview" android:fadingEdge="none" android:cacheColorHint="@color/color_transparent" android:listSelector="@drawable/common_btnbg_white2gray_selector" android:background="@color/color_white" android:layout_width="match_parent" android:layout_height="match_parent" />
+            
+             <!-- 转换语言或目标语言选择 -->
+             <RelativeLayout android:id="@+id/translate_choose_layout" android:visibility="gone" android:background="@color/color_white" android:layout_width="match_parent" android:layout_height="match_parent" >
+                <TextView android:id="@+id/translate_choose_title" android:text="目标语言" android:background="#E1E1E1" android:padding="8dp" android:gravity="center" android:layout_width="match_parent" android:layout_height="wrap_content" android:textColor="#474747" android:textSize="@dimen/font_size_16" />
+                <Button android:id="@+id/translate_choose_btn_close" android:text="×" android:background="@null" android:paddingTop="2dp" android:paddingBottom="2dp" android:paddingRight="15dp" android:paddingLeft="5dp" android:layout_alignParentTop="true" android:layout_alignParentRight="true" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="@dimen/font_size_24" android:textColor="#474747"/>
+                
+                <!-- <com.chinabrowser.components.wheelview.WheelView android:id="@+id/translate_choose_language" android:divider="@null" android:fadingEdge="none" android:cacheColorHint="@color/color_transparent" android:listSelector="@drawable/common_btnbg_white2gray_selector" android:background="@color/color_white" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_below="@id/translate_choose_title" /> -->
+                <FrameLayout android:layout_below="@id/translate_choose_title" android:layout_width="match_parent" android:layout_height="120dp" >
+                    <com.chinabrowser.ui.WheelView android:id="@+id/translate_choose_language" android:layout_width="match_parent" android:layout_height="120dp" android:layout_marginTop="2dp" />
+                    <RelativeLayout android:layout_width="match_parent" android:layout_height="120dp" >
+                        <View android:id="@+id/view1" android:layout_width="match_parent" android:layout_height="0.8dp" android:layout_marginLeft="20dp" android:layout_marginRight="20dp" android:layout_marginTop="40dp" android:background="#C9C9C9" />
+                        <View android:id="@+id/view2" android:layout_below="@id/view1" android:layout_width="match_parent" android:layout_height="0.8dp" android:layout_marginLeft="20dp" android:layout_marginRight="20dp" android:layout_marginTop="40dp" android:background="#C9C9C9" />
+                    </RelativeLayout>
+                </FrameLayout>
+            </RelativeLayout>
+            
+        </RelativeLayout>
+        
+    </LinearLayout>
+</RelativeLayout>

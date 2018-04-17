@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 情景翻译 -->
+    <string-array name="array_translate_key">
+        <item>@string/translate_childm_banlidengji</item>
+        <item>@string/translate_childm_xinglituoyun</item>
+        <item>@string/translate_childm_zhuanji</item>
+        <item>@string/translate_childm_quxingli</item>
+        <item>@string/translate_childm_duihuanwaibi</item>
+        <item>@string/translate_childm_gongjiaoche</item>
+        <item>@string/translate_childm_chuzuche</item>
+        <item>@string/translate_childm_ditie</item>
+        <item>@string/translate_childm_huoche</item>
+        <item>@string/translate_childm_lunchuan</item>
+        <item>@string/translate_childm_zijiache</item>
+        <item>@string/translate_childm_dengjiruzhu</item>
+        <item>@string/translate_childm_kefangfuwu</item>
+        <item>@string/translate_childm_tousu</item>
+        <item>@string/translate_childm_tuifang</item>
+        <item>@string/translate_childm_souluomeishi</item>
+        <item>@string/translate_childm_diancai</item>
+        <item>@string/translate_childm_fuwu</item>
+        <item>@string/translate_childm_maidan</item>
+        <item>@string/translate_childm_meishuguan</item>
+        <item>@string/translate_childm_bowuguan</item>
+        <item>@string/translate_childm_tiaoxuan</item>
+        <item>@string/translate_childm_jiage</item>
+        <item>@string/translate_childm_tuihuan</item>
+        <item>@string/translate_childm_fukuan</item>
+        <item>@string/translate_childm_jiaoji</item>
+        <item>@string/translate_childm_dadianhua</item>
+        <item>@string/translate_childm_xunzhaoxishoujian</item>
+        <item>@string/translate_childm_guahao</item>
+        <item>@string/translate_childm_kanzhen</item>
+        <item>@string/translate_childm_jiaofei</item>
+    </string-array>
+    <string-array name="array_translate_value">
+        <item>@string/translate_child_banlidengji</item>
+        <item>@string/translate_child_xinglituoyun</item>
+        <item>@string/translate_child_zhuanji</item>
+        <item>@string/translate_child_quxingli</item>
+        <item>@string/translate_child_duihuanwaibi</item>
+        <item>@string/translate_child_gongjiaoche</item>
+        <item>@string/translate_child_chuzuche</item>
+        <item>@string/translate_child_ditie</item>
+        <item>@string/translate_child_huoche</item>
+        <item>@string/translate_child_lunchuan</item>
+        <item>@string/translate_child_zijiache</item>
+        <item>@string/translate_child_dengjiruzhu</item>
+        <item>@string/translate_child_kefangfuwu</item>
+        <item>@string/translate_child_tousu</item>
+        <item>@string/translate_child_tuifang</item>
+        <item>@string/translate_child_souluomeishi</item>
+        <item>@string/translate_child_diancai</item>
+        <item>@string/translate_child_fuwu</item>
+        <item>@string/translate_child_maidan</item>
+        <item>@string/translate_child_meishuguan</item>
+        <item>@string/translate_child_bowuguan</item>
+        <item>@string/translate_child_tiaoxuan</item>
+        <item>@string/translate_child_jiage</item>
+        <item>@string/translate_child_tuihuan</item>
+        <item>@string/translate_child_fukuan</item>
+        <item>@string/translate_child_jiaoji</item>
+        <item>@string/translate_child_dadianhua</item>
+        <item>@string/translate_child_xunzhaoxishoujian</item>
+        <item>@string/translate_child_guahao</item>
+        <item>@string/translate_child_kanzhen</item>
+        <item>@string/translate_child_jiaofei</item>
+    </string-array>
+</resources>
