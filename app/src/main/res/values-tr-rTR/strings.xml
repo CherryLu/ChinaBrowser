@@ -60,9 +60,9 @@
     <string name="translate_language_tr">Türkçe (Turkish)</string>
 
     <!-- 一级分类 -->
-    <string name="translate_title">翻译</string>
-    <string name="translate_parent_airport">机场</string>
-    <string name="translate_parent_traffic">交通</string>
+    <string name="translate_title">Çeviri</string>
+    <string name="translate_parent_airport">Havaalanı</string>
+    <string name="translate_parent_traffic">Trafik</string>
     <string name="translate_parent_hotel">宾馆</string>
     <string name="translate_parent_restaurant">餐厅</string>
     <string name="translate_parent_attraction">景点</string>
