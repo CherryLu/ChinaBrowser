@@ -64,9 +64,12 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
         getSupportFragmentManager().beginTransaction().replace(R.id.container,homeFragment).commit();
     }
 
-    @OnClick({R.id.index_bottom_menu_goback, R.id.index_bottom_menu_nogoback, R.id.index_bottom_menu_goforward, R.id.index_bottom_menu_nogoforward, R.id.index_bottom_menu_gohome, R.id.index_bottom_menu_nogohome, R.id.index_bottom_menu_new_window})
+    @OnClick({R.id.index_bottom_menu_goback,R.id.index_bottom_menu_more, R.id.index_bottom_menu_nogoback, R.id.index_bottom_menu_goforward, R.id.index_bottom_menu_nogoforward, R.id.index_bottom_menu_gohome, R.id.index_bottom_menu_nogohome, R.id.index_bottom_menu_new_window})
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.index_bottom_menu_more:
+                Navigator.startSettingActivity(this);
+                break;
             case R.id.index_bottom_menu_goback:
                 break;
             case R.id.index_bottom_menu_nogoback:
@@ -76,7 +79,6 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
             case R.id.index_bottom_menu_nogoforward:
                 break;
             case R.id.index_bottom_menu_gohome:
-                Navigator.startSettingActivity(this);
                 break;
             case R.id.index_bottom_menu_nogohome:
                 if (homeFragment==null){

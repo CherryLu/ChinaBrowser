@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,9 +13,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chinabrowser.R;
+import com.chinabrowser.adapter.NewsAdapter;
+import com.chinabrowser.bean.NewsData;
 import com.chinabrowser.net.GetHotNewsProtocolPage;
 import com.chinabrowser.net.UpLoadGetHot;
 import com.chinabrowser.utils.CommUtils;
+
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -38,7 +43,14 @@ public class HotNewsFragment extends BaseFragment {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what){
-
+                case GetHotNewsProtocolPage.MSG_WHAT_OK:
+                    if (getHotNewsProtocolPage!=null){
+                        setList(getHotNewsProtocolPage.newsDatas);
+                    }
+                    break;
+                case GetHotNewsProtocolPage.MSG_WHAT_ERROE:
+                case GetHotNewsProtocolPage.MSG_WHAT_NOTCHANGE:
+                    break;
             }
             super.handleMessage(msg);
         }
@@ -54,6 +66,7 @@ public class HotNewsFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_hotnews, null);
         ButterKnife.bind(this, view);
+        title.setText("热点");
         getData();
         return view;
     }
@@ -68,6 +81,15 @@ public class HotNewsFragment extends BaseFragment {
             getHotNewsProtocolPage = new GetHotNewsProtocolPage(upLoadGetHot,handler,null);
         }
         getHotNewsProtocolPage.refresh(upLoadGetHot);
+    }
+
+    NewsAdapter newsAdapter;
+    private void setList(List<NewsData> newsDatas){
+        newsAdapter = new NewsAdapter(getContext(),newsDatas);
+        LinearLayoutManager manager = new LinearLayoutManager(getContext());
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        list.setLayoutManager(manager);
+        list.setAdapter(newsAdapter);
     }
 
 

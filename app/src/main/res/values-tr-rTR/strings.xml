@@ -34,6 +34,7 @@
     <string name="str_login_notmail">Posta kutusu biçimi hatası</string>
     <string name="str_regist_success">Kayıt başarılı</string>
     <string name="str_regist_fail">Kayıt başarısız oldu</string>
+    <string name="setting_title">Ayarlamak</string>
 
     <string name="travel">Turizm</string>
     <string name="zhonghuawnag">Çin net</string>

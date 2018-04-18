@@ -30,6 +30,20 @@ public class UserManager {
 
     UserData userData;
 
+
+    public String getUsername(){
+        if (userData==null){
+            return "";
+        }else {
+            return userData.getSmail();
+        }
+    }
+
+    public void clearUserData() {
+        String path = FileUtils.getAppBasePath() + "userKeeper.dat";
+        ObjectUtils.saveObjectData(null, path);
+    }
+
     /**
      * 登录的方式
      */
@@ -185,8 +199,18 @@ public class UserManager {
     }
 
 
-    private void loginout(){
+    public void loginout(){
+        setLogin(false);
+        // 用户之前的登录状态
 
+
+        userData = null;
+        loginMode = LoginMode.NONE;
+
+
+        CommUtils.setUserName("");
+        CommUtils.setUserPassword("");
+        clearUserData();
     }
 
 

@@ -15,6 +15,7 @@ import com.chinabrowser.activity.SearchActivity;
 import com.chinabrowser.activity.SearchAttentiveActivity;
 import com.chinabrowser.activity.SettingActivity;
 import com.chinabrowser.activity.TranslateActivity;
+import com.chinabrowser.activity.WebDetailActivity;
 
 
 /**
@@ -118,11 +119,25 @@ public class Navigator {
     }
 
     /**
-     * 跳转选择殷勤页面
+     * 跳转选择引擎页面
      */
     public static void startSetSearchAttentiveActivity(Activity activity){
         Intent intent = new Intent(activity, SearchAttentiveActivity.class);
         activity.startActivityForResult(intent,0);
+    }
+
+    /**
+     * 跳转详情页
+     * @param context
+     * @param url
+     * @param id
+     */
+    public static void startWebDetailActivity(Context context,String url,String id){
+        Intent intent = new Intent(context, WebDetailActivity.class);
+        intent.putExtra("ID",id);
+        intent.putExtra("URL",url);
+        context.startActivity(intent);
+
     }
 
 

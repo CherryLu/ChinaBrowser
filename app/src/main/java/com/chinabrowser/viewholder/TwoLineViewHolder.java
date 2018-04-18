@@ -27,6 +27,7 @@ public class TwoLineViewHolder extends BaseViewHolder implements View.OnClickLis
         pic = (ImageView) itemView.findViewById(R.id.pic);
         root = (LinearLayout) itemView.findViewById(R.id.root);
         root.setOnClickListener(this);
+        more.setOnClickListener(this);
     }
 
     @Override

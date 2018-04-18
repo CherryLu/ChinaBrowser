@@ -32,7 +32,7 @@
         <activity android:name=".activity.SearchActivity"/>
         <activity android:name=".activity.TranslateActivity"/>
         <activity android:name=".activity.SearchAttentiveActivity"/>
-        <activity android:name=".activity.TranslateActivity"/>
+        <activity android:name=".activity.WebDetailActivity"/>
     </application>
 
 </manifest>

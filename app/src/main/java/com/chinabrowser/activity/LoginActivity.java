@@ -31,8 +31,7 @@ import butterknife.OnClick;
 public class LoginActivity extends BaseActivity {
 
 
-    @Bind(R.id.back_image)
-    ImageView backImage;
+
     @Bind(R.id.title)
     TextView title;
     @Bind(R.id.right_txt)
@@ -56,11 +55,13 @@ public class LoginActivity extends BaseActivity {
     @Bind(R.id.third_three)
     ImageView thirdThree;
     boolean isRemember;
+    @Bind(R.id.back_image)
+    ImageView backImage;
 
-    private Handler handler = new Handler(){
+    private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            switch (msg.what){
+            switch (msg.what) {
                 case UserManager.MSG_WAHT_MAIL_FAIL:
                     showToash("登录失败");
                     break;
@@ -83,17 +84,17 @@ public class LoginActivity extends BaseActivity {
         UserManager.getInstance().attach(new LoginStateInterface() {
             @Override
             public void update(boolean isLogin) {
-                if (isLogin){
+                if (isLogin) {
                     Navigator.finishActivity(LoginActivity.this);
                 }
             }
         });
     }
 
-    private void getRemember(){
-        String name = (String) SharedPreferencesUtils.getParam(this,"NAME","");
-        if (!TextUtils.isEmpty(name)){
-            String psw = (String) SharedPreferencesUtils.getParam(this,"PSW","");
+    private void getRemember() {
+        String name = (String) SharedPreferencesUtils.getParam(this, "NAME", "");
+        if (!TextUtils.isEmpty(name)) {
+            String psw = (String) SharedPreferencesUtils.getParam(this, "PSW", "");
             userNameInput.setText(name);
             userPswInput.setText(psw);
             userNameInput.setSelection(name.length());
@@ -107,14 +108,17 @@ public class LoginActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.rember_psw, R.id.forget_psw, R.id.logion, R.id.regist, R.id.third_one, R.id.third_two, R.id.third_three})
+    @OnClick({R.id.rember_psw, R.id.back_image,R.id.forget_psw, R.id.logion, R.id.regist, R.id.third_one, R.id.third_two, R.id.third_three})
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.back_image:
+                Navigator.finishActivity(this);
+                break;
             case R.id.rember_psw:
-                if (isRemember){
+                if (isRemember) {
                     isRemember = false;
                     remberPsw.setImageResource(R.mipmap.rember_psw_uncheck);
-                }else {
+                } else {
                     isRemember = true;
                     remberPsw.setImageResource(R.mipmap.rember_psw_checked);
                 }
@@ -124,15 +128,15 @@ public class LoginActivity extends BaseActivity {
             case R.id.logion:
                 String name = userNameInput.getText().toString();
                 String psw = userPswInput.getText().toString();
-                if (TextUtils.isEmpty(name)){
+                if (TextUtils.isEmpty(name)) {
                     showToash(getResources().getString(R.string.str_login_noname));
-                }else if (TextUtils.isEmpty(psw)){
+                } else if (TextUtils.isEmpty(psw)) {
                     showToash(getResources().getString(R.string.str_login_nopsw));
-                }else if (!isMails(name)){
+                } else if (!isMails(name)) {
                     showToash(getResources().getString(R.string.str_login_notmail));
-                }else {
-                    UserManager.getInstance().loginBymails(handler,name,psw);
-                    setRememberNumber(name,psw);
+                } else {
+                    UserManager.getInstance().loginBymails(handler, name, psw);
+                    setRememberNumber(name, psw);
                 }
                 break;
             case R.id.regist:
@@ -147,20 +151,24 @@ public class LoginActivity extends BaseActivity {
         }
     }
 
-    private void setRememberNumber(String name,String psw){
-        if (isRemember){
-            SharedPreferencesUtils.setParam(this,"NAME",name);
-            SharedPreferencesUtils.setParam(this,"PSW",psw);
-        }else {
-            SharedPreferencesUtils.setParam(this,"NAME","");
-            SharedPreferencesUtils.setParam(this,"PSW","");
+    private void setRememberNumber(String name, String psw) {
+        if (isRemember) {
+            SharedPreferencesUtils.setParam(this, "NAME", name);
+            SharedPreferencesUtils.setParam(this, "PSW", psw);
+        } else {
+            SharedPreferencesUtils.setParam(this, "NAME", "");
+            SharedPreferencesUtils.setParam(this, "PSW", "");
         }
     }
 
-    private boolean isMails(String mails){
+    private boolean isMails(String mails) {
         String RULE_EMAIL = "^\\w+((-\\w+)|(\\.\\w+))*\\@[A-Za-z0-9]+((\\.|-)[A-Za-z0-9]+)*\\.[A-Za-z0-9]+$";
         Pattern p = Pattern.compile(RULE_EMAIL);
         Matcher m = p.matcher(mails);
         return m.matches();
+    }
+
+    @OnClick(R.id.back_image)
+    public void onClick() {
     }
 }

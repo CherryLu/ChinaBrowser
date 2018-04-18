@@ -59,7 +59,7 @@ public class SearchAttentiveActivity extends BaseActivity {
             selected1.setVisibility(View.VISIBLE);
         }else if (position==1){
             selected2.setVisibility(View.VISIBLE);
-        }else if (position==0){
+        }else if (position==2){
             selected3.setVisibility(View.VISIBLE);
         }
         result = position;

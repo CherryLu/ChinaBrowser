@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.chinabrowser.R;
 import com.chinabrowser.bean.NewsData;
 import com.chinabrowser.utils.GlideUtils;
+import com.chinabrowser.utils.Navigator;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -24,6 +25,10 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.HViewHolder> {
     private Context context;
     private List<NewsData> newsDatas;
 
+    public NewsAdapter(Context context, List<NewsData> newsDatas) {
+        this.context = context;
+        this.newsDatas = newsDatas;
+    }
 
     @Override
     public HViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -39,6 +44,12 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.HViewHolder> {
         holder.from.setText(newsData.copy_from);
         holder.time.setText(getData(newsData.update_time));
         GlideUtils.loadImageView(context,newsData.cover_image,holder.pic);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
     }
 
