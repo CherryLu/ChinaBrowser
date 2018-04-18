@@ -8,13 +8,18 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chinabrowser.R;
+import com.chinabrowser.cbinterface.HomeCallBack;
 import com.chinabrowser.fragment.HomeFragment;
+import com.chinabrowser.fragment.HotNewsFragment;
+import com.chinabrowser.fragment.TranslateFragment;
+import com.chinabrowser.utils.Constant;
+import com.chinabrowser.utils.Navigator;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements HomeCallBack {
 
 
     @Bind(R.id.container)
@@ -44,12 +49,18 @@ public class MainActivity extends BaseActivity {
     @Bind(R.id.index_bottom_menu_new_window)
     LinearLayout indexBottomMenuNewWindow;
 
+    private HomeFragment homeFragment;
+    private HotNewsFragment hotNewsFragment;
+    private TranslateFragment translateFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        HomeFragment homeFragment = new HomeFragment();
+         homeFragment = new HomeFragment();
+        homeFragment.setHomeCallBack(this);
+
         getSupportFragmentManager().beginTransaction().replace(R.id.container,homeFragment).commit();
     }
 
@@ -65,12 +76,45 @@ public class MainActivity extends BaseActivity {
             case R.id.index_bottom_menu_nogoforward:
                 break;
             case R.id.index_bottom_menu_gohome:
+                Navigator.startSettingActivity(this);
                 break;
             case R.id.index_bottom_menu_nogohome:
+                if (homeFragment==null){
+                    homeFragment = new HomeFragment();
+                }
+                getSupportFragmentManager().beginTransaction().replace(R.id.container,homeFragment).commit();
                 break;
             case R.id.index_bottom_menu_new_window://添加页签
 
                 break;
+        }
+    }
+
+    @Override
+    public void titleClick(int which) {
+        switch (which){
+            case Constant.HOT_TITLE:
+                if (hotNewsFragment==null){
+                    hotNewsFragment = new HotNewsFragment();
+                }
+                getSupportFragmentManager().beginTransaction().replace(R.id.container,hotNewsFragment).commit();
+                break;
+            case Constant.TRA_TITLE:
+
+                getSupportFragmentManager().beginTransaction().replace(R.id.container,homeFragment).commit();
+                break;
+            case Constant.CHINA_TITLE:
+
+                getSupportFragmentManager().beginTransaction().replace(R.id.container,homeFragment).commit();
+                break;
+            case Constant.TRANSLATE_TITLE:
+                if (translateFragment==null){
+                    translateFragment = new TranslateFragment();
+                }
+                getSupportFragmentManager().beginTransaction().replace(R.id.container,translateFragment).commit();
+                break;
+
+
         }
     }
 }

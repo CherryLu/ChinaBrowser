@@ -14,7 +14,7 @@ import com.chinabrowser.activity.RegisterActivity;
 import com.chinabrowser.activity.SearchActivity;
 import com.chinabrowser.activity.SearchAttentiveActivity;
 import com.chinabrowser.activity.SettingActivity;
-import com.chinabrowser.fragment.TranslateActivity;
+import com.chinabrowser.activity.TranslateActivity;
 
 
 /**

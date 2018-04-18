@@ -13,13 +13,11 @@ import android.view.ViewGroup;
 import com.chinabrowser.R;
 import com.chinabrowser.adapter.HomeAdapter;
 import com.chinabrowser.bean.Recommend;
-import com.chinabrowser.bean.TranslateEntity;
+import com.chinabrowser.cbinterface.HomeCallBack;
 import com.chinabrowser.net.HomeProtocolPage;
 import com.chinabrowser.net.UphomePageData;
 import com.chinabrowser.utils.CommUtils;
 import com.chinabrowser.utils.Constant;
-import com.chinabrowser.utils.LogUtils;
-import com.chinabrowser.utils.TranslateUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +30,7 @@ import butterknife.ButterKnife;
  */
 
 public class HomeFragment extends BaseFragment {
+    HomeCallBack homeCallBack;
 
     @Bind(R.id.homelist)
     RecyclerView homelist;
@@ -49,6 +48,10 @@ public class HomeFragment extends BaseFragment {
             super.handleMessage(msg);
         }
     };
+
+    public void setHomeCallBack(HomeCallBack homeCallBack) {
+        this.homeCallBack = homeCallBack;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,6 +73,7 @@ public class HomeFragment extends BaseFragment {
     private void setList(List<Recommend> recommends){
         if (recommends!=null&&recommends.size()>0){
             homeAdapter = new HomeAdapter(getContext(),recommends);
+            homeAdapter.setHomeCallBack(homeCallBack);
             LinearLayoutManager manager = new LinearLayoutManager(getContext());
             manager.setOrientation(LinearLayoutManager.VERTICAL);
             homelist.setLayoutManager(manager);

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import com.chinabrowser.R;
 import com.chinabrowser.bean.Recommend;
+import com.chinabrowser.cbinterface.HomeCallBack;
 import com.chinabrowser.utils.Constant;
 import com.chinabrowser.viewholder.BaseViewHolder;
 import com.chinabrowser.viewholder.BottomViewHolder;
@@ -31,9 +32,16 @@ public class HomeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     private List<Recommend> recommends;
 
+    private HomeCallBack homeCallBack;
+
     public HomeAdapter(Context context, List<Recommend> recommends) {
         this.context = context;
         this.recommends = recommends;
+    }
+
+
+    public void setHomeCallBack(HomeCallBack homeCallBack) {
+        this.homeCallBack = homeCallBack;
     }
 
     @Override
@@ -47,43 +55,51 @@ public class HomeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             case Constant.TRANSLATE: {
                 View view = inflater.inflate(R.layout.translate_first_item,parent,false);
                 TranslateViewHolder viewHolder = new TranslateViewHolder(view);
+                viewHolder.setHomeCallBack(homeCallBack);
                 return viewHolder;
             }
             case Constant.SEARCHLAYOUT:{
                 View view = inflater.inflate(R.layout.search_title,parent,false);
                 SearchViewHolder viewHolder = new SearchViewHolder(view);
+                viewHolder.setHomeCallBack(homeCallBack);
                 return viewHolder;
             }
 
             case Constant.SLIDE:{
                 View view = inflater.inflate(R.layout.bigpic_item,parent,false);
                 SlidePicViewHolder viewHolder = new SlidePicViewHolder(view);
+                viewHolder.setHomeCallBack(homeCallBack);
                 return viewHolder;
             }
 
             case Constant.ONELINE:{
                 View view = inflater.inflate(R.layout.oneline_bigpic,parent,false);
                 OneLineViewHolder viewHolder = new OneLineViewHolder(view);
+                viewHolder.setHomeCallBack(homeCallBack);
                 return viewHolder;
             }
             case Constant.TWOLINE:{
                 View view = inflater.inflate(R.layout.twoline_pic_item,parent,false);
                 TwoLineViewHolder viewHolder = new TwoLineViewHolder(view);
+                viewHolder.setHomeCallBack(homeCallBack);
                 return viewHolder;
             }
             case Constant.RADIO: {
                 View view = inflater.inflate(R.layout.radio_item,parent,false);
                 RadioViewholder viewholder = new RadioViewholder(view);
+                viewholder.setHomeCallBack(homeCallBack);
                 return viewholder;
             }
             case Constant.LABS:{
                 View view = inflater.inflate(R.layout.labs_item,parent,false);
                 LabelsViewHolder viewHolder = new LabelsViewHolder(view);
+                viewHolder.setHomeCallBack(homeCallBack);
                 return viewHolder;
             }
             case Constant.BOTTOM:{
                 View view = inflater.inflate(R.layout.bottomline,parent,false);
                 BottomViewHolder viewHolder = new BottomViewHolder(view);
+                viewHolder.setHomeCallBack(homeCallBack);
                 return viewHolder;
             }
         }

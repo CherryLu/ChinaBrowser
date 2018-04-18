@@ -12,7 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chinabrowser.R;
-import com.chinabrowser.utils.LoginStateInterface;
+import com.chinabrowser.cbinterface.LoginStateInterface;
 import com.chinabrowser.utils.Navigator;
 import com.chinabrowser.utils.SharedPreferencesUtils;
 import com.chinabrowser.utils.UserManager;

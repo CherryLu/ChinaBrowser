@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.chinabrowser.R;
 import com.chinabrowser.bean.Recommend;
-import com.chinabrowser.utils.LogUtils;
+import com.chinabrowser.utils.Constant;
 
 /**
  * Created by 95470 on 2018/4/15.
@@ -49,6 +49,14 @@ public class TwoLineViewHolder extends BaseViewHolder implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.root:
+            case R.id.more:
+                if (homeCallBack!=null){
+                    if ("热点".equals(title.getText().toString())){
+                        homeCallBack.titleClick(Constant.HOT_TITLE);
+                    }else {
+                        homeCallBack.titleClick(Constant.CHINA_TITLE);
+                    }
+                }
                 break;
         }
     }

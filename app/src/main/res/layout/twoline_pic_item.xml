@@ -109,7 +109,7 @@
             </LinearLayout>
         </RelativeLayout>
         <ImageView
-            android:id="@+id/pic"
+            android:id="@+id/pic2"
             android:scaleType="fitXY"
             android:src="@mipmap/defaluthead"
             android:layout_width="132dp"

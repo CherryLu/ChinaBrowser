@@ -19,6 +19,12 @@ public class Constant {
     public static final int TRANSLATE = 8;//翻译
     public static final int BOTTOM = 9;//底部
 
+    public static final int HOT_TITLE = 10;
+    public static final int TRA_TITLE = 11;
+    public static final int CHINA_TITLE = 12;
+    public static final int TRANSLATE_TITLE = 13;
+
+
 
     public static final String BANNER = "layout_style_pic_1x1";//banner
     public static final String HOT = "layout_style_news_2x1_pr";//两行+小图

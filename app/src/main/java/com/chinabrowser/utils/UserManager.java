@@ -6,10 +6,10 @@ import android.os.Message;
 
 import com.chinabrowser.bean.UserData;
 import com.chinabrowser.bean.UserKeeper;
+import com.chinabrowser.cbinterface.LoginStateInterface;
 import com.chinabrowser.net.UpUserPageData;
 import com.chinabrowser.net.UserProtocolPage;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Vector;

@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.chinabrowser.R;
 import com.chinabrowser.bean.Recommend;
+import com.chinabrowser.utils.Constant;
 import com.chinabrowser.utils.Navigator;
 
 /**
@@ -78,6 +79,9 @@ public class TranslateViewHolder extends BaseViewHolder implements View.OnClickL
                 Navigator.startTranslateActivity(v.getContext(),5);
                 break;
             case R.id.more://回调 切换Fragment
+                if (homeCallBack!=null){
+                    homeCallBack.titleClick(Constant.TRANSLATE_TITLE);
+                }
                 break;
 
         }

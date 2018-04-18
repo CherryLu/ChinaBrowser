@@ -9,19 +9,28 @@ import com.chinabrowser.activity.BaseActivity;
  */
 
 public class GetLinkListProtocolPage extends BaseProtocolPage {
+    public final static int MSG_WHAT_OK = 10096;
+    public final static int MSG_WHAT_NOTCHANGE = 10097;
+    public final static int MSG_WHAT_ERROE = 10098;
 
-    public GetLinkListProtocolPage(String url, Object param, Handler handler, BaseActivity activity) {
-        super(url, param, handler, activity);
+
+
+    public GetLinkListProtocolPage(Object param, Handler handler, BaseActivity activity) {
+        super("http://119.23.56.48:8881/zt/api/zt_news", param, handler, activity);
     }
 
     @Override
     public String getActionName() {
-        return null;
+        return "getlinklist";
     }
 
     @Override
     public String getExtParam(Object param) {
-        return null;
+        if (param!=null){
+            UpGetLinkData upGetLinkData = (UpGetLinkData) param;
+            return upGetLinkData.toString();
+        }
+        return "";
     }
 
     @Override
@@ -31,17 +40,17 @@ public class GetLinkListProtocolPage extends BaseProtocolPage {
 
     @Override
     public int getMsgWhatOk() {
-        return 0;
+        return MSG_WHAT_OK;
     }
 
     @Override
     public int getMsgWhatError() {
-        return 0;
+        return MSG_WHAT_ERROE;
     }
 
     @Override
     public int getMsgWhatDataNotChange() {
-        return 0;
+        return MSG_WHAT_NOTCHANGE;
     }
 
     @Override

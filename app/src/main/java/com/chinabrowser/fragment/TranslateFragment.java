@@ -15,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chinabrowser.R;
-import com.chinabrowser.activity.BaseActivity;
 import com.chinabrowser.adapter.FirstTranslateAdapter;
 import com.chinabrowser.utils.CommUtils;
 
@@ -30,7 +29,7 @@ import butterknife.ButterKnife;
  * Created by Administrator on 2018/4/11.
  */
 
-public class TranslateFragment extends BaseFragment {
+public class TranslateFragment extends BaseFragment implements View.OnClickListener {
 
 
     @Bind(R.id.back_image)
@@ -69,19 +68,33 @@ public class TranslateFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_traslate,null);
-        ButterKnife.bind(view);
+        rootView = inflater.inflate(R.layout.activity_traslate,null);
+        ButterKnife.bind(rootView);
+        title = (TextView) rootView.findViewById(R.id.title);
+        title.setText(getText(R.string.translate_title));
+        backImage = (ImageView) rootView.findViewById(R.id.back_image);
+        backImage.setOnClickListener(this);
         initList();
-        return view;
+        return rootView;
     }
 
 
     private void initList(){
+        recyclelist = (RecyclerView) rootView.findViewById(R.id.recyclelist);
         translateAdapter = new FirstTranslateAdapter(getContext());
         GridLayoutManager manager = new GridLayoutManager(getContext(),3);
         recyclelist.setLayoutManager(manager);
         recyclelist.setAdapter(translateAdapter);
         recyclelist.addItemDecoration(new SpaceItemDecoration());
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.back_image:
+
+                break;
+        }
     }
 
     class SpaceItemDecoration extends RecyclerView.ItemDecoration{

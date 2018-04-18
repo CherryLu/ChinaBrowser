@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.chinabrowser.R;
 import com.chinabrowser.bean.Recommend;
+import com.chinabrowser.utils.Constant;
 
 /**
  * Created by 95470 on 2018/4/15.
@@ -44,6 +45,11 @@ public class OneLineViewHolder extends BaseViewHolder implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.root:
+                break;
+            case R.id.more:
+                if (homeCallBack!=null){
+                    homeCallBack.titleClick(Constant.TRA_TITLE);
+                }
                 break;
         }
     }

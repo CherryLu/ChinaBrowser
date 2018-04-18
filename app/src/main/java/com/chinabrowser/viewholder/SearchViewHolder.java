@@ -6,7 +6,6 @@ import android.widget.LinearLayout;
 import com.chinabrowser.R;
 import com.chinabrowser.bean.Recommend;
 import com.chinabrowser.utils.Navigator;
-import com.chinabrowser.utils.UserManager;
 
 /**
  * Created by 95470 on 2018/4/15.
@@ -30,9 +29,7 @@ public class SearchViewHolder extends BaseViewHolder implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.seaecharea:
-                if (!UserManager.getInstance().isLogin()){
-                    Navigator.startLoginActivity(v.getContext());
-                }
+                Navigator.startSearchActicity(v.getContext());
                 break;
         }
 

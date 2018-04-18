@@ -1,17 +1,17 @@
 package com.chinabrowser.activity;
 
-import android.app.Activity;
-import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
+import android.os.Handler;
+import android.os.Message;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.TextView;
 
-
 import com.chinabrowser.R;
+import com.chinabrowser.net.GetLinkListProtocolPage;
+import com.chinabrowser.net.UpGetLinkData;
 import com.chinabrowser.utils.CommUtils;
 import com.chinabrowser.utils.Constant;
 import com.chinabrowser.utils.Navigator;
@@ -39,6 +39,22 @@ public class SelectActivity extends BaseActivity {
     @Bind(R.id.turkish_line)
     View turkishLine;
 
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case GetLinkListProtocolPage.MSG_WHAT_OK:
+
+                    break;
+                case GetLinkListProtocolPage.MSG_WHAT_NOTCHANGE:
+                case GetLinkListProtocolPage.MSG_WHAT_ERROE:
+                    break;
+
+            }
+            super.handleMessage(msg);
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +63,19 @@ public class SelectActivity extends BaseActivity {
         setContentView(R.layout.activity_select);
         ButterKnife.bind(this);
         UserManager.getInstance().refreshData();
+        getLinkList();
+    }
+    GetLinkListProtocolPage getLinkListProtocolPage;
+    UpGetLinkData upGetLinkData;
+    private void getLinkList(){
+        upGetLinkData = new UpGetLinkData();
+        upGetLinkData.ilanguage = CommUtils.getCurrentLag(this)+1+"";
+        if (getLinkListProtocolPage==null){
+            getLinkListProtocolPage = new GetLinkListProtocolPage(upGetLinkData,handler,this);
+        }
+        getLinkListProtocolPage.refresh(upGetLinkData);
+
+
     }
 
 
