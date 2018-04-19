@@ -6,8 +6,11 @@ import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
+import com.chinabrowser.bean.LinkData;
 import com.chinabrowser.utils.FileUtils;
 import com.tencent.smtt.sdk.QbSdk;
+
+import java.util.List;
 
 /**
  * Created by Administrator on 2018/3/26.
@@ -36,6 +39,7 @@ public class APP extends Application {
     public static String gFileFolderDownImage;
     public static String gFileFolderAudioAD;
     public static String gFileFolderHistoryPlay;
+    public static List<LinkData> linkDatas;
 
     @Override
     public void onCreate() {

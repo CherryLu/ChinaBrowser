@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.chinabrowser.APP;
 import com.chinabrowser.R;
+import com.chinabrowser.bean.SearchRecommand;
 import com.tencent.smtt.export.external.interfaces.IX5WebChromeClient;
 import com.tencent.smtt.sdk.DownloadListener;
 import com.tencent.smtt.sdk.ValueCallback;
@@ -33,6 +34,7 @@ import butterknife.ButterKnife;
 public class WebViewFragment extends BaseFragment {
     @Bind(R.id.webview)
     WebView webview;
+    String url;
 
     /**
      * 用户代理 User agents.
@@ -52,6 +54,13 @@ public class WebViewFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+        if (webview!=null){
+            webview.loadUrl(url);
+        }
     }
 
     @Nullable

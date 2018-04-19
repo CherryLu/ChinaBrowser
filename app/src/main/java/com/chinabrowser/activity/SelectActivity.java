@@ -9,6 +9,7 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.TextView;
 
+import com.chinabrowser.APP;
 import com.chinabrowser.R;
 import com.chinabrowser.net.GetLinkListProtocolPage;
 import com.chinabrowser.net.UpGetLinkData;
@@ -44,7 +45,9 @@ public class SelectActivity extends BaseActivity {
         public void handleMessage(Message msg) {
             switch (msg.what){
                 case GetLinkListProtocolPage.MSG_WHAT_OK:
-
+                    if (getLinkListProtocolPage!=null){
+                        APP.linkDatas =getLinkListProtocolPage.linkDatas;
+                    }
                     break;
                 case GetLinkListProtocolPage.MSG_WHAT_NOTCHANGE:
                 case GetLinkListProtocolPage.MSG_WHAT_ERROE:

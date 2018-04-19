@@ -2,6 +2,7 @@ package com.chinabrowser.net;
 
 import android.os.Handler;
 
+import com.chinabrowser.APP;
 import com.chinabrowser.activity.BaseActivity;
 import com.chinabrowser.bean.Recommend;
 import com.chinabrowser.utils.Constant;
@@ -79,6 +80,7 @@ public class HomeProtocolPage extends BaseProtocolPage {
         search.setType(Constant.SEARCHLAYOUT);
         Recommend labs = new Recommend();
         labs.setType(Constant.LABS);
+        labs.setLinkDatas(APP.linkDatas);
         recommends.add(search);
         recommends.add(labs);
         if (array!=null){

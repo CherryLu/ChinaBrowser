@@ -23,6 +23,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by 95470 on 2018/4/18.
@@ -39,12 +40,12 @@ public class HotNewsFragment extends BaseFragment {
     TextView rightTxt;
     @Bind(R.id.list)
     RecyclerView list;
-    private Handler handler = new Handler(){
+    private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            switch (msg.what){
+            switch (msg.what) {
                 case GetHotNewsProtocolPage.MSG_WHAT_OK:
-                    if (getHotNewsProtocolPage!=null){
+                    if (getHotNewsProtocolPage != null) {
                         setList(getHotNewsProtocolPage.newsDatas);
                     }
                     break;
@@ -70,22 +71,25 @@ public class HotNewsFragment extends BaseFragment {
         getData();
         return view;
     }
+
     GetHotNewsProtocolPage getHotNewsProtocolPage;
     UpLoadGetHot upLoadGetHot;
-    private void getData(){
+
+    private void getData() {
         upLoadGetHot = new UpLoadGetHot();
-        upLoadGetHot.ilanguage = CommUtils.getCurrentLag(getContext())+1+"";
+        upLoadGetHot.ilanguage = CommUtils.getCurrentLag(getContext()) + 1 + "";
         upLoadGetHot.catalog_id = "1";
         upLoadGetHot.pageindex = "1";
-        if (getHotNewsProtocolPage==null){
-            getHotNewsProtocolPage = new GetHotNewsProtocolPage(upLoadGetHot,handler,null);
+        if (getHotNewsProtocolPage == null) {
+            getHotNewsProtocolPage = new GetHotNewsProtocolPage(upLoadGetHot, handler, null);
         }
         getHotNewsProtocolPage.refresh(upLoadGetHot);
     }
 
     NewsAdapter newsAdapter;
-    private void setList(List<NewsData> newsDatas){
-        newsAdapter = new NewsAdapter(getContext(),newsDatas);
+
+    private void setList(List<NewsData> newsDatas) {
+        newsAdapter = new NewsAdapter(getContext(), newsDatas);
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         list.setLayoutManager(manager);
@@ -97,5 +101,12 @@ public class HotNewsFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+    }
+
+    @OnClick(R.id.back_image)
+    public void onClick() {
+        if (homeCallBack!=null){
+            homeCallBack.backClick();
+        }
     }
 }

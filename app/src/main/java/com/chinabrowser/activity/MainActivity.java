@@ -1,6 +1,7 @@
 package com.chinabrowser.activity;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -12,8 +13,11 @@ import com.chinabrowser.cbinterface.HomeCallBack;
 import com.chinabrowser.fragment.HomeFragment;
 import com.chinabrowser.fragment.HotNewsFragment;
 import com.chinabrowser.fragment.TranslateFragment;
+import com.chinabrowser.fragment.WebViewFragment;
 import com.chinabrowser.utils.Constant;
 import com.chinabrowser.utils.Navigator;
+
+import java.util.Set;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -52,6 +56,9 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
     private HomeFragment homeFragment;
     private HotNewsFragment hotNewsFragment;
     private TranslateFragment translateFragment;
+    private WebViewFragment webViewFragment;
+
+    private Set<Fragment> fragments;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,12 +86,13 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
             case R.id.index_bottom_menu_nogoforward:
                 break;
             case R.id.index_bottom_menu_gohome:
-                break;
-            case R.id.index_bottom_menu_nogohome:
                 if (homeFragment==null){
                     homeFragment = new HomeFragment();
                 }
                 getSupportFragmentManager().beginTransaction().replace(R.id.container,homeFragment).commit();
+                break;
+            case R.id.index_bottom_menu_nogohome:
+
                 break;
             case R.id.index_bottom_menu_new_window://添加页签
 
@@ -98,6 +106,7 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
             case Constant.HOT_TITLE:
                 if (hotNewsFragment==null){
                     hotNewsFragment = new HotNewsFragment();
+                    hotNewsFragment.homeCallBack = this;
                 }
                 getSupportFragmentManager().beginTransaction().replace(R.id.container,hotNewsFragment).commit();
                 break;
@@ -106,17 +115,36 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
                 getSupportFragmentManager().beginTransaction().replace(R.id.container,homeFragment).commit();
                 break;
             case Constant.CHINA_TITLE:
-
                 getSupportFragmentManager().beginTransaction().replace(R.id.container,homeFragment).commit();
                 break;
             case Constant.TRANSLATE_TITLE:
                 if (translateFragment==null){
                     translateFragment = new TranslateFragment();
+                    translateFragment.homeCallBack = this;
                 }
                 getSupportFragmentManager().beginTransaction().replace(R.id.container,translateFragment).commit();
                 break;
 
 
+        }
+    }
+
+    @Override
+    public void backClick() {
+        if (homeFragment==null){
+            homeFragment = new HomeFragment();
+        }
+        getSupportFragmentManager().beginTransaction().replace(R.id.container,homeFragment).commit();
+    }
+
+    @Override
+    public void openWeb(String url) {
+        if (url!=null){
+            if (webViewFragment==null){
+                webViewFragment = new WebViewFragment();
+            }
+            webViewFragment.setUrl(url);
+            getSupportFragmentManager().beginTransaction().replace(R.id.container,webViewFragment).commit();
         }
     }
 }
