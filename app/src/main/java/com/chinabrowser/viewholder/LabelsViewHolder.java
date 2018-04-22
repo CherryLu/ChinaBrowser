@@ -5,8 +5,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.chinabrowser.APP;
 import com.chinabrowser.R;
+import com.chinabrowser.bean.LinkData;
 import com.chinabrowser.bean.Recommend;
+import com.chinabrowser.utils.GlideUtils;
+import com.chinabrowser.utils.LogUtils;
+
+import java.util.List;
 
 /**
  * Created by 95470 on 2018/4/15.
@@ -45,7 +51,24 @@ public class LabelsViewHolder extends BaseViewHolder implements View.OnClickList
 
     @Override
     public void setRecommend(Recommend recommend) {
+        if (recommend!=null){
+            List<LinkData> datas = recommend.getLinkDatas();
+            if (datas!=null){
+                int count = 5;
+                if (datas.size()>=5){
+                    count = 5;
+                }else {
+                    count = datas.size();
+                }
+                for (int i =0;i<count;i++){
+                    LogUtils.e("LABES",datas.get(i).getImage_url());
+                    LogUtils.e("LABES",datas.get(i).getTitle());
+                    GlideUtils.loadImageView(APP.getContext(),datas.get(i).getImage_url(),imageViews[i]);
+                    textViews[i].setText(datas.get(i).getTitle());
+                }
+            }
 
+        }
     }
 
 

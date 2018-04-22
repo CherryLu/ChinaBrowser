@@ -6,4 +6,6 @@ package com.chinabrowser.cbinterface;
 
 public interface HomeCallBack {
     void titleClick(int which);
+    void backClick();
+    void openWeb(String url);
 }

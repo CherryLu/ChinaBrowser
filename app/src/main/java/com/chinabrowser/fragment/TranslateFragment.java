@@ -92,7 +92,9 @@ public class TranslateFragment extends BaseFragment implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.back_image:
-
+                if (homeCallBack!=null){
+                    homeCallBack.backClick();
+                }
                 break;
         }
     }

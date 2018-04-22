@@ -3,6 +3,14 @@ package com.chinabrowser.net;
 import android.os.Handler;
 
 import com.chinabrowser.activity.BaseActivity;
+import com.chinabrowser.bean.LinkData;
+import com.chinabrowser.utils.JsonUtils;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Administrator on 2018/4/18.
@@ -13,6 +21,7 @@ public class GetLinkListProtocolPage extends BaseProtocolPage {
     public final static int MSG_WHAT_NOTCHANGE = 10097;
     public final static int MSG_WHAT_ERROE = 10098;
 
+    public List<LinkData> linkDatas;
 
 
     public GetLinkListProtocolPage(Object param, Handler handler, BaseActivity activity) {
@@ -28,7 +37,7 @@ public class GetLinkListProtocolPage extends BaseProtocolPage {
     public String getExtParam(Object param) {
         if (param!=null){
             UpGetLinkData upGetLinkData = (UpGetLinkData) param;
-            return upGetLinkData.toString();
+            return upGetLinkData.getUploadString();
         }
         return "";
     }
@@ -60,6 +69,18 @@ public class GetLinkListProtocolPage extends BaseProtocolPage {
 
     @Override
     public Object parserJson(byte[] response) {
-        return null;
+        if (response!=null){
+            linkDatas = new ArrayList<>();
+            JSONArray array = getJsonArray(response);
+            JSONObject obj = JsonUtils.getJsonArray(array,0);
+            JSONArray arrays = JsonUtils.getJSONArray(obj,"data");
+            for (int i = 0;i<arrays.length();i++){
+                JSONObject object = JsonUtils.getJsonArray(arrays,i);
+                LinkData data = new LinkData();
+                data.parse(object);
+                linkDatas.add(data);
+            }
+        }
+        return linkDatas;
     }
 }

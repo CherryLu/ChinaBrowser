@@ -20,7 +20,15 @@ public class Recommend {
     private String url;
     private Title maintitle;
     private List<Content> contents;
+    private List<LinkData> linkDatas;
 
+    public List<LinkData> getLinkDatas() {
+        return linkDatas;
+    }
+
+    public void setLinkDatas(List<LinkData> linkDatas) {
+        this.linkDatas = linkDatas;
+    }
 
     public Title getMaintitle() {
         return maintitle;
