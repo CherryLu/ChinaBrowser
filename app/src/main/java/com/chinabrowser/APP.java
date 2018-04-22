@@ -7,6 +7,7 @@ import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
 import com.chinabrowser.bean.LinkData;
+import com.chinabrowser.bean.Recommend;
 import com.chinabrowser.utils.FileUtils;
 import com.mob.MobSDK;
 import com.tencent.smtt.sdk.QbSdk;
@@ -40,7 +41,7 @@ public class APP extends Application {
     public static String gFileFolderDownImage;
     public static String gFileFolderAudioAD;
     public static String gFileFolderHistoryPlay;
-    public static List<LinkData> linkDatas;
+    public static List<Recommend> linkDatas;
 
     @Override
     public void onCreate() {

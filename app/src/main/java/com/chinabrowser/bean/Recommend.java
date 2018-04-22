@@ -1,5 +1,7 @@
 package com.chinabrowser.bean;
 
+import android.media.JetPlayer;
+
 import com.chinabrowser.utils.Constant;
 import com.chinabrowser.utils.JsonUtils;
 
@@ -19,16 +21,11 @@ public class Recommend {
     private String title;
     private String url;
     private Title maintitle;
+    private Action contentAction;
+    private Action titleAction;
     private List<Content> contents;
-    private List<LinkData> linkDatas;
 
-    public List<LinkData> getLinkDatas() {
-        return linkDatas;
-    }
 
-    public void setLinkDatas(List<LinkData> linkDatas) {
-        this.linkDatas = linkDatas;
-    }
 
     public Title getMaintitle() {
         return maintitle;
@@ -86,6 +83,17 @@ public class Recommend {
                 JSONObject obj = JsonUtils.getJSONObject(jsonObject,"title");
                 maintitle = new Title();
                 maintitle.parse(obj);
+                JSONArray arry = JsonUtils.getJSONArray(jsonObject,"action_data");
+                JSONObject aobj = JsonUtils.getJsonArray(arry,0);
+                contentAction = new Action();
+                contentAction.parse(aobj);
+
+                JSONArray arr = JsonUtils.getJSONArray(jsonObject,"action_title");
+                JSONObject tobj = JsonUtils.getJsonArray(arr,0);
+
+                titleAction = new Action();
+                titleAction.parse(tobj);
+
                 JSONArray array = JsonUtils.getJSONArray(jsonObject,"data");
                 contents = new ArrayList<>();
                 for (int i = 0;i<array.length();i++){
@@ -113,6 +121,9 @@ public class Recommend {
                 break;
             case Constant.RADIOLAYOUT:
                 type = Constant.RADIO;
+                break;
+            case Constant.LABSTITLE:
+                type = Constant.LABS;
                 break;
 
         }

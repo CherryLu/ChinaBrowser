@@ -4,6 +4,7 @@ import android.os.Handler;
 
 import com.chinabrowser.APP;
 import com.chinabrowser.activity.BaseActivity;
+import com.chinabrowser.bean.Content;
 import com.chinabrowser.bean.Recommend;
 import com.chinabrowser.utils.Constant;
 import com.chinabrowser.utils.JsonUtils;
@@ -80,7 +81,7 @@ public class HomeProtocolPage extends BaseProtocolPage {
         search.setType(Constant.SEARCHLAYOUT);
         Recommend labs = new Recommend();
         labs.setType(Constant.LABS);
-        labs.setLinkDatas(APP.linkDatas);
+        labs.setContents(getContents(APP.linkDatas));
         recommends.add(search);
         recommends.add(labs);
         if (array!=null){
@@ -99,5 +100,19 @@ public class HomeProtocolPage extends BaseProtocolPage {
         bottom.setType(Constant.BOTTOM);
         recommends.add(bottom);
         return recommends;
+    }
+
+    private List<Content> getContents(List<Recommend> recommends){
+        List<Content> contents = new ArrayList<>();
+        if (recommends==null){
+            return contents;
+        }
+
+        for (int i =0;i<recommends.size();i++){
+            contents.addAll(recommends.get(i).getContents());
+        }
+
+        return contents;
+
     }
 }

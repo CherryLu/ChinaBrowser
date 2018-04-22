@@ -25,6 +25,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.lang.reflect.Field;
 import java.security.MessageDigest;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 import static com.chinabrowser.utils.FileUtils.saveAsFile;
@@ -578,6 +581,20 @@ public class CommUtils {
             localField.set(viewPager, localFixedSpeedScroller);
         } catch (Exception localException) {
         }
+
+    }
+
+    public static String getTime(String time){
+        try {
+            Long aLong = Long.parseLong(time);
+            Date date = new Date(aLong);
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+          return  format.format(date);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return "";
 
     }
 

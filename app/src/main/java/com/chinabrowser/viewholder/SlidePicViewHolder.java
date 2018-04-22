@@ -8,6 +8,7 @@ import com.chinabrowser.R;
 import com.chinabrowser.adapter.ImagePagerAdapter;
 import com.chinabrowser.bean.Content;
 import com.chinabrowser.bean.Recommend;
+import com.chinabrowser.cbinterface.PagerClick;
 import com.chinabrowser.ui.CustomViewpager;
 import com.chinabrowser.utils.CommUtils;
 
@@ -17,7 +18,7 @@ import java.util.List;
  * Created by 95470 on 2018/4/15.
  */
 
-public class SlidePicViewHolder extends BaseViewHolder {
+public class SlidePicViewHolder extends BaseViewHolder implements PagerClick {
 
     CustomViewpager viewpager;
     Context context;
@@ -30,10 +31,13 @@ public class SlidePicViewHolder extends BaseViewHolder {
 
     @Override
     public void setRecommend(Recommend recommend) {
+        this.recommend = recommend;
         List<Content> contentLis = recommend.getContents();
         if (contentLis!=null&&contentLis.size()>0){
-            viewpager.setAdapter(new ImagePagerAdapter(contentLis,context));
-            title.setText(contentLis.get(0).getTitle());
+            ImagePagerAdapter adapter = new ImagePagerAdapter(contentLis,context);
+            adapter.setPagerClick(this);
+            viewpager.setAdapter(adapter);
+            //title.setText(contentLis.get(0).getTitle());
             viewpager.setCurrentItem((contentLis.size()) * 100);
             CommUtils.changeViewPagerSpeedScroll(viewpager);
 
@@ -64,7 +68,15 @@ public class SlidePicViewHolder extends BaseViewHolder {
 
             }
         });
+
     }
 
 
+    @Override
+    public void pagerClick(int position) {
+        Content content = recommend.getContents().get(position);
+        if (homeCallBack!=null){
+            homeCallBack.startContent(content);
+        }
+    }
 }

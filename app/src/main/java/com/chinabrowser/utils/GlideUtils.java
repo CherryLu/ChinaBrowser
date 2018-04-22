@@ -9,6 +9,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.chinabrowser.R;
 
 /**
  * Created by Administrator on 2018/3/26.
@@ -19,7 +20,10 @@ public class GlideUtils {
 
     //默认加载
     public static void loadImageView(Context mContext, String path, ImageView mImageView) {
-        Glide.with(mContext).load(path).into(mImageView);
+        if (!path.startsWith("http")){
+            path = "cn.china-plus.net"+path;
+        }
+        Glide.with(mContext).load(path).placeholder(R.mipmap.defaluthead).error(R.mipmap.defaluthead).into(mImageView);
     }
 
     //加载指定大小

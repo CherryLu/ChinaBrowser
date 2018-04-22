@@ -28,5 +28,7 @@ public abstract class BaseViewHolder extends RecyclerView.ViewHolder {
         this.homeCallBack = homeCallBack;
     }
 
-    public abstract void setRecommend(Recommend recommend);
+    public  void setRecommend(Recommend recommend){
+        this.recommend = recommend;
+    }
 }

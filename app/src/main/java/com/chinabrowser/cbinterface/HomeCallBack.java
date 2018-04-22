@@ -1,5 +1,7 @@
 package com.chinabrowser.cbinterface;
 
+import com.chinabrowser.bean.Content;
+
 /**
  * Created by 95470 on 2018/4/18.
  */
@@ -7,5 +9,5 @@ package com.chinabrowser.cbinterface;
 public interface HomeCallBack {
     void titleClick(int which);
     void backClick();
-    void openWeb(String url);
+    void startContent(Content content);
 }

@@ -30,6 +30,7 @@ public class Constant {
     public static final String HOT = "layout_style_news_2x1_pr";//两行+小图
     public static final String TRA = "layout_style_news_2x1_pb";//大图
     public static final String RADIOLAYOUT = "layout_style_radio_3x2_pt";//广播
+    public static final String LABSTITLE = "layout_style_link_nxn";
 
 
 }

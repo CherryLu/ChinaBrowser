@@ -54,7 +54,7 @@ public class TranslateViewHolder extends BaseViewHolder implements View.OnClickL
 
     @Override
     public void setRecommend(Recommend recommend) {
-
+        this.recommend = recommend;
     }
 
     @Override

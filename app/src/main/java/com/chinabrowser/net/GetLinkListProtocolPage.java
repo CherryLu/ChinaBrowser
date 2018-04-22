@@ -4,6 +4,7 @@ import android.os.Handler;
 
 import com.chinabrowser.activity.BaseActivity;
 import com.chinabrowser.bean.LinkData;
+import com.chinabrowser.bean.Recommend;
 import com.chinabrowser.utils.JsonUtils;
 
 import org.json.JSONArray;
@@ -21,7 +22,7 @@ public class GetLinkListProtocolPage extends BaseProtocolPage {
     public final static int MSG_WHAT_NOTCHANGE = 10097;
     public final static int MSG_WHAT_ERROE = 10098;
 
-    public List<LinkData> linkDatas;
+    public List<Recommend> linkDatas;
 
 
     public GetLinkListProtocolPage(Object param, Handler handler, BaseActivity activity) {
@@ -72,14 +73,13 @@ public class GetLinkListProtocolPage extends BaseProtocolPage {
         if (response!=null){
             linkDatas = new ArrayList<>();
             JSONArray array = getJsonArray(response);
-            JSONObject obj = JsonUtils.getJsonArray(array,0);
-            JSONArray arrays = JsonUtils.getJSONArray(obj,"data");
-            for (int i = 0;i<arrays.length();i++){
-                JSONObject object = JsonUtils.getJsonArray(arrays,i);
-                LinkData data = new LinkData();
-                data.parse(object);
+            for (int j =0;j<array.length();j++){
+                JSONObject obj = JsonUtils.getJsonArray(array,j);
+                Recommend data = new Recommend();
+                data.parse(obj);
                 linkDatas.add(data);
             }
+
         }
         return linkDatas;
     }

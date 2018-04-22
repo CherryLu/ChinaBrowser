@@ -2,6 +2,7 @@ package com.chinabrowser.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -9,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chinabrowser.R;
+import com.chinabrowser.bean.Content;
 import com.chinabrowser.cbinterface.HomeCallBack;
 import com.chinabrowser.fragment.HomeFragment;
 import com.chinabrowser.fragment.HotNewsFragment;
@@ -86,9 +88,8 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
             case R.id.index_bottom_menu_nogoforward:
                 break;
             case R.id.index_bottom_menu_gohome:
-                if (homeFragment==null){
-                    homeFragment = new HomeFragment();
-                }
+                 homeFragment = new HomeFragment();
+                 homeFragment.setHomeCallBack(this);
                 getSupportFragmentManager().beginTransaction().replace(R.id.container,homeFragment).commit();
                 break;
             case R.id.index_bottom_menu_nogohome:
@@ -111,7 +112,6 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
                 getSupportFragmentManager().beginTransaction().replace(R.id.container,hotNewsFragment).commit();
                 break;
             case Constant.TRA_TITLE:
-
                 getSupportFragmentManager().beginTransaction().replace(R.id.container,homeFragment).commit();
                 break;
             case Constant.CHINA_TITLE:
@@ -131,20 +131,31 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
 
     @Override
     public void backClick() {
-        if (homeFragment==null){
-            homeFragment = new HomeFragment();
-        }
+        homeFragment = new HomeFragment();
+        homeFragment.setHomeCallBack(this);
         getSupportFragmentManager().beginTransaction().replace(R.id.container,homeFragment).commit();
     }
 
     @Override
-    public void openWeb(String url) {
+    public void startContent(Content content) {
+        String url = content.getCopy_url();
+        if (TextUtils.isEmpty(url)){
+            url = content.getLink_url();
+        }
         if (url!=null){
             if (webViewFragment==null){
                 webViewFragment = new WebViewFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("URL",url);
+                webViewFragment.homeCallBack = this;
+                webViewFragment.setArguments(bundle);
+            }else {
+                webViewFragment.setUrl(url);
             }
-            webViewFragment.setUrl(url);
+
             getSupportFragmentManager().beginTransaction().replace(R.id.container,webViewFragment).commit();
         }
     }
+
+
 }

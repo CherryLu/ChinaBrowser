@@ -18,6 +18,42 @@ public class Content  {
     private String url;
     private String link_url;
     private String image_url;
+    private String attach_file;
+    private String copy_from;
+    private String cover_image;
+    private String copy_url;
+
+    public String getCopy_from() {
+        return copy_from;
+    }
+
+    public String getCover_image() {
+        return cover_image;
+    }
+
+    public String getCopy_url() {
+        return copy_url;
+    }
+
+    public String getAttach_file() {
+        return attach_file;
+    }
+
+    public void setCopy_from(String copy_from) {
+        this.copy_from = copy_from;
+    }
+
+    public void setCover_image(String cover_image) {
+        this.cover_image = cover_image;
+    }
+
+    public void setCopy_url(String copy_url) {
+        this.copy_url = copy_url;
+    }
+
+    public void setAttach_file(String attach_file) {
+        this.attach_file = attach_file;
+    }
 
     public String getLink_url() {
         return link_url;
@@ -101,6 +137,10 @@ public class Content  {
             link_url = JsonUtils.getString(jsonObject,"link_url");
             image_url = JsonUtils.getString(jsonObject,"image_url");
             time = JsonUtils.getString(jsonObject,"create_time");
+            attach_file = JsonUtils.getString(jsonObject,"attach_file");
+            copy_from = JsonUtils.getString(jsonObject,"copy_from");
+            cover_image = JsonUtils.getString(jsonObject,"cover_image");
+            copy_url = JsonUtils.getString(jsonObject,"copy_url");
         }
     }
 }
