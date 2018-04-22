@@ -1,5 +1,6 @@
 package com.chinabrowser.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -13,6 +14,8 @@ import android.widget.TextView;
 
 import com.chinabrowser.R;
 import com.chinabrowser.cbinterface.LoginStateInterface;
+import com.chinabrowser.utils.CommUtils;
+import com.chinabrowser.utils.LoginMode;
 import com.chinabrowser.utils.Navigator;
 import com.chinabrowser.utils.SharedPreferencesUtils;
 import com.chinabrowser.utils.UserManager;
@@ -23,6 +26,8 @@ import java.util.regex.Pattern;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.chinabrowser.R.id.third_one;
 
 /**
  * Created by Administrator on 2018/4/11.
@@ -48,7 +53,7 @@ public class LoginActivity extends BaseActivity {
     Button logion;
     @Bind(R.id.regist)
     Button regist;
-    @Bind(R.id.third_one)
+    @Bind(third_one)
     ImageView thirdOne;
     @Bind(R.id.third_two)
     ImageView thirdTwo;
@@ -73,7 +78,7 @@ public class LoginActivity extends BaseActivity {
             super.handleMessage(msg);
         }
     };
-
+    int lag;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,11 +89,22 @@ public class LoginActivity extends BaseActivity {
         UserManager.getInstance().attach(new LoginStateInterface() {
             @Override
             public void update(boolean isLogin) {
+                hideWaitDialog();
                 if (isLogin) {
                     Navigator.finishActivity(LoginActivity.this);
                 }
             }
         });
+         lag = CommUtils.getCurrentLag(this);
+        if (lag==0){
+            thirdOne.setImageResource(R.mipmap.weibo);
+            thirdTwo.setImageResource(R.mipmap.mht);
+            thirdThree.setImageResource(R.mipmap.weixin);
+        }else {
+            thirdOne.setImageResource(R.mipmap.google);
+            thirdTwo.setImageResource(R.mipmap.twitter);
+            thirdThree.setImageResource(R.mipmap.facebook);
+        }
     }
 
     private void getRemember() {
@@ -101,14 +117,9 @@ public class LoginActivity extends BaseActivity {
         }
     }
 
-    /**
-     * 根据语言显示不同第三方
-     */
-    private void showOtherLogin() {
 
-    }
 
-    @OnClick({R.id.rember_psw, R.id.back_image,R.id.forget_psw, R.id.logion, R.id.regist, R.id.third_one, R.id.third_two, R.id.third_three})
+    @OnClick({R.id.rember_psw, R.id.back_image,R.id.forget_psw, R.id.logion, R.id.regist, third_one, R.id.third_two, R.id.third_three})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.back_image:
@@ -142,11 +153,29 @@ public class LoginActivity extends BaseActivity {
             case R.id.regist:
                 Navigator.startRegisterActivity(this);
                 break;
-            case R.id.third_one:
+            case third_one:
+                if (lag==0){
+                    UserManager.getInstance().loginByThird(LoginMode.SINA);
+                }else {
+                    UserManager.getInstance().loginByThird(LoginMode.GOOGLE);
+                }
+
                 break;
             case R.id.third_two:
+                if (lag==0){
+                    UserManager.getInstance().loginByThird(LoginMode.QQ);
+                }else {
+                    UserManager.getInstance().loginByThird(LoginMode.TWITTER);
+                }
+
                 break;
             case R.id.third_three:
+                if (lag==0){
+                    UserManager.getInstance().loginByThird(LoginMode.WECHAT);
+                }else {
+                    UserManager.getInstance().loginByThird(LoginMode.FACEBOOK);
+                }
+
                 break;
         }
     }
@@ -161,6 +190,7 @@ public class LoginActivity extends BaseActivity {
         }
     }
 
+
     private boolean isMails(String mails) {
         String RULE_EMAIL = "^\\w+((-\\w+)|(\\.\\w+))*\\@[A-Za-z0-9]+((\\.|-)[A-Za-z0-9]+)*\\.[A-Za-z0-9]+$";
         Pattern p = Pattern.compile(RULE_EMAIL);
@@ -170,5 +200,11 @@ public class LoginActivity extends BaseActivity {
 
     @OnClick(R.id.back_image)
     public void onClick() {
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        showWaitDialog("登陆中");
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

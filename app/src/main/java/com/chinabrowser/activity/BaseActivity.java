@@ -24,7 +24,8 @@ public class BaseActivity extends AppCompatActivity {
     private static final int MSG_WHAT_SHOW_WAIT_DIALOG = 104;
     private static final int MSG_WHAT_HIDE_WAIT_DIALOG = 105;
     private String showMessage = "";
-
+    private int dialogId = -1;
+    private static final int DIALOG_WAIT = 102;
     private static final int MSG_WHAT_SHOW_TOASH = 106;
 
     @Override
@@ -42,12 +43,31 @@ public class BaseActivity extends AppCompatActivity {
                         String str = (String) msg.obj;
                         Toast.makeText(BaseActivity.this,str,Toast.LENGTH_SHORT).show();
                         break;
-
+                    case MSG_WHAT_HIDE_WAIT_DIALOG:
+                        if (!isFinishing()) {
+                            if (dialogId == DIALOG_WAIT) {
+                                dialogId = -1;
+                                try {
+                                    dismissDialog(DIALOG_WAIT);
+                                } catch (Exception e) {
+                                }
+                            }
+                        }
+                        break;
+                    case MSG_WHAT_SHOW_WAIT_DIALOG:
+                        if (!isFinishing()) {
+                            if (dialogId == -1) {
+                                dialogId = DIALOG_WAIT;
+                                showDialog(DIALOG_WAIT);
+                            }
+                        }
+                        break;
                 }
                 super.handleMessage(msg);
             }
         };
     }
+
 
 
     public void addProtocolPage(BaseProtocolPage protocolPage) {
@@ -72,6 +92,10 @@ public class BaseActivity extends AppCompatActivity {
         Message msg = Message.obtain();
         msg.what = MSG_WHAT_HIDE_WAIT_DIALOG;
         fHandler.sendMessage(msg);
+    }
+
+    public void showWaitDialog(String waitMessage){
+        sendShowWaitDialogMsg(waitMessage);
     }
 
 

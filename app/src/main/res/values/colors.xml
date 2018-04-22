@@ -18,5 +18,7 @@
     <color name="color_txt_black">#666666</color>
     <color name="color_txt_deep_black">#333333</color>
     <color name="color_line_gray">#f4f4f4</color>
+    <color name="transparent">#00000000</color>
+    <color name="comm_item_press_color">#33000000</color>
 
 </resources>

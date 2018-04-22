@@ -15,6 +15,24 @@ public class UserData implements Serializable{
     private String dtinsert;
     private String suserno;//三方id
     private String smail;//邮箱
+    private String headeruerl;//头像
+    private String userName;//用户名
+
+    public String getHeaderuerl() {
+        return headeruerl;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setHeaderuerl(String headeruerl) {
+        this.headeruerl = headeruerl;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
     public String getIusertype() {
         return iusertype;

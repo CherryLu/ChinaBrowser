@@ -7,6 +7,7 @@ import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
 import com.chinabrowser.utils.FileUtils;
+import com.mob.MobSDK;
 import com.tencent.smtt.sdk.QbSdk;
 
 /**
@@ -44,6 +45,7 @@ public class APP extends Application {
         context = this;
         FileUtils.InitSD();
         initX5WebView();
+        MobSDK.init(this);
     }
     private void initX5WebView(){
         QbSdk.PreInitCallback initCallback = new QbSdk.PreInitCallback() {

@@ -14,6 +14,7 @@ import com.chinabrowser.R;
 import com.chinabrowser.cbinterface.LoginStateInterface;
 import com.chinabrowser.utils.CommUtils;
 import com.chinabrowser.utils.Constant;
+import com.chinabrowser.utils.GlideUtils;
 import com.chinabrowser.utils.Navigator;
 import com.chinabrowser.utils.SharedPreferencesUtils;
 import com.chinabrowser.utils.UserManager;
@@ -81,9 +82,11 @@ public class SettingActivity extends BaseActivity {
         title.setText(getString(R.string.setting_title));
         if (UserManager.getInstance().isLogin()) {
             loginTxt.setText(UserManager.getInstance().getUsername());
+            GlideUtils.loadImageView(this,UserManager.getInstance().getUserHeader(),headerImage);
             loginout.setVisibility(View.VISIBLE);
             clearAccount.setVisibility(View.VISIBLE);
         } else {
+            headerImage.setImageResource(R.mipmap.defaluthead);
             loginTxt.setText(getText(R.string.setting_login));
             loginout.setVisibility(View.GONE);
             clearAccount.setVisibility(View.GONE);
@@ -94,10 +97,12 @@ public class SettingActivity extends BaseActivity {
             public void update(boolean isLogin) {
 
                 if (isLogin) {
+                    GlideUtils.loadImageView(SettingActivity.this,UserManager.getInstance().getUserHeader(),headerImage);
                     loginTxt.setText(UserManager.getInstance().getUsername());
                     loginout.setVisibility(View.VISIBLE);
                     clearAccount.setVisibility(View.VISIBLE);
                 } else {
+                    headerImage.setImageResource(R.mipmap.defaluthead);
                     loginTxt.setText(getText(R.string.setting_login));
                     loginout.setVisibility(View.GONE);
                     clearAccount.setVisibility(View.GONE);

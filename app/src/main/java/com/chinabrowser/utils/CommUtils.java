@@ -6,10 +6,13 @@ import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Looper;
 import android.provider.Settings;
+import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.view.animation.DecelerateInterpolator;
 
 import com.chinabrowser.APP;
+import com.chinabrowser.ui.FixedSpeedScroller;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -20,6 +23,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.lang.reflect.Field;
 import java.security.MessageDigest;
 import java.util.Locale;
 
@@ -427,6 +431,63 @@ public class CommUtils {
         }
     }
 
+
+    /**
+     * 保存第三方用户名
+     * @param pwd
+     */
+    public static void setThirdheader(String pwd) {
+        try {
+            String pwdBase64 = Base64Utils.encode(pwd.getBytes());
+            SharedPreferencesUtils.setParam(APP.getContext(),"thirduserheader",pwdBase64);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    /**
+     * 获取第三方用户名
+     */
+    public static String getThirdheader() {
+        try {
+            return (String) SharedPreferencesUtils.getParam(APP.getContext(),"thirduserheader","");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "";
+    }
+
+
+
+    /**
+     * 保存第三方用户名
+     * @param pwd
+     */
+    public static void setThirdName(String pwd) {
+        try {
+            String pwdBase64 = Base64Utils.encode(pwd.getBytes());
+            SharedPreferencesUtils.setParam(APP.getContext(),"thirdusername",pwdBase64);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    /**
+     * 获取第三方用户名
+     */
+    public static String getThirdName() {
+        try {
+          return (String) SharedPreferencesUtils.getParam(APP.getContext(),"thirdusername","");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "";
+    }
+
+
+
     // 将数据缓存到文件
     public static void saveObjectData(Object obj, String fileName) {
         if (TextUtils.isEmpty(fileName))
@@ -496,6 +557,28 @@ public class CommUtils {
             e.printStackTrace();
         }
         return ret;
+    }
+
+    public static void changeViewPagerSpeedScroll(ViewPager viewPager) {
+        changeViewPagerSpeedScroll(viewPager, 0);
+    }
+
+    public static void changeViewTabPagerSpeedScroll(ViewPager viewPager) {
+        changeViewPagerSpeedScroll(viewPager, 100);
+    }
+
+    public static void changeViewPagerSpeedScroll(ViewPager viewPager, int duration) {
+        try {
+            Field localField = ViewPager.class.getDeclaredField("mScroller");
+            localField.setAccessible(true);
+            FixedSpeedScroller localFixedSpeedScroller = new FixedSpeedScroller(
+                    viewPager.getContext().getApplicationContext(), new DecelerateInterpolator());
+            if (duration > 0)
+                localFixedSpeedScroller.setmDuration(duration);
+            localField.set(viewPager, localFixedSpeedScroller);
+        } catch (Exception localException) {
+        }
+
     }
 
 }

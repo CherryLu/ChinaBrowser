@@ -67,7 +67,7 @@ public class HomeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
             case Constant.SLIDE:{
                 View view = inflater.inflate(R.layout.bigpic_item,parent,false);
-                SlidePicViewHolder viewHolder = new SlidePicViewHolder(view);
+                SlidePicViewHolder viewHolder = new SlidePicViewHolder(view,context);
                 viewHolder.setHomeCallBack(homeCallBack);
                 return viewHolder;
             }
