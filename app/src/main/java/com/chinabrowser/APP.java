@@ -9,6 +9,7 @@ import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
 import com.chinabrowser.bean.BaseUrl;
+import com.chinabrowser.bean.HomeTab;
 import com.chinabrowser.bean.Recommend;
 import com.chinabrowser.net.GetBaseUrlPage;
 import com.chinabrowser.net.GetLinkListProtocolPage;
@@ -50,6 +51,9 @@ public class APP extends Application {
     public static String gFileFolderHistoryPlay;
     public static List<Recommend> linkDatas;
     public static List<BaseUrl> baseUrls;
+    public static List<HomeTab> homeTabs;
+    public static HomeTab homeTab;
+
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {

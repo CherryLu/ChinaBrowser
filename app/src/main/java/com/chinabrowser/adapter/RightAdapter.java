@@ -38,14 +38,14 @@ public class RightAdapter extends RecyclerView.Adapter<RightAdapter.RViewHolder>
     public void onBindViewHolder(final RViewHolder holder, int position) {
         Content content = contents.get(position);
         holder.name.setText(content.getTitle());
-        GlideUtils.loadImageView(context,content.getCopy_from(),holder.cover);
-        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+        GlideUtils.loadImageView(context,content.getCover_image(),holder.cover);
+        /*holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 holder.delete.setVisibility(View.VISIBLE);
                 return true;
             }
-        });
+        });*/
     }
 
     @Override

@@ -21,7 +21,7 @@
                 android:id="@+id/cover1"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:src="@mipmap/taobao"/>
+                />
             <TextView
                 android:textSize="12sp"
                 android:id="@+id/name1"
@@ -30,7 +30,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="淘宝"/>
+                />
         </LinearLayout>
         <LinearLayout
             android:id="@+id/layout2"
@@ -45,7 +45,7 @@
                 android:id="@+id/cover2"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:src="@mipmap/wangyi"/>
+                />
             <TextView
                 android:textSize="12sp"
                 android:id="@+id/name2"
@@ -54,7 +54,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="网易"/>
+                />
         </LinearLayout>
         <LinearLayout
             android:id="@+id/layout3"
@@ -69,7 +69,7 @@
                 android:id="@+id/cover3"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:src="@mipmap/meituan"/>
+                />
             <TextView
                 android:textSize="12sp"
                 android:id="@+id/name3"
@@ -78,7 +78,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="美团"/>
+                />
         </LinearLayout>
         <LinearLayout
             android:id="@+id/layout4"
@@ -93,7 +93,7 @@
                 android:id="@+id/cover4"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:src="@mipmap/youku"/>
+                />
             <TextView
                 android:textSize="12sp"
                 android:id="@+id/name4"
@@ -102,7 +102,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="优酷"/>
+                />
         </LinearLayout>
         <LinearLayout
             android:id="@+id/layout5"
@@ -117,7 +117,7 @@
                 android:id="@+id/cover5"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:src="@mipmap/zhihu"/>
+                />
             <TextView
                 android:textSize="12sp"
                 android:id="@+id/name5"
@@ -126,7 +126,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="知乎"/>
+                />
         </LinearLayout>
         <LinearLayout
             android:id="@+id/layout6"

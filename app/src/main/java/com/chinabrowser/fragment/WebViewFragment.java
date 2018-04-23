@@ -8,23 +8,28 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chinabrowser.APP;
 import com.chinabrowser.R;
+import com.chinabrowser.bean.Collection;
 import com.chinabrowser.bean.NewsDetail;
 import com.chinabrowser.net.CollectionNewsPage;
+import com.chinabrowser.net.DelCollectionNewsPage;
 import com.chinabrowser.net.GetNewsDetails;
 import com.chinabrowser.net.UpCollectionNews;
 import com.chinabrowser.net.UpGetNewsDetail;
 import com.chinabrowser.ui.RedPacketCustomDialog;
 import com.chinabrowser.ui.RewritePopwindow;
 import com.chinabrowser.utils.CommUtils;
+import com.chinabrowser.utils.LogUtils;
 import com.chinabrowser.utils.Navigator;
 import com.chinabrowser.utils.UserManager;
 import com.tencent.smtt.export.external.interfaces.IX5WebChromeClient;
@@ -49,7 +54,6 @@ import butterknife.OnClick;
 public class WebViewFragment extends BaseFragment {
     @Bind(R.id.webview)
     WebView webview;
-    String url;
 
     /**
      * 用户代理 User agents.
@@ -68,13 +72,15 @@ public class WebViewFragment extends BaseFragment {
     ImageView collection;
     @Bind(R.id.share)
     ImageView share;
+    @Bind(R.id.news_layout)
+    LinearLayout newsLayout;
 
     private Method mMethodFinding = null;// 开始查找
     private Method mMethodFinded = null;// 查找结束
 
     private int mLoadPregress = 100;     // 载入进度
     private int position = 0;            // 序号
-
+    private boolean iscollection;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -83,20 +89,37 @@ public class WebViewFragment extends BaseFragment {
                     if (getNewsDetails != null && getNewsDetails.newsDetail != null) {
                         NewsDetail newsDetail = getNewsDetails.newsDetail;
                         webview.loadData(newsDetail.content, "text/html", null);
+                        if (TextUtils.isEmpty(newsDetail.iftag)||newsDetail.iftag.equals("0")){
+                            iscollection = false;
+                            collection.setImageResource(R.mipmap.un_collection);
+                        }else if (!TextUtils.isEmpty(newsDetail.iftag)&&newsDetail.iftag.equals("1")){
+                            iscollection = true;
+                            collection.setImageResource(R.mipmap.collection);
+                        }
                     }
                     break;
                 case GetNewsDetails.MSG_WHAT_ERROE:
                 case GetNewsDetails.MSG_WHAT_NOTCHANGE:
                     break;
                 case CollectionNewsPage.MSG_WHAT_OK:
-                    RedPacketCustomDialog customDialog = new RedPacketCustomDialog(getContext(),0);
+                    RedPacketCustomDialog customDialog = new RedPacketCustomDialog(getContext(), 0);
                     customDialog.show();
                     collection.setImageResource(R.mipmap.collection);
+                    iscollection = true;
                     break;
                 case CollectionNewsPage.MSG_WHAT_ERROE:
                 case CollectionNewsPage.MSG_WHAT_NOTCHANGE:
 
-                        break;
+                    break;
+                case DelCollectionNewsPage.MSG_WHAT_OK:
+                    RedPacketCustomDialog custom = new RedPacketCustomDialog(getContext(), 1);
+                    custom.show();
+                    collection.setImageResource(R.mipmap.un_collection);
+                    iscollection = false;
+                    break;
+                case DelCollectionNewsPage.MSG_WHAT_ERROE:
+                case DelCollectionNewsPage.MSG_WHAT_NOTCHANGE:
+                    break;
             }
             super.handleMessage(msg);
         }
@@ -116,39 +139,91 @@ public class WebViewFragment extends BaseFragment {
     }
 
     public String newsId;
-
+    boolean isUrl;
+    String url;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_webview, null);
         ButterKnife.bind(this, rootView);
         rootView.findViewById(R.id.titlle_layout).setVisibility(View.GONE);
+        isUrl = getArguments().getBoolean("ISURL");
         initWebView(webview);
-        newsId = getArguments().getString("ID");
-        getNewsDetails();
+        if (isUrl) {
+            newsLayout.setVisibility(View.GONE);
+            url = getArguments().getString("URL");
+            LogUtils.e("ZX","url : "+url);
+            webview.loadUrl(url);
+        } else {
+            newsLayout.setVisibility(View.VISIBLE);
+            newsId = getArguments().getString("ID");
+            getNewsDetails();
+        }
+
         return rootView;
     }
+
     CollectionNewsPage collectionNewsPage;
     UpCollectionNews upCollectionNews;
-    private void checkIsCollection(){
-        if (UserManager.getInstance().isLogin()){
+
+    private void checkIsCollection() {
+        if (UserManager.getInstance().isLogin()) {
             upCollectionNews = new UpCollectionNews();
             upCollectionNews.id = newsId;
-            upCollectionNews.ilanguage = CommUtils.getCurrentLag(getContext())+1+"";
+            upCollectionNews.ilanguage = CommUtils.getCurrentLag(getContext()) + 1 + "";
             upCollectionNews.suserno = UserManager.getInstance().getUserId();
-            if (collectionNewsPage==null){
-                collectionNewsPage = new CollectionNewsPage(upCollectionNews,handler,null);
+            if (collectionNewsPage == null) {
+                collectionNewsPage = new CollectionNewsPage(upCollectionNews, handler, null);
             }
             collectionNewsPage.refresh(upCollectionNews);
-        }else {
+        } else {
             Navigator.startLoginActivity(getContext());
         }
 
     }
 
-    private void collectionNews(){
+    public boolean canGoBack(){
+        if (webview!=null){
+            return webview.canGoBack();
+        }
+        return false;
+    }
+
+    public void goBack(){
+        if (webview!=null){
+            webview.goBack();
+        }
+    }
+
+    public void goForward(){
+        if (webview!=null){
+            webview.goForward();
+        }
+    }
+
+    public boolean canGoForward(){
+        if (webview!=null){
+            return webview.canGoForward();
+        }
+        return false;
+    }
+
+    DelCollectionNewsPage delCollectionNewsPage;
+    UpCollectionNews collectionNews;
+    private void deleCollection(String id){
+        collectionNews = new UpCollectionNews();
+        collectionNews.suserno = UserManager.getInstance().getUserId();
+        collectionNews.id = id;
+        collectionNews.ilanguage = CommUtils.getCurrentLag(getContext())+1+"";
+
+        if (delCollectionNewsPage==null){
+            delCollectionNewsPage = new DelCollectionNewsPage(collectionNews,handler,null);
+        }
+        delCollectionNewsPage.refresh(collectionNews);
 
     }
+
+
 
     GetNewsDetails getNewsDetails;
     UpGetNewsDetail upGetNewsDetail;
@@ -156,6 +231,9 @@ public class WebViewFragment extends BaseFragment {
     private void getNewsDetails() {
         upGetNewsDetail = new UpGetNewsDetail();
         upGetNewsDetail.id = newsId;
+        if (UserManager.getInstance().isLogin()){
+            upGetNewsDetail.suserno = UserManager.getInstance().getUserId();
+        }
         if (getNewsDetails == null) {
             getNewsDetails = new GetNewsDetails(upGetNewsDetail, handler, null);
         }
@@ -181,11 +259,11 @@ public class WebViewFragment extends BaseFragment {
     }
 
 
-    private void initShare(){
+    private void initShare() {
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch (v.getId()){
+                switch (v.getId()) {
                     case R.id.share1:
 
                         break;
@@ -201,12 +279,14 @@ public class WebViewFragment extends BaseFragment {
                 }
             }
         };
-        RewritePopwindow rewritePopwindow = new RewritePopwindow(getActivity(),listener);
+        RewritePopwindow rewritePopwindow = new RewritePopwindow(getActivity(), listener);
         rewritePopwindow.showAtLocation(rootView, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
     }
 
     private void initWebView(WebView ActionwebView) {
-        ActionwebView.getSettings().setDefaultFontSize(40);
+        if (!isUrl){
+            ActionwebView.getSettings().setDefaultFontSize(40);
+        }
         // ActionwebView.getSettings().setTextSize(WebSettings.TextSize.LARGEST);
         ActionwebView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         //对离线应用的支持
@@ -283,7 +363,16 @@ public class WebViewFragment extends BaseFragment {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.collection:
-                checkIsCollection();
+                if (UserManager.getInstance().isLogin()){
+                    if (iscollection){
+                        deleCollection(newsId);
+                    }else {
+                        checkIsCollection();
+                    }
+                }else {
+                    Navigator.startLoginActivity(getContext());
+                }
+
                 break;
             case R.id.share:
                 initShare();

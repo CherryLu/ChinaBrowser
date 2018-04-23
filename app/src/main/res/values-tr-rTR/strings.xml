@@ -53,6 +53,10 @@
     <string name="str_pswcon">Parolayı Onayla</string>
     <string name="str_haveaccount">Zaten bir hesabınız var！</string>
     <string name="str_comeback">Girişe geri dön</string>
+    <string name="labs">Sayfa işareti</string>
+    <string name="add_labs">Yeni sayfa işareti</string>
+    <string name="homepage">Ev</string>
+    <string name="hotnews">Haber listesi</string>
     <!-- 首页情景翻译模块 -->
     <string name="translate_language_set_from">Kaynak dili</string>
     <string name="translate_language_set_to">Hedef dil</string>

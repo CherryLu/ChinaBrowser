@@ -145,7 +145,7 @@ public class CollectionActivity extends BaseActivity implements DelCollectionCal
 
     private void delCollection(String id){
         if (!TextUtils.isEmpty(id)){
-            delCollection(id);
+            deleCollection(id);
         }
     }
 

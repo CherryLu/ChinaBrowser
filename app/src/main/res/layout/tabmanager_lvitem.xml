@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 多标签管理 -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+    <ImageView android:id="@+id/tabmanager_lvitem_img"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_width="120dp"
+        android:layout_height="90dp"
+        android:background="#EEEEEE"
+        android:scaleType="centerCrop" />
+
+         
+    <ImageView
+        android:id="@+id/tabmanager_lvitem_remove"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="15dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/deletetab" />
+
+    <TextView
+        android:id="@+id/tabmanager_lvitem_title"
+        android:gravity="center_vertical"
+        android:layout_toRightOf="@id/tabmanager_lvitem_img"
+        android:layout_toLeftOf="@id/tabmanager_lvitem_remove"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:textSize="@dimen/font_size_15"
+        android:textColor="#C0C0C0" />
+    
+    <View android:layout_below="@id/tabmanager_lvitem_img"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_line_gray" />
+    
+</RelativeLayout>

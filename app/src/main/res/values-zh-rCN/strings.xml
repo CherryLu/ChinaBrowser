@@ -56,6 +56,10 @@
     <string name="search1">百度</string>
     <string name="search2">搜狗</string>
     <string name="search3">360</string>
+    <string name="labs">页签</string>
+    <string name="add_labs">新建页签</string>
+    <string name="homepage">主页</string>
+    <string name="hotnews">新闻列表</string>
 
     <!-- 首页情景翻译模块 -->
     <string name="translate_language_set_from">源语言</string>

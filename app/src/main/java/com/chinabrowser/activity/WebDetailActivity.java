@@ -50,7 +50,7 @@ public class WebDetailActivity extends BaseActivity {
         initWebView(webview);
         id = getIntent().getStringExtra("ID");
         url = getIntent().getStringExtra("URL");
-        webview.loadUrl(url);
+        webview.loadUrl("http://www.youku.com/");
     }
 
     private void initWebView(WebView ActionwebView) {

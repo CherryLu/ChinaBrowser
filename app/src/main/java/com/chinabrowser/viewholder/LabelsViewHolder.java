@@ -78,14 +78,29 @@ public class LabelsViewHolder extends BaseViewHolder implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.layout1:
+                if (homeCallBack!=null){
+                    homeCallBack.startContentByurl(recommend.getContents().get(0));
+                }
                 break;
             case R.id.layout2:
+                if (homeCallBack!=null){
+                    homeCallBack.startContentByurl(recommend.getContents().get(1));
+                }
                 break;
             case R.id.layout3:
+                if (homeCallBack!=null){
+                    homeCallBack.startContentByurl(recommend.getContents().get(2));
+                }
                 break;
             case R.id.layout4:
+                if (homeCallBack!=null){
+                    homeCallBack.startContentByurl(recommend.getContents().get(3));
+                }
                 break;
             case R.id.layout5:
+                if (homeCallBack!=null){
+                    homeCallBack.startContentByurl(recommend.getContents().get(4));
+                }
                 break;
             case R.id.layout6:
                 Navigator.startRecommandActivity(v.getContext());

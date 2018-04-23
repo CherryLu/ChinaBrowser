@@ -43,6 +43,9 @@ public class OneLineViewHolder extends BaseViewHolder implements View.OnClickLis
 
         root2 = (LinearLayout) itemView.findViewById(R.id.root2);
         more.setOnClickListener(this);
+
+        root.setOnClickListener(this);
+        root2.setOnClickListener(this);
     }
 
     @Override

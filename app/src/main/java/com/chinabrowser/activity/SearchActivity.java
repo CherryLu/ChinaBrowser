@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.chinabrowser.R;
 import com.chinabrowser.adapter.SearchRecommandAdapter;
+import com.chinabrowser.bean.Content;
 import com.chinabrowser.bean.SearchRecommand;
 import com.chinabrowser.utils.CommUtils;
 
@@ -126,7 +127,6 @@ public class SearchActivity extends BaseActivity {
                     recommands.add(recommand);
                     break;
             }
-            recommands.add(recommand);
 
         }
 

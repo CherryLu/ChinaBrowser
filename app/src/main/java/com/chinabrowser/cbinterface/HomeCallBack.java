@@ -11,4 +11,5 @@ public interface HomeCallBack {
     void titleClick(int which,Title title);
     void backClick();
     void startContent(Content content);
+    void startContentByurl(Content content);
 }

@@ -31,6 +31,10 @@
     <string name="search2">搜狗</string>
     <string name="search3">360</string>
     <string name="setting_title">设置</string>
+    <string name="labs">页签</string>
+    <string name="add_labs">新建页签</string>
+    <string name="homepage">主页</string>
+    <string name="hotnews">新闻列表</string>
 
     <string name="travel">旅游</string>
     <string name="zhonghuawnag">中华网</string>

@@ -15,6 +15,7 @@ public class NewsDetail {
     public String introduce;
     public String seo_description;
     public String content;
+    public String iftag;
 
     public void parse(JSONObject object){
         if (object!=null){
@@ -23,6 +24,7 @@ public class NewsDetail {
             introduce = JsonUtils.getString(object,"introduce");
             seo_description = JsonUtils.getString(object,"seo_description");
             content = JsonUtils.getString(object,"content");
+            iftag = JsonUtils.getString(object,"iftag");
         }
     }
 
