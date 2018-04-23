@@ -10,6 +10,7 @@ import com.chinabrowser.activity.CollectionActivity;
 import com.chinabrowser.activity.HistoryActivity;
 import com.chinabrowser.activity.LoginActivity;
 import com.chinabrowser.activity.MainActivity;
+import com.chinabrowser.activity.RecommandActivity;
 import com.chinabrowser.activity.RegisterActivity;
 import com.chinabrowser.activity.SearchActivity;
 import com.chinabrowser.activity.SearchAttentiveActivity;
@@ -138,6 +139,15 @@ public class Navigator {
         intent.putExtra("URL",url);
         context.startActivity(intent);
 
+    }
+
+    /**
+     * 跳转推荐页
+     * @param context
+     */
+    public static void startRecommandActivity(Context context){
+        Intent intent = new Intent(context, RecommandActivity.class);
+        context.startActivity(intent);
     }
 
 

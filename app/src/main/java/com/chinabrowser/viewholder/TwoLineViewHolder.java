@@ -42,6 +42,8 @@ public class TwoLineViewHolder extends BaseViewHolder implements View.OnClickLis
         pic2 = (ImageView) itemView.findViewById(R.id.pic2);
         root2 = (LinearLayout) itemView.findViewById(R.id.root2);
         root2.setOnClickListener(this);
+
+        more.setOnClickListener(this);
     }
 
     @Override
@@ -85,12 +87,13 @@ public class TwoLineViewHolder extends BaseViewHolder implements View.OnClickLis
                 if (homeCallBack!=null){
                     homeCallBack.startContent(recommend.getContents().get(0));
                 }
+                break;
             case R.id.more:
                 if (homeCallBack!=null){
                     if ("热点".equals(title.getText().toString())){
-                        homeCallBack.titleClick(Constant.HOT_TITLE);
+                        homeCallBack.titleClick(Constant.HOT_TITLE,recommend.getMaintitle());
                     }else {
-                        homeCallBack.titleClick(Constant.CHINA_TITLE);
+                        homeCallBack.titleClick(Constant.CHINA_TITLE,recommend.getMaintitle());
                     }
                 }
                 break;

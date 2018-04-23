@@ -5,7 +5,10 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +17,16 @@ import android.widget.TextView;
 
 import com.chinabrowser.APP;
 import com.chinabrowser.R;
-import com.chinabrowser.utils.LogUtils;
+import com.chinabrowser.bean.NewsDetail;
+import com.chinabrowser.net.CollectionNewsPage;
+import com.chinabrowser.net.GetNewsDetails;
+import com.chinabrowser.net.UpCollectionNews;
+import com.chinabrowser.net.UpGetNewsDetail;
+import com.chinabrowser.ui.RedPacketCustomDialog;
+import com.chinabrowser.ui.RewritePopwindow;
+import com.chinabrowser.utils.CommUtils;
+import com.chinabrowser.utils.Navigator;
+import com.chinabrowser.utils.UserManager;
 import com.tencent.smtt.export.external.interfaces.IX5WebChromeClient;
 import com.tencent.smtt.sdk.DownloadListener;
 import com.tencent.smtt.sdk.ValueCallback;
@@ -52,12 +64,43 @@ public class WebViewFragment extends BaseFragment {
     TextView title;
     @Bind(R.id.right_txt)
     TextView rightTxt;
+    @Bind(R.id.collection)
+    ImageView collection;
+    @Bind(R.id.share)
+    ImageView share;
 
     private Method mMethodFinding = null;// 开始查找
     private Method mMethodFinded = null;// 查找结束
 
     private int mLoadPregress = 100;     // 载入进度
     private int position = 0;            // 序号
+
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case GetNewsDetails.MSG_WHAT_OK:
+                    if (getNewsDetails != null && getNewsDetails.newsDetail != null) {
+                        NewsDetail newsDetail = getNewsDetails.newsDetail;
+                        webview.loadData(newsDetail.content, "text/html", null);
+                    }
+                    break;
+                case GetNewsDetails.MSG_WHAT_ERROE:
+                case GetNewsDetails.MSG_WHAT_NOTCHANGE:
+                    break;
+                case CollectionNewsPage.MSG_WHAT_OK:
+                    RedPacketCustomDialog customDialog = new RedPacketCustomDialog(getContext(),0);
+                    customDialog.show();
+                    collection.setImageResource(R.mipmap.collection);
+                    break;
+                case CollectionNewsPage.MSG_WHAT_ERROE:
+                case CollectionNewsPage.MSG_WHAT_NOTCHANGE:
+
+                        break;
+            }
+            super.handleMessage(msg);
+        }
+    };
 
 
     @Override
@@ -72,15 +115,51 @@ public class WebViewFragment extends BaseFragment {
         }
     }
 
+    public String newsId;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_webview, null);
         ButterKnife.bind(this, rootView);
+        rootView.findViewById(R.id.titlle_layout).setVisibility(View.GONE);
         initWebView(webview);
-        String url = getArguments().getString("URL");
-        webview.loadUrl(url);
+        newsId = getArguments().getString("ID");
+        getNewsDetails();
         return rootView;
+    }
+    CollectionNewsPage collectionNewsPage;
+    UpCollectionNews upCollectionNews;
+    private void checkIsCollection(){
+        if (UserManager.getInstance().isLogin()){
+            upCollectionNews = new UpCollectionNews();
+            upCollectionNews.id = newsId;
+            upCollectionNews.ilanguage = CommUtils.getCurrentLag(getContext())+1+"";
+            upCollectionNews.suserno = UserManager.getInstance().getUserId();
+            if (collectionNewsPage==null){
+                collectionNewsPage = new CollectionNewsPage(upCollectionNews,handler,null);
+            }
+            collectionNewsPage.refresh(upCollectionNews);
+        }else {
+            Navigator.startLoginActivity(getContext());
+        }
+
+    }
+
+    private void collectionNews(){
+
+    }
+
+    GetNewsDetails getNewsDetails;
+    UpGetNewsDetail upGetNewsDetail;
+
+    private void getNewsDetails() {
+        upGetNewsDetail = new UpGetNewsDetail();
+        upGetNewsDetail.id = newsId;
+        if (getNewsDetails == null) {
+            getNewsDetails = new GetNewsDetails(upGetNewsDetail, handler, null);
+        }
+        getNewsDetails.refresh(upGetNewsDetail);
     }
 
     /**
@@ -101,8 +180,34 @@ public class WebViewFragment extends BaseFragment {
         }
     }
 
+
+    private void initShare(){
+        View.OnClickListener listener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (v.getId()){
+                    case R.id.share1:
+
+                        break;
+                    case R.id.share2:
+
+                        break;
+                    case R.id.share3:
+
+                        break;
+                    case R.id.share4:
+
+                        break;
+                }
+            }
+        };
+        RewritePopwindow rewritePopwindow = new RewritePopwindow(getActivity(),listener);
+        rewritePopwindow.showAtLocation(rootView, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+    }
+
     private void initWebView(WebView ActionwebView) {
-       // ActionwebView.getSettings().setTextSize(WebSettings.TextSize.LARGEST);
+        ActionwebView.getSettings().setDefaultFontSize(40);
+        // ActionwebView.getSettings().setTextSize(WebSettings.TextSize.LARGEST);
         ActionwebView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         //对离线应用的支持
         ActionwebView.getSettings().setAppCacheMaxSize(1024 * 1024 * 10);//设置缓冲大小，10M
@@ -146,6 +251,7 @@ public class WebViewFragment extends BaseFragment {
         //initDownUtilsView();
     }
 
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -154,8 +260,34 @@ public class WebViewFragment extends BaseFragment {
 
     @OnClick(R.id.back_image)
     public void onClick() {
-        if (homeCallBack!=null){
+        if (homeCallBack != null) {
             homeCallBack.backClick();
+        }
+    }
+
+    /**
+     * 对图片进行重置大小，宽度就是手机屏幕宽度，高度根据宽度比便自动缩放
+     **/
+    private void imgReset() {
+        webview.loadUrl("javascript:(function(){" +
+                "var objs = document.getElementsByTagName('img'); " +
+                "for(var i=0;i<objs.length;i++)  " +
+                "{"
+                + "var img = objs[i];   " +
+                "    img.style.width = '100%'; img.style.height = 'auto';  " +
+                "}" +
+                "})()");
+    }
+
+    @OnClick({R.id.collection, R.id.share})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.collection:
+                checkIsCollection();
+                break;
+            case R.id.share:
+                initShare();
+                break;
         }
     }
 
@@ -187,7 +319,7 @@ public class WebViewFragment extends BaseFragment {
         }
 
         public void onPageFinished(WebView view, String url) {
-
+            imgReset();
         }
 
         @Override

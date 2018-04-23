@@ -35,6 +35,7 @@
         <activity android:name=".activity.TranslateActivity"/>
         <activity android:name=".activity.SearchAttentiveActivity"/>
         <activity android:name=".activity.WebDetailActivity"/>
+        <activity android:name=".activity.RecommandActivity"/>
 
     </application>
 

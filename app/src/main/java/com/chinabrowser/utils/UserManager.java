@@ -141,6 +141,14 @@ public class UserManager {
         CommUtils.saveObjectData(keeper, path);
     }
 
+    public String getUserId(){
+        if (userData!=null){
+            return userData.getSuserno();
+        }
+
+        return "";
+    }
+
     private void readUserData() {
         String path = FileUtils.getAppBasePath() + "userKeeper.dat";
         Object obj = CommUtils.loadObjectData(path);

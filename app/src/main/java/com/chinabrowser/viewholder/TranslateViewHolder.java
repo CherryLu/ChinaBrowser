@@ -80,7 +80,7 @@ public class TranslateViewHolder extends BaseViewHolder implements View.OnClickL
                 break;
             case R.id.more://回调 切换Fragment
                 if (homeCallBack!=null){
-                    homeCallBack.titleClick(Constant.TRANSLATE_TITLE);
+                    homeCallBack.titleClick(Constant.TRANSLATE_TITLE,recommend.getMaintitle());
                 }
                 break;
 

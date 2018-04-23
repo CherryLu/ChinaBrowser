@@ -2,7 +2,6 @@ package com.chinabrowser.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -11,12 +10,14 @@ import android.widget.TextView;
 
 import com.chinabrowser.R;
 import com.chinabrowser.bean.Content;
+import com.chinabrowser.bean.Title;
 import com.chinabrowser.cbinterface.HomeCallBack;
 import com.chinabrowser.fragment.HomeFragment;
 import com.chinabrowser.fragment.HotNewsFragment;
 import com.chinabrowser.fragment.TranslateFragment;
 import com.chinabrowser.fragment.WebViewFragment;
 import com.chinabrowser.utils.Constant;
+import com.chinabrowser.utils.LogUtils;
 import com.chinabrowser.utils.Navigator;
 
 import java.util.Set;
@@ -102,20 +103,34 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
     }
 
     @Override
-    public void titleClick(int which) {
+    public void titleClick(int which,Title title) {
         switch (which){
-            case Constant.HOT_TITLE:
-                if (hotNewsFragment==null){
-                    hotNewsFragment = new HotNewsFragment();
-                    hotNewsFragment.homeCallBack = this;
-                }
-                getSupportFragmentManager().beginTransaction().replace(R.id.container,hotNewsFragment).commit();
+            case Constant.HOT_TITLE: {
+                hotNewsFragment = new HotNewsFragment();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("TITLE", title);
+                hotNewsFragment.setArguments(bundle);
+                hotNewsFragment.homeCallBack = this;
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, hotNewsFragment).commit();
                 break;
-            case Constant.TRA_TITLE:
-                getSupportFragmentManager().beginTransaction().replace(R.id.container,homeFragment).commit();
+            }
+            case Constant.TRA_TITLE: {
+                hotNewsFragment = new HotNewsFragment();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("TITLE", title);
+                hotNewsFragment.setArguments(bundle);
+                hotNewsFragment.homeCallBack = this;
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, hotNewsFragment).commit();
+
                 break;
+            }
             case Constant.CHINA_TITLE:
-                getSupportFragmentManager().beginTransaction().replace(R.id.container,homeFragment).commit();
+                    hotNewsFragment = new HotNewsFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("TITLE",title);
+                    hotNewsFragment.setArguments(bundle);
+                    hotNewsFragment.homeCallBack = this;
+                getSupportFragmentManager().beginTransaction().replace(R.id.container,hotNewsFragment).commit();
                 break;
             case Constant.TRANSLATE_TITLE:
                 if (translateFragment==null){
@@ -138,21 +153,14 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
 
     @Override
     public void startContent(Content content) {
-        String url = content.getCopy_url();
-        if (TextUtils.isEmpty(url)){
-            url = content.getLink_url();
-        }
-        if (url!=null){
-            if (webViewFragment==null){
-                webViewFragment = new WebViewFragment();
-                Bundle bundle = new Bundle();
-                bundle.putString("URL",url);
-                webViewFragment.homeCallBack = this;
-                webViewFragment.setArguments(bundle);
-            }else {
-                webViewFragment.setUrl(url);
-            }
-
+        String id = content.getId();
+        if (id!=null){
+            LogUtils.e("WEB",id);
+            webViewFragment = new WebViewFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString("ID",id);
+            webViewFragment.homeCallBack = this;
+            webViewFragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction().replace(R.id.container,webViewFragment).commit();
         }
     }

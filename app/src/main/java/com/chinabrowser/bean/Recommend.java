@@ -1,7 +1,5 @@
 package com.chinabrowser.bean;
 
-import android.media.JetPlayer;
-
 import com.chinabrowser.utils.Constant;
 import com.chinabrowser.utils.JsonUtils;
 
@@ -25,7 +23,13 @@ public class Recommend {
     private Action titleAction;
     private List<Content> contents;
 
+    public Action getTitleAction() {
+        return titleAction;
+    }
 
+    public Action getContentAction() {
+        return contentAction;
+    }
 
     public Title getMaintitle() {
         return maintitle;

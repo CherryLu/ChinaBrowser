@@ -8,6 +8,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chinabrowser.R;
+import com.chinabrowser.bean.Content;
+import com.chinabrowser.utils.GlideUtils;
+import com.chinabrowser.utils.LogUtils;
+
+import java.util.List;
 
 /**
  * Created by Administrator on 2018/4/15.
@@ -15,7 +20,12 @@ import com.chinabrowser.R;
 
 public class RightAdapter extends RecyclerView.Adapter<RightAdapter.RViewHolder> {
     private Context context;
+    private List<Content> contents;
 
+    public RightAdapter(Context context, List<Content> contents) {
+        this.context = context;
+        this.contents = contents;
+    }
 
     @Override
     public RViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -26,6 +36,9 @@ public class RightAdapter extends RecyclerView.Adapter<RightAdapter.RViewHolder>
 
     @Override
     public void onBindViewHolder(final RViewHolder holder, int position) {
+        Content content = contents.get(position);
+        holder.name.setText(content.getTitle());
+        GlideUtils.loadImageView(context,content.getCopy_from(),holder.cover);
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -37,7 +50,7 @@ public class RightAdapter extends RecyclerView.Adapter<RightAdapter.RViewHolder>
 
     @Override
     public int getItemCount() {
-        return 0;
+        return contents==null?0:contents.size();
     }
 
 

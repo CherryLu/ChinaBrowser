@@ -44,7 +44,7 @@ public class RadioViewholder extends BaseViewHolder implements View.OnClickListe
         names[3] = (TextView) itemView.findViewById(R.id.name4);
         names[4] = (TextView) itemView.findViewById(R.id.name5);
         names[5] = (TextView) itemView.findViewById(R.id.name6);
-
+        more.setVisibility(View.GONE);
         for (int i=0;i<plays.length;i++){
             plays[i].setOnClickListener(this);
         }

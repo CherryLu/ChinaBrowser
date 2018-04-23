@@ -25,7 +25,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.lang.reflect.Field;
 import java.security.MessageDigest;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -596,6 +595,18 @@ public class CommUtils {
 
         return "";
 
+    }
+
+
+    public static String getBaseurl(Context context){
+        if (APP.baseUrls!=null&&APP.baseUrls.size()>0){
+            if (getCurrentLag(context)==0){
+                return APP.baseUrls.get(0).value;
+            }else {
+                return APP.baseUrls.get(1).value;
+            }
+        }
+        return "";
     }
 
 }

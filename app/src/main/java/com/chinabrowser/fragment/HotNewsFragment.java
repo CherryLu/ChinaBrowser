@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.chinabrowser.R;
 import com.chinabrowser.adapter.NewsAdapter;
 import com.chinabrowser.bean.NewsData;
+import com.chinabrowser.bean.Title;
 import com.chinabrowser.net.GetHotNewsProtocolPage;
 import com.chinabrowser.net.UpLoadGetHot;
 import com.chinabrowser.utils.CommUtils;
@@ -62,12 +63,16 @@ public class HotNewsFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
     }
 
+
+
+    Title ti;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_hotnews, null);
         ButterKnife.bind(this, view);
-        title.setText("热点");
+        ti = (Title) getArguments().getSerializable("TITLE");
+        title.setText(ti.getTitle_name());
         getData();
         return view;
     }
@@ -78,7 +83,7 @@ public class HotNewsFragment extends BaseFragment {
     private void getData() {
         upLoadGetHot = new UpLoadGetHot();
         upLoadGetHot.ilanguage = CommUtils.getCurrentLag(getContext()) + 1 + "";
-        upLoadGetHot.catalog_id = "1";
+        upLoadGetHot.catalog_id = ti.getCatalog_id();
         upLoadGetHot.pageindex = "1";
         if (getHotNewsProtocolPage == null) {
             getHotNewsProtocolPage = new GetHotNewsProtocolPage(upLoadGetHot, handler, null);

@@ -21,7 +21,7 @@ public class GlideUtils {
     //默认加载
     public static void loadImageView(Context mContext, String path, ImageView mImageView) {
         if (!path.startsWith("http")){
-            path = "cn.china-plus.net"+path;
+            path = CommUtils.getBaseurl(mContext)+path;
         }
         Glide.with(mContext).load(path).placeholder(R.mipmap.defaluthead).error(R.mipmap.defaluthead).into(mImageView);
     }

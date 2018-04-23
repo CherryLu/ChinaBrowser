@@ -8,10 +8,10 @@ import android.widget.TextView;
 import com.chinabrowser.APP;
 import com.chinabrowser.R;
 import com.chinabrowser.bean.Content;
-import com.chinabrowser.bean.LinkData;
 import com.chinabrowser.bean.Recommend;
 import com.chinabrowser.utils.GlideUtils;
 import com.chinabrowser.utils.LogUtils;
+import com.chinabrowser.utils.Navigator;
 
 import java.util.List;
 
@@ -88,6 +88,7 @@ public class LabelsViewHolder extends BaseViewHolder implements View.OnClickList
             case R.id.layout5:
                 break;
             case R.id.layout6:
+                Navigator.startRecommandActivity(v.getContext());
                 break;
 
         }

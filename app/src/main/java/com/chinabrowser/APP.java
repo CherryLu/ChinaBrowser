@@ -2,12 +2,19 @@ package com.chinabrowser;
 
 import android.app.Application;
 import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
-import com.chinabrowser.bean.LinkData;
+import com.chinabrowser.bean.BaseUrl;
 import com.chinabrowser.bean.Recommend;
+import com.chinabrowser.net.GetBaseUrlPage;
+import com.chinabrowser.net.GetLinkListProtocolPage;
+import com.chinabrowser.net.UpGetBaseUrl;
+import com.chinabrowser.net.UpGetLinkData;
+import com.chinabrowser.utils.CommUtils;
 import com.chinabrowser.utils.FileUtils;
 import com.mob.MobSDK;
 import com.tencent.smtt.sdk.QbSdk;
@@ -42,6 +49,34 @@ public class APP extends Application {
     public static String gFileFolderAudioAD;
     public static String gFileFolderHistoryPlay;
     public static List<Recommend> linkDatas;
+    public static List<BaseUrl> baseUrls;
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case GetLinkListProtocolPage.MSG_WHAT_OK:
+                    if (getLinkListProtocolPage!=null){
+                        APP.linkDatas =getLinkListProtocolPage.linkDatas;
+                    }
+                    break;
+                case GetLinkListProtocolPage.MSG_WHAT_NOTCHANGE:
+                case GetLinkListProtocolPage.MSG_WHAT_ERROE:
+                    break;
+                case GetBaseUrlPage.MSG_WHAT_OK:
+                    if (getBaseUrlPage!=null){
+                        baseUrls = getBaseUrlPage.baseUrls;
+                    }
+                    break;
+                case GetBaseUrlPage.MSG_WHAT_ERROE:
+                case GetBaseUrlPage.MSG_WHAT_NOTCHANGE:
+
+                    break;
+
+
+            }
+            super.handleMessage(msg);
+        }
+    };
 
     @Override
     public void onCreate() {
@@ -51,6 +86,30 @@ public class APP extends Application {
         FileUtils.InitSD();
         initX5WebView();
         MobSDK.init(this);
+        getBaseurl();
+        getLinkList();
+    }
+
+    GetLinkListProtocolPage getLinkListProtocolPage;
+    UpGetLinkData upGetLinkData;
+    private void getLinkList(){
+        upGetLinkData = new UpGetLinkData();
+        upGetLinkData.ilanguage = CommUtils.getCurrentLag(this)+1+"";
+        if (getLinkListProtocolPage==null){
+            getLinkListProtocolPage = new GetLinkListProtocolPage(upGetLinkData,handler,null);
+        }
+        getLinkListProtocolPage.refresh(upGetLinkData);
+
+    }
+    GetBaseUrlPage getBaseUrlPage;
+    UpGetBaseUrl upGetBaseUrl;
+    private void getBaseurl(){
+        upGetBaseUrl = new UpGetBaseUrl();
+        upGetBaseUrl.variable = CommUtils.getCurrentLag(this)+"";
+        if (getBaseUrlPage==null){
+            getBaseUrlPage = new GetBaseUrlPage(upGetBaseUrl,handler,null);
+        }
+        getBaseUrlPage.refresh(upGetBaseUrl);
     }
     private void initX5WebView(){
         QbSdk.PreInitCallback initCallback = new QbSdk.PreInitCallback() {

@@ -42,6 +42,7 @@ public class OneLineViewHolder extends BaseViewHolder implements View.OnClickLis
         main_pic2 = (ImageView) itemView.findViewById(R.id.main_pic2);
 
         root2 = (LinearLayout) itemView.findViewById(R.id.root2);
+        more.setOnClickListener(this);
     }
 
     @Override
@@ -88,7 +89,7 @@ public class OneLineViewHolder extends BaseViewHolder implements View.OnClickLis
                 break;
             case R.id.more:
                 if (homeCallBack!=null){
-                    homeCallBack.titleClick(Constant.TRA_TITLE);
+                    homeCallBack.titleClick(Constant.TRA_TITLE,recommend.getMaintitle());
                 }
                 break;
             case R.id.root2:

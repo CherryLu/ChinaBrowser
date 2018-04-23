@@ -3,10 +3,44 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <include layout="@layout/layout_title"/>
-    <com.tencent.smtt.sdk.WebView
-        android:id="@+id/webview"
+    <include layout="@layout/layout_title"
+        android:id="@+id/titlle_layout"
+        android:visibility="gone"/>
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+        <com.tencent.smtt.sdk.WebView
+            android:id="@+id/webview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <LinearLayout
+            android:layout_marginBottom="80dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="12dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/gray_bg_coner"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/collection"
+                android:layout_marginBottom="9dp"
+                android:layout_marginTop="9dp"
+                android:layout_marginLeft="32dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/un_collection"/>
+            <ImageView
+                android:id="@+id/share"
+                android:layout_marginBottom="9dp"
+                android:layout_marginRight="32dp"
+                android:layout_marginTop="9dp"
+                android:layout_marginLeft="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/share"/>
+        </LinearLayout>
+    </RelativeLayout>
+
 
 </LinearLayout>
