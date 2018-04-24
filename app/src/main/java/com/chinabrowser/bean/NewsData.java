@@ -25,6 +25,7 @@ public class NewsData {
     public String copy_url;
     public String favorite_count;
     public String cover_image;
+    public String id;
 
 
     public void parse(JSONObject jsonObject){
@@ -35,7 +36,7 @@ public class NewsData {
             update_time = JsonUtils.getString(jsonObject,"update_time");
             copy_url = JsonUtils.getString(jsonObject,"copy_url");
             cover_image = JsonUtils.getString(jsonObject,"cover_image");
-
+            id = JsonUtils.getString(jsonObject,"id");
         }
     }
 

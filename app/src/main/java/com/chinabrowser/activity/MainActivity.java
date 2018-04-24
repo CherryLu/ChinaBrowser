@@ -7,7 +7,6 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.telephony.CellIdentityCdma;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -24,12 +23,12 @@ import com.chinabrowser.cbinterface.HomeCallBack;
 import com.chinabrowser.fragment.HomeFragment;
 import com.chinabrowser.fragment.HotNewsFragment;
 import com.chinabrowser.fragment.LabFragment;
+import com.chinabrowser.fragment.SearchFragment;
 import com.chinabrowser.fragment.TranslateFragment;
 import com.chinabrowser.fragment.WebViewFragment;
 import com.chinabrowser.utils.Constant;
+import com.chinabrowser.utils.LogUtils;
 import com.chinabrowser.utils.Navigator;
-import com.chinabrowser.utils.SetList;
-
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -69,6 +68,7 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
     private HotNewsFragment hotNewsFragment;
     private TranslateFragment translateFragment;
     private WebViewFragment webViewFragment;
+    private SearchFragment searchFragment;
 
     private LabFragment labFragment;
 
@@ -146,6 +146,7 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
                     homeTab.bitmap = takeScreenShot(this);
                     homeTab.title = "新页签";
                     labFragment = new LabFragment();
+                    labFragment.homeCallBack = this;
                     Bundle bundle1 = new Bundle();
                     bundle1.putSerializable("PAGE",homeTab);
                     labFragment.setArguments(bundle1);
@@ -169,8 +170,19 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
                     fragments[2] = webViewFragment;
                     current = 2;
                 }
-            }
                 break;
+            }
+
+            case 6:
+                if (searchFragment == null){
+                    searchFragment = new SearchFragment();
+                }
+                searchFragment.homeCallBack = this;
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, searchFragment).commit();
+                fragments[1] = searchFragment;
+
+                break;
+
         }
 
         isCangoBack();
@@ -317,6 +329,10 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
             case Constant.TRANSLATE_TITLE:
                 setContainer(3,title,"","");
                 break;
+            case Constant.SEARCHLAYOUT:
+                setContainer(6,null,"","");
+
+                break;
         }
     }
 
@@ -330,11 +346,16 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
              current = current -1;
         }
 
+        if (APP.homeTabs==null||APP.homeTabs.size()==0){
+            indexBottomTabCount.setText("1");
+        }else {
+            indexBottomTabCount.setText(APP.homeTabs.size()+"");
+        }
     }
 
     @Override
     public void backClick() {
-    setContainer(0,null,"","");
+        setContainer(0,null,"","");
         if (APP.homeTabs==null||APP.homeTabs.size()==0){
             indexBottomTabCount.setText("1");
         }else {
@@ -357,6 +378,10 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
         if (TextUtils.isEmpty(url)){
             url = content.getCopy_url();
         }
+        if (!url.startsWith("https://")){
+            url = "https://"+url;
+        }
+        LogUtils.e("WEB",url);
         setContainer(5,null,"",url);
     }
 

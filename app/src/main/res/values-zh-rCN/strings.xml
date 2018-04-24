@@ -1,6 +1,10 @@
 <resources>
-    <string name="app_name">思路</string>
+    <string name="app_name">中华浏览器</string>
     <string name="app_txt">欢迎</string>
+    <string name="select_tip">请选择您的语言</string>
+    <string name="select_tip2">Dilinizi seçin</string>
+    <string name="select_china">中文</string>
+    <string name="select_turkish">Türkçe</string>
     <string name="setting_login">点击登录</string>
     <string name="setting_switch">语言切换</string>
     <string name="setting_collection">收藏夹</string>
@@ -60,6 +64,12 @@
     <string name="add_labs">新建页签</string>
     <string name="homepage">主页</string>
     <string name="hotnews">新闻列表</string>
+    <string name="clearup">清理完成</string>
+
+    <string name="setting_login_que">是否退出登录</string>
+    <string name="setting_login_yes">是</string>
+    <string name="setting_login_no">否</string>
+
 
     <!-- 首页情景翻译模块 -->
     <string name="translate_language_set_from">源语言</string>

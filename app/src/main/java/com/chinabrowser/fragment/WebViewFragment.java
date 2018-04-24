@@ -19,8 +19,9 @@ import android.widget.TextView;
 
 import com.chinabrowser.APP;
 import com.chinabrowser.R;
-import com.chinabrowser.bean.Collection;
+import com.chinabrowser.bean.History;
 import com.chinabrowser.bean.NewsDetail;
+import com.chinabrowser.db.HistoryManager;
 import com.chinabrowser.net.CollectionNewsPage;
 import com.chinabrowser.net.DelCollectionNewsPage;
 import com.chinabrowser.net.GetNewsDetails;
@@ -42,6 +43,7 @@ import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebViewClient;
 
 import java.lang.reflect.Method;
+import java.util.Date;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -81,6 +83,11 @@ public class WebViewFragment extends BaseFragment {
     private int mLoadPregress = 100;     // 载入进度
     private int position = 0;            // 序号
     private boolean iscollection;
+
+    private String getHtmlData(String bodyHTML) {
+        String head = "<head><style>img{max-width: 100%; width:100%; height: auto;}</style></head>";
+        return "<html>" + head + "<body>" + bodyHTML + "</body></html>";
+    }
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -88,7 +95,7 @@ public class WebViewFragment extends BaseFragment {
                 case GetNewsDetails.MSG_WHAT_OK:
                     if (getNewsDetails != null && getNewsDetails.newsDetail != null) {
                         NewsDetail newsDetail = getNewsDetails.newsDetail;
-                        webview.loadData(newsDetail.content, "text/html", null);
+                        webview.loadData(getHtmlData(newsDetail.content), "text/html; charset=UTF-8", null);
                         if (TextUtils.isEmpty(newsDetail.iftag)||newsDetail.iftag.equals("0")){
                             iscollection = false;
                             collection.setImageResource(R.mipmap.un_collection);
@@ -416,7 +423,9 @@ public class WebViewFragment extends BaseFragment {
             // TODO Auto-generated method stub
             super.onReceivedError(view, errorCode, description, failingUrl);
 
+
         }
+
 
     }
 
@@ -426,7 +435,17 @@ public class WebViewFragment extends BaseFragment {
         public void onReceivedTitle(WebView view, String ti) {
             // TODO Auto-generated method stub
             super.onReceivedTitle(view, ti);
-            title.setText(ti);
+            if (title!=null){
+                title.setText(ti);
+            }
+          if (isUrl){
+              History history = new History();
+              history.setUrl(url);
+              history.setTitle(ti);
+              Date date = new Date();
+              history.setTime(date.getTime());
+              HistoryManager.getInstance().addHistory(history);
+          }
 
         }
 

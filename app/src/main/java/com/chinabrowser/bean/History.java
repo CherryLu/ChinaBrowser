@@ -10,6 +10,15 @@ public class History implements Serializable {
     private String id;
     private String title;
     private String url;
+    private Long time;
+
+    public Long getTime() {
+        return time;
+    }
+
+    public void setTime(Long time) {
+        this.time = time;
+    }
 
     public String getId() {
         return id;

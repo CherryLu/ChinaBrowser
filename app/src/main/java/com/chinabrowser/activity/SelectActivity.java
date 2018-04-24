@@ -5,6 +5,8 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.chinabrowser.R;
@@ -41,6 +43,14 @@ public class SelectActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         getDefalutLan();
         init();
+        Window window = getWindow();
+        //隐藏标题栏
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //隐藏状态栏
+        //定义全屏参数
+        int flag= WindowManager.LayoutParams.FLAG_FULLSCREEN;
+        //设置当前窗体为全屏显示
+        window.setFlags(flag, flag);
         setContentView(R.layout.activity_select);
         ButterKnife.bind(this);
         UserManager.getInstance().refreshData();

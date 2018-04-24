@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name">丝路</string>
+    <string name="app_name">中华浏览器</string>
+    <string name="app_txt">欢迎</string>
     <string name="select_tip">请选择您的语言</string>
     <string name="select_tip2">Dilinizi seçin</string>
     <string name="select_china">中文</string>
@@ -12,6 +13,10 @@
     <string name="setting_about">关于我们</string>
     <string name="setting_clear">清除缓存</string>
     <string name="setting_loginout">退出登录</string>
+    <string name="setting_login_que">是否退出登录</string>
+    <string name="setting_login_yes">是</string>
+    <string name="clearup">清理完成</string>
+    <string name="setting_login_no">否</string>
     <string name="setting_clear_account">用户注销</string>
     <string name="str_user_email2phonenum">邮箱</string>
     <string name="str_user_name">用户名</string>

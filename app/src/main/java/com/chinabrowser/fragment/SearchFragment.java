@@ -1,18 +1,22 @@
-package com.chinabrowser.activity;
+package com.chinabrowser.fragment;
 
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.chinabrowser.R;
 import com.chinabrowser.adapter.SearchRecommandAdapter;
+import com.chinabrowser.bean.Content;
 import com.chinabrowser.bean.SearchRecommand;
 import com.chinabrowser.utils.CommUtils;
 
@@ -24,10 +28,11 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * Created by Administrator on 2018/4/15.
+ * Created by 95470 on 2018/4/24.
  */
 
-public class SearchActivity extends BaseActivity {
+public class SearchFragment extends BaseFragment {
+
 
     @Bind(R.id.txt_input)
     EditText txtInput;
@@ -37,15 +42,21 @@ public class SearchActivity extends BaseActivity {
     RecyclerView list;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
-        ButterKnife.bind(this);
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_search, null);
+        ButterKnife.bind(this, view);
         textright.setVisibility(View.GONE);
         initLis();
         setListView();
-
+        return view;
     }
+
     private void initLis(){
         txtInput.addTextChangedListener(new TextWatcher() {
             @Override
@@ -79,8 +90,8 @@ public class SearchActivity extends BaseActivity {
 
     SearchRecommandAdapter recommandAdapter;
     private void setListView(){
-        recommandAdapter = new SearchRecommandAdapter(this,getList());
-        GridLayoutManager manager = new GridLayoutManager(this,5);
+        recommandAdapter = new SearchRecommandAdapter(getContext(),getList());
+        GridLayoutManager manager = new GridLayoutManager(getContext(),5);
         list.setLayoutManager(manager);
         list.setAdapter(recommandAdapter);
     }
@@ -132,30 +143,46 @@ public class SearchActivity extends BaseActivity {
         return recommands;
     }
 
+
+    @OnClick(R.id.textright)
+    public void onClick() {
+        String str = textright.getText().toString();
+        String key = txtInput.getText().toString();
+        if ("跳转".equals(str)){
+            Content content = new Content();
+            content.setLink_url(key);
+            if (homeCallBack!=null){
+                homeCallBack.startContentByurl(content);
+            }
+
+        }else if ("搜索".equals(str)){
+            String url = CommUtils.getsearchurl(getContext(),key);
+            Content content = new Content();
+            content.setLink_url(url);
+            if (homeCallBack!=null){
+                homeCallBack.startContentByurl(content);
+            }
+        }
+
+    }
+
     class SpaceItemDecoration extends RecyclerView.ItemDecoration{
 
 
         @Override
         public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
             super.getItemOffsets(outRect, view, parent, state);
-            outRect.left = CommUtils.dip2px(SearchActivity.this,10);
-            outRect.right = CommUtils.dip2px(SearchActivity.this,10);
-            outRect.bottom = CommUtils.dip2px(SearchActivity.this,10);
+            outRect.left = CommUtils.dip2px(getContext(),10);
+            outRect.right = CommUtils.dip2px(getContext(),10);
+            outRect.bottom = CommUtils.dip2px(getContext(),10);
             //outRect.top = CommUtils.dip2px(SearchActivity.this,6);
 
         }
     }
 
-    @OnClick(R.id.textright)
-    public void onClick() {
-        String str = textright.getText().toString();
-        if ("跳转".endsWith(str)){
-
-
-        }else if ("搜索".endsWith(str)){
-            String url = CommUtils.getsearchurl(this,str);
-            showToash(url);
-        }
-
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
     }
 }

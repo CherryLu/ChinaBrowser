@@ -2,13 +2,19 @@ package com.chinabrowser.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chinabrowser.R;
+import com.chinabrowser.adapter.FragmentAdapter;
+import com.chinabrowser.fragment.HistoryFragment;
 import com.chinabrowser.utils.Navigator;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -34,7 +40,8 @@ public class HistoryActivity extends BaseActivity {
     TextView lastmonth;
     @Bind(R.id.viewpager)
     ViewPager viewpager;
-
+    FragmentAdapter fragmentAdapter;
+    List<Fragment> fragmentList;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +49,34 @@ public class HistoryActivity extends BaseActivity {
         ButterKnife.bind(this);
         title.setText(getResources().getText(R.string.setting_history));
         initTab();
+        initViewPager();
+    }
+
+    private void initViewPager(){
+        fragmentList = new ArrayList<>();
+
+        HistoryFragment today = new HistoryFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt("WHICH",1);
+        today.setArguments(bundle);
+        fragmentList.add(today);
+
+        HistoryFragment lastweek = new HistoryFragment();
+        Bundle bundle2 = new Bundle();
+        bundle.putInt("WHICH",2);
+        lastweek.setArguments(bundle2);
+        fragmentList.add(lastweek);
+
+        HistoryFragment lastmonth = new HistoryFragment();
+        Bundle bundle3 = new Bundle();
+        bundle.putInt("WHICH",3);
+        lastmonth.setArguments(bundle3);
+        fragmentList.add(lastmonth);
+
+        fragmentAdapter = new FragmentAdapter(getSupportFragmentManager(),fragmentList);
+        viewpager.setAdapter(fragmentAdapter);
+
+
     }
 
     private void initTab(){
@@ -97,14 +132,20 @@ public class HistoryActivity extends BaseActivity {
                 Navigator.finishActivity(this);
                 break;
             case R.id.today:
+                setSelctedTab(0);
                 viewpager.setCurrentItem(0);
                 break;
             case R.id.lastweek:
+                setSelctedTab(1);
                 viewpager.setCurrentItem(1);
                 break;
             case R.id.lastmonth:
+                setSelctedTab(2);
                 viewpager.setCurrentItem(2);
                 break;
         }
     }
+
+
+
 }

@@ -8,7 +8,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:src="@mipmap/mht"/>
+        android:src="@mipmap/browsericon"/>
     <TextView
         android:textColor="@color/color_txt_deep_black"
         android:textSize="16sp"

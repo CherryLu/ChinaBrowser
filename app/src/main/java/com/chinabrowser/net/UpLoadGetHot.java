@@ -17,7 +17,7 @@ public class UpLoadGetHot {
         CommUtils.addParam(sb, "ilanguage", ilanguage);
         CommUtils.addParam(sb, "catalog_id", catalog_id);
         CommUtils.addParam(sb, "pageindex", pageindex);
-        CommUtils.addParam(sb, "pagesize", "10");
+        CommUtils.addParam(sb, "pagesize", "100");
         return sb.toString();
     }
 }

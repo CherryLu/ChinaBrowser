@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.chinabrowser.R;
 import com.chinabrowser.cbinterface.LoginStateInterface;
+import com.chinabrowser.ui.ExitDialog;
+import com.chinabrowser.utils.AppCacheUtils;
 import com.chinabrowser.utils.CommUtils;
 import com.chinabrowser.utils.Constant;
 import com.chinabrowser.utils.GlideUtils;
@@ -156,7 +158,7 @@ public class SettingActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.back_image, R.id.header_image, R.id.china, R.id.turkish, search_name, R.id.about_us, R.id.loginout, R.id.clear_account, R.id.login_txt, R.id.collection, R.id.history, R.id.search_attentive})
+    @OnClick({R.id.back_image, R.id.header_image, R.id.china, R.id.turkish, search_name, R.id.about_us, R.id.loginout, R.id.clear_account, R.id.login_txt, R.id.collection, R.id.history, R.id.search_attentive,R.id.cleardata})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.back_image:
@@ -172,7 +174,17 @@ public class SettingActivity extends BaseActivity {
                 Navigator.startAboutActivity(this);
                 break;
             case R.id.loginout:
-                UserManager.getInstance().loginout();
+                ExitDialog exitDialog = new ExitDialog(this, getString(R.string.setting_login_que), getString(R.string.setting_login_yes), getString(R.string.setting_login_no), new ExitDialog.DialogClick() {
+                    @Override
+                    public void dialogClick(int which) {
+                        if (which==1){
+                            UserManager.getInstance().loginout();
+
+                        }
+                    }
+                });
+                exitDialog.showIt();
+
                 break;
             case R.id.clear_account:
                 break;
@@ -194,7 +206,27 @@ public class SettingActivity extends BaseActivity {
             case R.id.header_image:
                 Navigator.startLoginActivity(this);
                 break;
+            case R.id.cleardata:
+                doClearCache();
+                break;
         }
+    }
+
+    private void doClearCache() {
+        showWaitDialog();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                AppCacheUtils.clearCache(SettingActivity.this);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        hideWaitDialog();
+                        showToash(getString(R.string.clearup));
+                    }
+                });
+            }
+        }).start();
     }
 
     @Override

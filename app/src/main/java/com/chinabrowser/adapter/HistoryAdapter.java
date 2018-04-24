@@ -39,7 +39,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HViewHol
 
     @Override
     public int getItemCount() {
-        return 0;
+        return historys.size();
     }
 
     class HViewHolder extends RecyclerView.ViewHolder{

@@ -115,6 +115,7 @@ public class HomeFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, null);
         ButterKnife.bind(this, view);
+        homelist = (RecyclerView) view.findViewById(R.id.homelist);
         getData();
         return view;
     }

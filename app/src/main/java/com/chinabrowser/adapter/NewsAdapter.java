@@ -10,8 +10,8 @@ import android.widget.TextView;
 
 import com.chinabrowser.R;
 import com.chinabrowser.bean.NewsData;
+import com.chinabrowser.cbinterface.PagerClick;
 import com.chinabrowser.utils.GlideUtils;
-import com.chinabrowser.utils.Navigator;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -24,6 +24,11 @@ import java.util.List;
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.HViewHolder> {
     private Context context;
     private List<NewsData> newsDatas;
+    private PagerClick pagerClick;
+
+    public void setPagerClick(com.chinabrowser.cbinterface.PagerClick pagerClick) {
+        this.pagerClick = pagerClick;
+    }
 
     public NewsAdapter(Context context, List<NewsData> newsDatas) {
         this.context = context;
@@ -38,7 +43,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.HViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(HViewHolder holder, int position) {
+    public void onBindViewHolder(HViewHolder holder, final int position) {
         NewsData newsData =  newsDatas.get(position);
         holder.maintitle.setText(newsData.title);
         holder.from.setText(newsData.copy_from);
@@ -47,7 +52,9 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.HViewHolder> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (pagerClick!=null){
+                    pagerClick.pagerClick(position);
+                }
             }
         });
 

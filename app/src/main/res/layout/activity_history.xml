@@ -17,6 +17,10 @@
         android:layout_width="301dp"
         android:layout_height="31dp"
         android:background="@drawable/line_bac">
+        <View
+            android:layout_width="1dp"
+            android:layout_height="30dp"
+            android:background="@color/color_txt_gray"/>
         <TextView
             android:id="@+id/today"
             android:background="@color/color_base"
@@ -49,6 +53,10 @@
             android:layout_width="100dp"
             android:layout_height="30dp"
             android:text="@string/history_lastmonth"/>
+        <View
+            android:layout_width="1dp"
+            android:layout_height="30dp"
+            android:background="@color/color_txt_gray"/>
 
     </LinearLayout>
     <android.support.v4.view.ViewPager

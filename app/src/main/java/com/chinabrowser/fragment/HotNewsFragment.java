@@ -14,8 +14,10 @@ import android.widget.TextView;
 
 import com.chinabrowser.R;
 import com.chinabrowser.adapter.NewsAdapter;
+import com.chinabrowser.bean.Content;
 import com.chinabrowser.bean.NewsData;
 import com.chinabrowser.bean.Title;
+import com.chinabrowser.cbinterface.PagerClick;
 import com.chinabrowser.net.GetHotNewsProtocolPage;
 import com.chinabrowser.net.UpLoadGetHot;
 import com.chinabrowser.utils.CommUtils;
@@ -30,7 +32,7 @@ import butterknife.OnClick;
  * Created by 95470 on 2018/4/18.
  */
 
-public class HotNewsFragment extends BaseFragment {
+public class HotNewsFragment extends BaseFragment implements PagerClick {
 
 
     @Bind(R.id.back_image)
@@ -95,6 +97,7 @@ public class HotNewsFragment extends BaseFragment {
 
     private void setList(List<NewsData> newsDatas) {
         newsAdapter = new NewsAdapter(getContext(), newsDatas);
+        newsAdapter.setPagerClick(this);
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         list.setLayoutManager(manager);
@@ -112,6 +115,16 @@ public class HotNewsFragment extends BaseFragment {
     public void onClick() {
         if (homeCallBack!=null){
             homeCallBack.backClick();
+        }
+    }
+
+    @Override
+    public void pagerClick(int position) {
+        if (homeCallBack!=null){
+         NewsData newsData  = getHotNewsProtocolPage.newsDatas.get(position);
+            Content content = new Content();
+            content.setId(newsData.id);
+            homeCallBack.startContent(content);
         }
     }
 }

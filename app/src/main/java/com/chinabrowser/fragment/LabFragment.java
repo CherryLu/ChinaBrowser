@@ -15,7 +15,6 @@ import com.chinabrowser.R;
 import com.chinabrowser.adapter.LabsManager;
 import com.chinabrowser.bean.HomeTab;
 import com.chinabrowser.cbinterface.HomeTabClick;
-import com.chinabrowser.utils.LogUtils;
 
 import java.util.ArrayList;
 
@@ -93,12 +92,18 @@ public class LabFragment extends BaseFragment implements HomeTabClick {
     }
 
     @Override
-    public void itemClick(HomeTab homeTab) {//跳转主页
-
+    public void itemClick(int homeTab) {//跳转主页
+        if (homeTab==0){
+          getActivity().onBackPressed();
+        }else {
+                if (homeCallBack!=null){
+                    homeCallBack.backClick();
+                }
+        }
     }
 
     @Override
-    public void delClick(HomeTab homeTab) {
+    public void delClick(int homeTab) {
         APP.homeTabs.remove(homeTab);
         initList();
     }
