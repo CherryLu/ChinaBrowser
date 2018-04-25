@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">İpek yolu</string>
+    <string name="find_psw">Şifreyi al</string>
+    <string name="send_mails">Gönderilen ileti</string>
     <string name="app_txt">Çinli tarayıcı</string>
     <string name="select_tip">Lütfen dilinizi seçiniz</string>
     <string name="select_tip2">Dilinizi seçin</string>

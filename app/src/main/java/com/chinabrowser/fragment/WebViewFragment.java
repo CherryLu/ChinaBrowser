@@ -48,6 +48,16 @@ import java.util.Date;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.sharesdk.facebook.Facebook;
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.ShareSDK;
+import cn.sharesdk.google.GooglePlus;
+import cn.sharesdk.onekeyshare.OnekeyShare;
+import cn.sharesdk.sina.weibo.SinaWeibo;
+import cn.sharesdk.tencent.qq.QQ;
+import cn.sharesdk.twitter.Twitter;
+import cn.sharesdk.wechat.friends.Wechat;
+import cn.sharesdk.wechat.moments.WechatMoments;
 
 /**
  * Created by Administrator on 2018/4/1.
@@ -76,6 +86,14 @@ public class WebViewFragment extends BaseFragment {
     ImageView share;
     @Bind(R.id.news_layout)
     LinearLayout newsLayout;
+    @Bind(R.id.web_title)
+    TextView webTitle;
+    @Bind(R.id.from)
+    TextView from;
+    @Bind(R.id.time)
+    TextView time;
+    @Bind(R.id.others)
+    LinearLayout others;
 
     private Method mMethodFinding = null;// 开始查找
     private Method mMethodFinded = null;// 查找结束
@@ -88,6 +106,7 @@ public class WebViewFragment extends BaseFragment {
         String head = "<head><style>img{max-width: 100%; width:100%; height: auto;}</style></head>";
         return "<html>" + head + "<body>" + bodyHTML + "</body></html>";
     }
+
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -96,10 +115,13 @@ public class WebViewFragment extends BaseFragment {
                     if (getNewsDetails != null && getNewsDetails.newsDetail != null) {
                         NewsDetail newsDetail = getNewsDetails.newsDetail;
                         webview.loadData(getHtmlData(newsDetail.content), "text/html; charset=UTF-8", null);
-                        if (TextUtils.isEmpty(newsDetail.iftag)||newsDetail.iftag.equals("0")){
+                        webTitle.setText(newsDetail.title);
+                        from.setText(newsDetail.copy_from);
+                        time.setText(CommUtils.getTime(newsDetail.update_time));
+                        if (TextUtils.isEmpty(newsDetail.iftag) || newsDetail.iftag.equals("0")) {
                             iscollection = false;
                             collection.setImageResource(R.mipmap.un_collection);
-                        }else if (!TextUtils.isEmpty(newsDetail.iftag)&&newsDetail.iftag.equals("1")){
+                        } else if (!TextUtils.isEmpty(newsDetail.iftag) && newsDetail.iftag.equals("1")) {
                             iscollection = true;
                             collection.setImageResource(R.mipmap.collection);
                         }
@@ -148,6 +170,7 @@ public class WebViewFragment extends BaseFragment {
     public String newsId;
     boolean isUrl;
     String url;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -157,11 +180,16 @@ public class WebViewFragment extends BaseFragment {
         isUrl = getArguments().getBoolean("ISURL");
         initWebView(webview);
         if (isUrl) {
+            webTitle.setVisibility(View.GONE);
+            others.setVisibility(View.GONE);
+
             newsLayout.setVisibility(View.GONE);
             url = getArguments().getString("URL");
-            LogUtils.e("ZX","url : "+url);
+            LogUtils.e("ZX", "url : " + url);
             webview.loadUrl(url);
         } else {
+            webTitle.setVisibility(View.VISIBLE);
+            others.setVisibility(View.VISIBLE);
             newsLayout.setVisibility(View.VISIBLE);
             newsId = getArguments().getString("ID");
             getNewsDetails();
@@ -189,27 +217,27 @@ public class WebViewFragment extends BaseFragment {
 
     }
 
-    public boolean canGoBack(){
-        if (webview!=null){
+    public boolean canGoBack() {
+        if (webview != null) {
             return webview.canGoBack();
         }
         return false;
     }
 
-    public void goBack(){
-        if (webview!=null){
+    public void goBack() {
+        if (webview != null) {
             webview.goBack();
         }
     }
 
-    public void goForward(){
-        if (webview!=null){
+    public void goForward() {
+        if (webview != null) {
             webview.goForward();
         }
     }
 
-    public boolean canGoForward(){
-        if (webview!=null){
+    public boolean canGoForward() {
+        if (webview != null) {
             return webview.canGoForward();
         }
         return false;
@@ -217,19 +245,19 @@ public class WebViewFragment extends BaseFragment {
 
     DelCollectionNewsPage delCollectionNewsPage;
     UpCollectionNews collectionNews;
-    private void deleCollection(String id){
+
+    private void deleCollection(String id) {
         collectionNews = new UpCollectionNews();
         collectionNews.suserno = UserManager.getInstance().getUserId();
         collectionNews.id = id;
-        collectionNews.ilanguage = CommUtils.getCurrentLag(getContext())+1+"";
+        collectionNews.ilanguage = CommUtils.getCurrentLag(getContext()) + 1 + "";
 
-        if (delCollectionNewsPage==null){
-            delCollectionNewsPage = new DelCollectionNewsPage(collectionNews,handler,null);
+        if (delCollectionNewsPage == null) {
+            delCollectionNewsPage = new DelCollectionNewsPage(collectionNews, handler, null);
         }
         delCollectionNewsPage.refresh(collectionNews);
 
     }
-
 
 
     GetNewsDetails getNewsDetails;
@@ -238,7 +266,7 @@ public class WebViewFragment extends BaseFragment {
     private void getNewsDetails() {
         upGetNewsDetail = new UpGetNewsDetail();
         upGetNewsDetail.id = newsId;
-        if (UserManager.getInstance().isLogin()){
+        if (UserManager.getInstance().isLogin()) {
             upGetNewsDetail.suserno = UserManager.getInstance().getUserId();
         }
         if (getNewsDetails == null) {
@@ -272,16 +300,32 @@ public class WebViewFragment extends BaseFragment {
             public void onClick(View v) {
                 switch (v.getId()) {
                     case R.id.share1:
-
+                        if (CommUtils.getCurrentLag(getContext())==0){
+                            shareData(0);
+                        }else {
+                            shareData(4);
+                        }
                         break;
                     case R.id.share2:
-
+                        if (CommUtils.getCurrentLag(getContext())==0){
+                            shareData(1);
+                        }else {
+                            shareData(5);
+                        }
                         break;
                     case R.id.share3:
-
+                        if (CommUtils.getCurrentLag(getContext())==0){
+                            shareData(2);
+                        }else {
+                            shareData(6);
+                        }
                         break;
                     case R.id.share4:
+                        if (CommUtils.getCurrentLag(getContext())==0){
+                            shareData(3);
+                        }else {
 
+                        }
                         break;
                 }
             }
@@ -290,8 +334,74 @@ public class WebViewFragment extends BaseFragment {
         rewritePopwindow.showAtLocation(rootView, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
     }
 
+    private void shareData(int which){
+        if (getNewsDetails!=null&&getNewsDetails.newsDetail!=null){
+            NewsDetail detail = getNewsDetails.newsDetail;
+            String plat = "";
+            switch (which){
+                case 0:{
+                    Wechat.ShareParams shareParams = new Wechat.ShareParams();
+                    shareParams.setTitle(detail.title);
+                    shareParams.setUrl(detail.copy_url);
+                    shareParams.setImageUrl(CommUtils.getBaseurl(getContext())+detail.cover_image);
+                    shareParams.setShareType(Platform.SHARE_WEBPAGE);
+                    Platform platform = ShareSDK.getPlatform(Wechat.NAME);
+                    platform.share(shareParams);
+                    break;
+                }
+                case 1: {
+                    WechatMoments.ShareParams shareParams = new WechatMoments.ShareParams();
+                    shareParams.setTitle(detail.title);
+                    shareParams.setUrl(detail.copy_url);
+                    shareParams.setImageUrl(CommUtils.getBaseurl(getContext()) + detail.cover_image);
+                    shareParams.setShareType(Platform.SHARE_WEBPAGE);
+                    Platform platform = ShareSDK.getPlatform(WechatMoments.NAME);
+                    platform.share(shareParams);
+                    break;
+                }
+                case 2: {
+                    SinaWeibo.ShareParams shareParams = new SinaWeibo.ShareParams();
+                    shareParams.setTitle(detail.title);
+                    shareParams.setText(detail.copy_url);
+                    shareParams.setImageUrl(CommUtils.getBaseurl(getContext()) + detail.cover_image);
+                    Platform platform = ShareSDK.getPlatform(SinaWeibo.NAME);
+                    platform.share(shareParams);
+                    break;
+                }
+                case 3: {
+                    QQ.ShareParams shareParams = new QQ.ShareParams();
+                    shareParams.setImageUrl(CommUtils.getBaseurl(getContext()) + detail.cover_image);
+                    shareParams.setTitleUrl(detail.copy_url);
+                    shareParams.setTitle(detail.title);
+                    shareParams.setSiteUrl(detail.copy_url);
+                    Platform platform = ShareSDK.getPlatform(QQ.NAME);
+                    platform.share(shareParams);
+                }
+                    break;
+                case 4:
+                    plat = GooglePlus.NAME;
+                    break;
+                case 5:
+                    plat = Twitter.NAME;
+                    break;
+                case 6:
+                    Facebook.ShareParams shareParams = new Facebook.ShareParams();
+                    shareParams.setShareType(Platform.SHARE_WEBPAGE);
+                    shareParams.setText(detail.title);
+                    shareParams.setImageUrl(CommUtils.getBaseurl(getContext()) + detail.cover_image);
+                    Platform platform = ShareSDK.getPlatform(Facebook.NAME);
+                    platform.share(shareParams);
+                    break;
+            }
+
+
+
+        }
+
+    }
+
     private void initWebView(WebView ActionwebView) {
-        if (!isUrl){
+        if (!isUrl) {
             ActionwebView.getSettings().setDefaultFontSize(40);
         }
         // ActionwebView.getSettings().setTextSize(WebSettings.TextSize.LARGEST);
@@ -370,13 +480,13 @@ public class WebViewFragment extends BaseFragment {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.collection:
-                if (UserManager.getInstance().isLogin()){
-                    if (iscollection){
+                if (UserManager.getInstance().isLogin()) {
+                    if (iscollection) {
                         deleCollection(newsId);
-                    }else {
+                    } else {
                         checkIsCollection();
                     }
-                }else {
+                } else {
                     Navigator.startLoginActivity(getContext());
                 }
 
@@ -435,17 +545,17 @@ public class WebViewFragment extends BaseFragment {
         public void onReceivedTitle(WebView view, String ti) {
             // TODO Auto-generated method stub
             super.onReceivedTitle(view, ti);
-            if (title!=null){
+            if (title != null) {
                 title.setText(ti);
             }
-          if (isUrl){
-              History history = new History();
-              history.setUrl(url);
-              history.setTitle(ti);
-              Date date = new Date();
-              history.setTime(date.getTime());
-              HistoryManager.getInstance().addHistory(history);
-          }
+            if (isUrl) {
+                History history = new History();
+                history.setUrl(url);
+                history.setTitle(ti);
+                Date date = new Date();
+                history.setTime(date.getTime());
+                HistoryManager.getInstance().addHistory(history);
+            }
 
         }
 

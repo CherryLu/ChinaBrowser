@@ -68,6 +68,8 @@
     <string name="history_lastmonth">一个月前</string>
     <string name="nohistory">暂无历史记录</string>
     <string name="nocollection">暂无收藏</string>
+    <string name="find_psw">找回密码</string>
+    <string name="send_mails">邮件已发送</string>
     <!-- 首页情景翻译模块 -->
     <string name="translate_language_set_from">源语言</string>
     <string name="translate_language_set_to">目标语言</string>

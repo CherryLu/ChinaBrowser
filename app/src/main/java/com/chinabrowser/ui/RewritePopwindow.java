@@ -6,11 +6,13 @@ import android.graphics.drawable.BitmapDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.chinabrowser.R;
+import com.chinabrowser.utils.CommUtils;
 
 /**
  * Created by 95470 on 2018/4/23.
@@ -30,10 +32,31 @@ public class RewritePopwindow extends PopupWindow {
     private void initView(final Activity context, View.OnClickListener itemsOnClick) {
         LayoutInflater mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mView = mInflater.inflate(R.layout.pop_share, null);
+        ImageView share1_pic = (ImageView) mView.findViewById(R.id.share1_pic);
+        ImageView share2_pic = (ImageView) mView.findViewById(R.id.share2_pic);
+        ImageView share3_pic = (ImageView) mView.findViewById(R.id.share3_pic);
+        ImageView share4_pic = (ImageView) mView.findViewById(R.id.share4_pic);
+
+
+
         LinearLayout weiXFriend = (LinearLayout) mView.findViewById(R.id.share1);
         LinearLayout friendster = (LinearLayout) mView.findViewById(R.id.share2);
         LinearLayout QQFriend = (LinearLayout) mView.findViewById(R.id.share3);
         LinearLayout QQZone = (LinearLayout) mView.findViewById(R.id.share4);
+
+        if (CommUtils.getCurrentLag(context)==0){
+            share1_pic.setImageResource(R.mipmap.share_weixin);
+            share2_pic.setImageResource(R.mipmap.share_friend);
+            share3_pic.setImageResource(R.mipmap.share_weibo);
+            share4_pic.setImageResource(R.mipmap.share_qq);
+            QQZone.setVisibility(View.VISIBLE);
+        }else {
+            share1_pic.setImageResource(R.mipmap.google);
+            share2_pic.setImageResource(R.mipmap.twitter);
+            share3_pic.setImageResource(R.mipmap.facebook);
+            QQZone.setVisibility(View.GONE);
+        }
+
         TextView canaleTv = (TextView) mView.findViewById(R.id.cancel_button);
         canaleTv.setOnClickListener(new View.OnClickListener() {
             @Override

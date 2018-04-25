@@ -36,6 +36,7 @@
         <activity android:name=".activity.SearchAttentiveActivity"/>
         <activity android:name=".activity.WebDetailActivity"/>
         <activity android:name=".activity.RecommandActivity"/>
+        <activity android:name=".activity.ForgetPswActivity"/>
 
         <service
             android:name="cn.anyradio.manager.PlayServer"

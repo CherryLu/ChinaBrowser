@@ -135,6 +135,7 @@ public class LoginActivity extends BaseActivity {
                 }
                 break;
             case R.id.forget_psw:
+                Navigator.startFindPSW(this);
                 break;
             case R.id.logion:
                 String name = userNameInput.getText().toString();

@@ -154,7 +154,7 @@ public class SettingActivity extends BaseActivity {
         aboutUs.setText(getText(R.string.setting_about));
         cleardata.setText(getText(R.string.setting_clear));
         loginout.setText(getText(R.string.setting_loginout));
-
+        clearAccount.setText(getText(R.string.setting_clear_account));
     }
 
 
@@ -204,7 +204,9 @@ public class SettingActivity extends BaseActivity {
                 Navigator.startSetSearchAttentiveActivity(this);
                 break;
             case R.id.header_image:
-                Navigator.startLoginActivity(this);
+                if (!UserManager.getInstance().isLogin()){
+                    Navigator.startLoginActivity(this);
+                }
                 break;
             case R.id.cleardata:
                 doClearCache();

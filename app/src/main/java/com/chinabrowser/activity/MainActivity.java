@@ -103,7 +103,7 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
                     homeFragment = new HomeFragment();
                 }
                 homeFragment.setHomeCallBack(this);
-                getSupportFragmentManager().beginTransaction().replace(R.id.container,homeFragment).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.container,homeFragment).commitAllowingStateLoss();
                 fragments[0] = homeFragment;
                 current = 0;
                 break;
@@ -113,7 +113,7 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
                 bundle.putSerializable("TITLE", title);
                 hotNewsFragment.setArguments(bundle);
                 hotNewsFragment.homeCallBack = this;
-                getSupportFragmentManager().beginTransaction().replace(R.id.container, hotNewsFragment).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, hotNewsFragment).commitAllowingStateLoss();
                 fragments[1] = hotNewsFragment;
                 current = 1;
                 break;
@@ -123,7 +123,7 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
                 bun.putString("ID", id);
                 webViewFragment.homeCallBack = this;
                 webViewFragment.setArguments(bun);
-                getSupportFragmentManager().beginTransaction().replace(R.id.container, webViewFragment).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, webViewFragment).commitAllowingStateLoss();
                 if (current==0){
                     fragments[1] = webViewFragment;
                     current = 1;
@@ -137,7 +137,7 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
                     translateFragment = new TranslateFragment();
                     translateFragment.homeCallBack = this;
                 }
-                getSupportFragmentManager().beginTransaction().replace(R.id.container,translateFragment).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.container,translateFragment).commitAllowingStateLoss();
                 fragments[1] = translateFragment;
                 current = 1;
                 break;
@@ -150,7 +150,7 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
                     Bundle bundle1 = new Bundle();
                     bundle1.putSerializable("PAGE",homeTab);
                     labFragment.setArguments(bundle1);
-                    getSupportFragmentManager().beginTransaction().replace(R.id.container, labFragment).commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container, labFragment).commitAllowingStateLoss();
                     fragments[1] = labFragment;
                     current = 1;
                 break;
@@ -162,7 +162,7 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
                 bund.putBoolean("ISURL",true);
                 webViewFragment.homeCallBack = this;
                 webViewFragment.setArguments(bund);
-                getSupportFragmentManager().beginTransaction().replace(R.id.container, webViewFragment).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, webViewFragment).commitAllowingStateLoss();
                 if (current==0){
                     fragments[1] = webViewFragment;
                     current = 1;
@@ -178,7 +178,7 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
                     searchFragment = new SearchFragment();
                 }
                 searchFragment.homeCallBack = this;
-                getSupportFragmentManager().beginTransaction().replace(R.id.container, searchFragment).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, searchFragment).commitAllowingStateLoss();
                 fragments[1] = searchFragment;
 
                 break;

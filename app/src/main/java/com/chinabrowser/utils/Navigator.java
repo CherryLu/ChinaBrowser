@@ -7,6 +7,7 @@ import android.content.Intent;
 import com.chinabrowser.R;
 import com.chinabrowser.activity.AboutActivity;
 import com.chinabrowser.activity.CollectionActivity;
+import com.chinabrowser.activity.ForgetPswActivity;
 import com.chinabrowser.activity.HistoryActivity;
 import com.chinabrowser.activity.LoginActivity;
 import com.chinabrowser.activity.MainActivity;
@@ -147,6 +148,11 @@ public class Navigator {
      */
     public static void startRecommandActivity(Context context){
         Intent intent = new Intent(context, RecommandActivity.class);
+        context.startActivity(intent);
+    }
+
+    public static void startFindPSW(Context context){
+        Intent intent = new Intent(context, ForgetPswActivity.class);
         context.startActivity(intent);
     }
 

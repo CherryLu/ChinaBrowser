@@ -9,10 +9,59 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <com.tencent.smtt.sdk.WebView
-            android:id="@+id/webview"
+        <ScrollView
+            android:descendantFocusability="blocksDescendants"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:paddingLeft="12dp"
+                    android:paddingRight="12dp"
+                    android:layout_marginTop="55dp"
+                    android:id="@+id/web_title"
+                    android:textColor="#333333"
+                    android:lineSpacingExtra="9dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:maxLines="2"/>
+                <LinearLayout
+                    android:paddingLeft="12dp"
+                    android:paddingRight="12dp"
+                    android:id="@+id/others"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/from"
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        android:textColor="#999999"/>
+                    <TextView
+                        android:id="@+id/time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        android:textColor="#999999"/>
+                </LinearLayout>
+                <com.tencent.smtt.sdk.WebView
+                    android:paddingLeft="12dp"
+                    android:paddingRight="12dp"
+                    android:id="@+id/webview"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </LinearLayout>
+        </ScrollView>
+
         <LinearLayout
             android:id="@+id/news_layout"
             android:layout_marginBottom="80dp"

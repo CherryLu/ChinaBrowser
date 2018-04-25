@@ -24,6 +24,8 @@ import cn.anyradio.protocol.PlayUrlData;
 import cn.anyradio.protocol.RadioData;
 import cn.anyradio.protocol.RadioListData;
 import cn.anyradio.utils.CommUtils;
+import cn.anyradio.utils.IRemotePlayService;
+import cn.anyradio.utils.IRemotePlayServiceCallback;
 import cn.anyradio.utils.LogUtils;
 import cn.anyradio.utils.PlayEngineData;
 import cn.anyradio.utils.PlayPosLog;
