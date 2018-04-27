@@ -7,6 +7,8 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -96,14 +98,40 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
         }, 500);
     }
 
+    private void hideAll(FragmentTransaction fragmentTransaction){
+        if (homeFragment!=null){
+            fragmentTransaction.hide(homeFragment);
+        }
+        if (hotNewsFragment!=null){
+            fragmentTransaction.hide(hotNewsFragment);
+        }
+
+        if (translateFragment!=null){
+            fragmentTransaction.hide(translateFragment);
+        }
+        if (webViewFragment!=null){
+            fragmentTransaction.hide(webViewFragment);
+        }
+        if (searchFragment!=null){
+            fragmentTransaction.hide(searchFragment);
+        }
+    }
+
+
+
     private void setContainer(int which,Title title,String id,String url){
+       FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        hideAll(transaction);
         switch (which){
             case 0:
+               // homeFragment = (HomeFragment) retrieveFromCache();
                 if (homeFragment==null){
                     homeFragment = new HomeFragment();
+                    transaction.add(R.id.container,homeFragment);
                 }
                 homeFragment.setHomeCallBack(this);
-                getSupportFragmentManager().beginTransaction().replace(R.id.container,homeFragment).commitAllowingStateLoss();
+                transaction.show(homeFragment);
+                //transaction.replace(R.id.container,homeFragment).commitAllowingStateLoss();
                 fragments[0] = homeFragment;
                 current = 0;
                 break;
@@ -113,7 +141,9 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
                 bundle.putSerializable("TITLE", title);
                 hotNewsFragment.setArguments(bundle);
                 hotNewsFragment.homeCallBack = this;
-                getSupportFragmentManager().beginTransaction().replace(R.id.container, hotNewsFragment).commitAllowingStateLoss();
+                transaction.add(R.id.container,hotNewsFragment);
+                transaction.show(hotNewsFragment);
+               // transaction.replace(R.id.container, hotNewsFragment).commitAllowingStateLoss();
                 fragments[1] = hotNewsFragment;
                 current = 1;
                 break;
@@ -123,7 +153,9 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
                 bun.putString("ID", id);
                 webViewFragment.homeCallBack = this;
                 webViewFragment.setArguments(bun);
-                getSupportFragmentManager().beginTransaction().replace(R.id.container, webViewFragment).commitAllowingStateLoss();
+                transaction.add(R.id.container,webViewFragment);
+                transaction.show(webViewFragment);
+                //transaction.replace(R.id.container, webViewFragment).commitAllowingStateLoss();
                 if (current==0){
                     fragments[1] = webViewFragment;
                     current = 1;
@@ -136,8 +168,10 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
                 if (translateFragment==null){
                     translateFragment = new TranslateFragment();
                     translateFragment.homeCallBack = this;
+                    transaction.add(R.id.container,translateFragment);
                 }
-                getSupportFragmentManager().beginTransaction().replace(R.id.container,translateFragment).commitAllowingStateLoss();
+                transaction.show(translateFragment);
+               // transaction.replace(R.id.container,translateFragment).commitAllowingStateLoss();
                 fragments[1] = translateFragment;
                 current = 1;
                 break;
@@ -150,7 +184,9 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
                     Bundle bundle1 = new Bundle();
                     bundle1.putSerializable("PAGE",homeTab);
                     labFragment.setArguments(bundle1);
-                    getSupportFragmentManager().beginTransaction().replace(R.id.container, labFragment).commitAllowingStateLoss();
+                    transaction.add(R.id.container,labFragment);
+                    transaction.show(labFragment);
+                    //transaction.replace(R.id.container, labFragment).commitAllowingStateLoss();
                     fragments[1] = labFragment;
                     current = 1;
                 break;
@@ -162,7 +198,9 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
                 bund.putBoolean("ISURL",true);
                 webViewFragment.homeCallBack = this;
                 webViewFragment.setArguments(bund);
-                getSupportFragmentManager().beginTransaction().replace(R.id.container, webViewFragment).commitAllowingStateLoss();
+                transaction.add(R.id.container,webViewFragment);
+                transaction.show(webViewFragment);
+               // transaction.replace(R.id.container, webViewFragment).commitAllowingStateLoss();
                 if (current==0){
                     fragments[1] = webViewFragment;
                     current = 1;
@@ -172,18 +210,20 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
                 }
                 break;
             }
-
             case 6:
                 if (searchFragment == null){
                     searchFragment = new SearchFragment();
+                    transaction.add(R.id.container,searchFragment);
                 }
                 searchFragment.homeCallBack = this;
-                getSupportFragmentManager().beginTransaction().replace(R.id.container, searchFragment).commitAllowingStateLoss();
+                transaction.show(searchFragment);
+                //transaction.replace(R.id.container, searchFragment).commitAllowingStateLoss();
                 fragments[1] = searchFragment;
 
                 break;
-
         }
+
+        transaction.commit();
 
         isCangoBack();
         isCangoFroward();
@@ -276,7 +316,10 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
                         if (webViewFragment.canGoBack()){
                             webViewFragment.goBack();
                         }else {
-                            getSupportFragmentManager().beginTransaction().replace(R.id.container, fragments[1]).commit();
+                            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                            hideAll(transaction);
+                            transaction.show(fragments[1]).commit();
+                            //getSupportFragmentManager().beginTransaction().replace(R.id.container, fragments[1]).commitAllowingStateLoss();
                             current = 1;
                         }
                     }
@@ -286,7 +329,7 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
                 break;
             case R.id.index_bottom_menu_goforward:
                 if (current == 0){
-                    getSupportFragmentManager().beginTransaction().replace(R.id.container, fragments[1]).commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container, fragments[1]).commitAllowingStateLoss();
                     current = 1;
                 }else if (current==1){
                     Fragment fragment = fragments[1];
@@ -295,7 +338,11 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
                         if (webViewFragment.canGoForward()){
                             webViewFragment.goForward();
                         }else {
-                            getSupportFragmentManager().beginTransaction().replace(R.id.container, fragments[2]).commit();
+                            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                            hideAll(transaction);
+                            transaction.show(fragments[2]).commit();
+
+                            //getSupportFragmentManager().beginTransaction().replace(R.id.container, fragments[2]).commitAllowingStateLoss();
                             current = 2;
                         }
                     }
@@ -336,13 +383,32 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
         }
     }
 
+    private Fragment retrieveFromCache() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        //从fragmentManager中获取已有的fragment对象
+        for (Fragment backFragment : fragmentManager.getFragments()) {
+            if (null != backFragment && backFragment instanceof HomeFragment ) {
+                return backFragment;
+            }
+        }
+        return null;
+    }
+
     @Override
     public void onBackPressed() {
         if (current==0){
             super.onBackPressed();
         }else {
             Fragment fragment = fragments[current-1];
-            getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
+            if (fragment instanceof HomeFragment){
+                setContainer(0,null,"","");
+            }else {
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                hideAll(transaction);
+                transaction.show(fragment).commit();
+                //getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commitAllowingStateLoss();
+            }
+
              current = current -1;
         }
 

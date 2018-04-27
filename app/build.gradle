@@ -93,7 +93,7 @@ MobSDK {
             QQ {
                 appId "101051019"
                 appKey "33c9e522138ee0d5066e00a4b0e0148a"
-                bypassApproval true
+                bypassApproval false
                 shareByAppClient true
             }
             QZone {
@@ -105,7 +105,7 @@ MobSDK {
                 appKey "377369672413351"
                 appSecret "ff65e27b31f1aff02a7dc4b70482ae1e"
                 callbackUri "https://mob.com"
-                shareByAppClient false
+                shareByAppClient true
             }
             Twitter {
                 appKey "XepIkd2u1ImakwoBK1vBQKYij"

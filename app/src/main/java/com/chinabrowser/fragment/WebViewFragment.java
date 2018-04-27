@@ -52,7 +52,6 @@ import cn.sharesdk.facebook.Facebook;
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.google.GooglePlus;
-import cn.sharesdk.onekeyshare.OnekeyShare;
 import cn.sharesdk.sina.weibo.SinaWeibo;
 import cn.sharesdk.tencent.qq.QQ;
 import cn.sharesdk.twitter.Twitter;
@@ -373,18 +372,31 @@ public class WebViewFragment extends BaseFragment {
                     shareParams.setImageUrl(CommUtils.getBaseurl(getContext()) + detail.cover_image);
                     shareParams.setTitleUrl(detail.copy_url);
                     shareParams.setTitle(detail.title);
-                    shareParams.setSiteUrl(detail.copy_url);
+                    shareParams.setText(detail.title);
                     Platform platform = ShareSDK.getPlatform(QQ.NAME);
+                    platform.share(shareParams);
+                    break;
+                }
+
+                case 4: {
+                    GooglePlus.ShareParams shareParams = new GooglePlus.ShareParams();
+                    shareParams.setShareType(Platform.SHARE_WEBPAGE);
+                    shareParams.setText(detail.title);
+                    shareParams.setImageUrl(CommUtils.getBaseurl(getContext()) + detail.cover_image);
+                    Platform platform = ShareSDK.getPlatform(GooglePlus.NAME);
+                    platform.share(shareParams);
+                    break;
+                }
+                case 5:{
+                    Twitter.ShareParams shareParams = new Twitter.ShareParams();
+                    shareParams.setShareType(Platform.SHARE_WEBPAGE);
+                    shareParams.setText(detail.title);
+                    shareParams.setImageUrl(CommUtils.getBaseurl(getContext()) + detail.cover_image);
+                    Platform platform = ShareSDK.getPlatform(Twitter.NAME);
                     platform.share(shareParams);
                 }
                     break;
-                case 4:
-                    plat = GooglePlus.NAME;
-                    break;
-                case 5:
-                    plat = Twitter.NAME;
-                    break;
-                case 6:
+                case 6: {
                     Facebook.ShareParams shareParams = new Facebook.ShareParams();
                     shareParams.setShareType(Platform.SHARE_WEBPAGE);
                     shareParams.setText(detail.title);
@@ -392,6 +404,7 @@ public class WebViewFragment extends BaseFragment {
                     Platform platform = ShareSDK.getPlatform(Facebook.NAME);
                     platform.share(shareParams);
                     break;
+                }
             }
 
 

@@ -104,6 +104,16 @@ public class HotNewsFragment extends BaseFragment implements PagerClick {
         list.setAdapter(newsAdapter);
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (outState != null) {
+            // remove掉保存的Fragment
+            String FRAGMENTS_TAG = "android:support:fragments";
+            outState.remove(FRAGMENTS_TAG);
+        }
+    }
+
 
     @Override
     public void onDestroyView() {
