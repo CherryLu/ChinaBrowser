@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.chinabrowser.APP;
@@ -27,6 +28,7 @@ import com.chinabrowser.net.DelCollectionNewsPage;
 import com.chinabrowser.net.GetNewsDetails;
 import com.chinabrowser.net.UpCollectionNews;
 import com.chinabrowser.net.UpGetNewsDetail;
+import com.chinabrowser.ui.BrowserVideoPlayer;
 import com.chinabrowser.ui.RedPacketCustomDialog;
 import com.chinabrowser.ui.RewritePopwindow;
 import com.chinabrowser.utils.CommUtils;
@@ -93,6 +95,11 @@ public class WebViewFragment extends BaseFragment {
     TextView time;
     @Bind(R.id.others)
     LinearLayout others;
+    @Bind(R.id.video)
+    BrowserVideoPlayer video;
+    @Bind(R.id.video_layout)
+    RelativeLayout videoLayout;
+
 
     private Method mMethodFinding = null;// 开始查找
     private Method mMethodFinded = null;// 查找结束
@@ -113,6 +120,7 @@ public class WebViewFragment extends BaseFragment {
                 case GetNewsDetails.MSG_WHAT_OK:
                     if (getNewsDetails != null && getNewsDetails.newsDetail != null) {
                         NewsDetail newsDetail = getNewsDetails.newsDetail;
+                        //setVideo(newsDetail.vcontent);
                         webview.loadData(getHtmlData(newsDetail.content), "text/html; charset=UTF-8", null);
                         webTitle.setText(newsDetail.title);
                         from.setText(newsDetail.copy_from);
@@ -216,6 +224,50 @@ public class WebViewFragment extends BaseFragment {
 
     }
 
+
+    public void setFullScreen(){
+        if (video!=null){
+            video.setFullScreen();
+        }
+    }
+
+    public void setNomalScreen(){
+        if (video!=null){
+            video.setNormalScreen();
+        }
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        if (hidden){
+            if (video!=null&&videoLayout.getVisibility()==View.VISIBLE){
+                video.destory();
+            }
+        }else {
+            if (video!=null&&videoLayout.getVisibility()==View.VISIBLE){
+                video.resume();
+            }
+        }
+        super.onHiddenChanged(hidden);
+    }
+
+    private void setVideo(String url) {
+        if (TextUtils.isEmpty(url)) {
+            if (videoLayout!=null){
+                videoLayout.setVisibility(View.GONE);
+            }
+        } else {
+            url = "http://119.23.56.48/" + url;
+            LogUtils.e("VIDEO", "url : " + url);
+            if (videoLayout!=null){
+                videoLayout.setVisibility(View.VISIBLE);
+                video.setActivity(getActivity(),false);
+                video.setData(url,CommUtils.dip2px(getContext(),175));
+            }
+        }
+
+    }
+
     public boolean canGoBack() {
         if (webview != null) {
             return webview.canGoBack();
@@ -299,30 +351,30 @@ public class WebViewFragment extends BaseFragment {
             public void onClick(View v) {
                 switch (v.getId()) {
                     case R.id.share1:
-                        if (CommUtils.getCurrentLag(getContext())==0){
+                        if (CommUtils.getCurrentLag(getContext()) == 0) {
                             shareData(0);
-                        }else {
+                        } else {
                             shareData(4);
                         }
                         break;
                     case R.id.share2:
-                        if (CommUtils.getCurrentLag(getContext())==0){
+                        if (CommUtils.getCurrentLag(getContext()) == 0) {
                             shareData(1);
-                        }else {
+                        } else {
                             shareData(5);
                         }
                         break;
                     case R.id.share3:
-                        if (CommUtils.getCurrentLag(getContext())==0){
+                        if (CommUtils.getCurrentLag(getContext()) == 0) {
                             shareData(2);
-                        }else {
+                        } else {
                             shareData(6);
                         }
                         break;
                     case R.id.share4:
-                        if (CommUtils.getCurrentLag(getContext())==0){
+                        if (CommUtils.getCurrentLag(getContext()) == 0) {
                             shareData(3);
-                        }else {
+                        } else {
 
                         }
                         break;
@@ -333,16 +385,16 @@ public class WebViewFragment extends BaseFragment {
         rewritePopwindow.showAtLocation(rootView, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
     }
 
-    private void shareData(int which){
-        if (getNewsDetails!=null&&getNewsDetails.newsDetail!=null){
+    private void shareData(int which) {
+        if (getNewsDetails != null && getNewsDetails.newsDetail != null) {
             NewsDetail detail = getNewsDetails.newsDetail;
             String plat = "";
-            switch (which){
-                case 0:{
+            switch (which) {
+                case 0: {
                     Wechat.ShareParams shareParams = new Wechat.ShareParams();
                     shareParams.setTitle(detail.title);
                     shareParams.setUrl(detail.copy_url);
-                    shareParams.setImageUrl(CommUtils.getBaseurl(getContext())+detail.cover_image);
+                    shareParams.setImageUrl(CommUtils.getBaseurl(getContext()) + detail.cover_image);
                     shareParams.setShareType(Platform.SHARE_WEBPAGE);
                     Platform platform = ShareSDK.getPlatform(Wechat.NAME);
                     platform.share(shareParams);
@@ -387,7 +439,7 @@ public class WebViewFragment extends BaseFragment {
                     platform.share(shareParams);
                     break;
                 }
-                case 5:{
+                case 5: {
                     Twitter.ShareParams shareParams = new Twitter.ShareParams();
                     shareParams.setShareType(Platform.SHARE_WEBPAGE);
                     shareParams.setText(detail.title);
@@ -395,7 +447,7 @@ public class WebViewFragment extends BaseFragment {
                     Platform platform = ShareSDK.getPlatform(Twitter.NAME);
                     platform.share(shareParams);
                 }
-                    break;
+                break;
                 case 6: {
                     Facebook.ShareParams shareParams = new Facebook.ShareParams();
                     shareParams.setShareType(Platform.SHARE_WEBPAGE);
@@ -406,7 +458,6 @@ public class WebViewFragment extends BaseFragment {
                     break;
                 }
             }
-
 
 
         }
@@ -450,7 +501,6 @@ public class WebViewFragment extends BaseFragment {
         ActionwebView.getSettings().setSupportZoom(true); // 支持缩放
         ActionwebView.getSettings().setLoadWithOverviewMode(true);
         ActionwebView.getSettings().setDefaultTextEncodingName("utf-8");
-
         String defaultUa = ActionwebView.getSettings().getUserAgentString() + "/GgBroswer";
         ActionwebView.getSettings().setUserAgent(defaultUa);
 
@@ -539,6 +589,13 @@ public class WebViewFragment extends BaseFragment {
 
         public void onPageFinished(WebView view, String url) {
             imgReset();
+            //这个是一定要加上那个的,配合scrollView和WebView的height=wrap_content属性使用
+            int w = webview.getContentWidth();
+            int h = webview.getContentHeight();
+            //重新测量
+            LogUtils.e("WeView", "w : " + w);
+            LogUtils.e("WeView", "h : " + h);
+            webview.measure(w, h);
         }
 
         @Override

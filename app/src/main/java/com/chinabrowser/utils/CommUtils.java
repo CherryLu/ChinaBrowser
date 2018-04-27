@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Looper;
 import android.provider.Settings;
 import android.support.v4.view.ViewPager;
@@ -596,6 +598,26 @@ public class CommUtils {
         return "";
 
     }
+
+    public static int[] getMinuteAndSecond(int time){
+        int[] ms = new int[2];
+        int secondnd = (time / 1000) / 60;
+        int million = (time / 1000) % 60;
+        ms[0] = secondnd;
+        ms[1] = million;
+        return ms;
+    }
+
+    public static boolean isWifiConnected(Context context) {
+           if (context != null) {
+                    ConnectivityManager mConnectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                    NetworkInfo mWiFiNetworkInfo = mConnectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+                    if (mWiFiNetworkInfo != null) {
+                           return mWiFiNetworkInfo.isAvailable();
+                       }
+               }
+            return false;
+        }
 
 
     public static String getBaseurl(Context context){

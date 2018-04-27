@@ -115,6 +115,10 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
         if (searchFragment!=null){
             fragmentTransaction.hide(searchFragment);
         }
+
+        if (labFragment!=null){
+            fragmentTransaction.hide(labFragment);
+        }
     }
 
 
@@ -292,6 +296,26 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
         }
     }
 
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        if (fragments[current] instanceof WebViewFragment){
+            WebViewFragment videoMainView = (WebViewFragment) fragments[current];
+            if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                // 全屏
+                if (videoMainView != null) {
+                    videoMainView.setFullScreen();
+                }
+            } else {
+                // 正常屏幕
+                if (videoMainView != null) {
+                    videoMainView.setNomalScreen();
+                }
+            }
+        }
+    }
+
     @OnClick({R.id.index_bottom_menu_goback,R.id.index_bottom_menu_more, R.id.index_bottom_menu_nogoback, R.id.index_bottom_menu_goforward, R.id.index_bottom_menu_nogoforward, R.id.index_bottom_menu_gohome, R.id.index_bottom_menu_nogohome, R.id.index_bottom_menu_new_window})
     public void onClick(View view) {
         switch (view.getId()) {
@@ -399,6 +423,7 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
         if (current==0){
             super.onBackPressed();
         }else {
+            LogUtils.e("ZX",current+"");
             Fragment fragment = fragments[current-1];
             if (fragment instanceof HomeFragment){
                 setContainer(0,null,"","");
@@ -407,9 +432,9 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
                 hideAll(transaction);
                 transaction.show(fragment).commit();
                 //getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commitAllowingStateLoss();
+                current = current -1;
             }
 
-             current = current -1;
         }
 
         if (APP.homeTabs==null||APP.homeTabs.size()==0){

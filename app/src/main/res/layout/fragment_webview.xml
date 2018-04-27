@@ -8,17 +8,18 @@
         android:visibility="gone"/>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
         <ScrollView
+            android:scrollbars="none"
             android:descendantFocusability="blocksDescendants"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
             <LinearLayout
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
                 <TextView
                     android:paddingLeft="12dp"
                     android:paddingRight="12dp"
@@ -52,13 +53,27 @@
                         android:textSize="13sp"
                         android:textColor="#999999"/>
                 </LinearLayout>
+                <RelativeLayout
+                    android:visibility="gone"
+                    android:background="@android:color/black"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/video_layout"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <com.chinabrowser.ui.BrowserVideoPlayer
+                        android:layout_gravity="center"
+                        android:id="@+id/video"
+                        android:layout_width="match_parent"
+                        android:layout_height="175dp"/>
+                </RelativeLayout>
                 <com.tencent.smtt.sdk.WebView
                     android:paddingLeft="12dp"
                     android:paddingRight="12dp"
                     android:id="@+id/webview"
                     android:layout_marginTop="20dp"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="wrap_content"/>
             </LinearLayout>
         </ScrollView>
 
