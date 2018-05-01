@@ -81,9 +81,9 @@ public class SearchFragment extends BaseFragment {
         if (!TextUtils.isEmpty(keywork)){
             textright.setVisibility(View.VISIBLE);
             if (keywork.endsWith(".com")||keywork.endsWith(".cn")){
-                textright.setText("跳转");
+                textright.setText(getText(R.string.web_into));
             }else {
-                textright.setText("搜索");
+                textright.setText(getText(R.string.web_search));
             }
         }
     }
@@ -148,14 +148,14 @@ public class SearchFragment extends BaseFragment {
     public void onClick() {
         String str = textright.getText().toString();
         String key = txtInput.getText().toString();
-        if ("跳转".equals(str)){
+        if (getText(R.string.web_into).equals(str)){
             Content content = new Content();
             content.setLink_url(key);
             if (homeCallBack!=null){
                 homeCallBack.startContentByurl(content);
             }
 
-        }else if ("搜索".equals(str)){
+        }else if (getText(R.string.web_search).equals(str)){
             String url = CommUtils.getsearchurl(getContext(),key);
             Content content = new Content();
             content.setLink_url(url);

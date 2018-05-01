@@ -42,6 +42,8 @@ public class LabelsViewHolder extends BaseViewHolder implements View.OnClickList
         textViews[4] = (TextView) itemView.findViewById(R.id.name5);
         textViews[5] = (TextView) itemView.findViewById(R.id.name6);
 
+       textViews[5].setText(itemView.getResources().getText(R.string.more_text));
+
         imageViews[0] = (ImageView) itemView.findViewById(R.id.cover1);
         imageViews[1] = (ImageView) itemView.findViewById(R.id.cover2);
         imageViews[2] = (ImageView) itemView.findViewById(R.id.cover3);

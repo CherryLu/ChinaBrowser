@@ -61,13 +61,14 @@ public class RadioViewholder extends BaseViewHolder implements View.OnClickListe
         for (int i=0;i<plays.length;i++){
             plays[i].setOnClickListener(this);
         }
+
+        title.setBackgroundResource(R.mipmap.radio);
+        title.setText(itemView.getResources().getText(R.string.radio_text));
     }
 
     @Override
     public void setRecommend(Recommend recommend) {
         this.recommend = recommend;
-        title.setBackgroundResource(R.mipmap.radio);
-        title.setText("电台");
         List<Content> contents = recommend.getContents();
         int  length = contents.size();
        if (length>=6){

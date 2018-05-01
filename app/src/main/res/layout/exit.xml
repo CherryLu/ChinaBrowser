@@ -5,10 +5,11 @@
     android:layout_height="wrap_content"
     android:background="@android:color/transparent">
     <LinearLayout
+        android:padding="10dp"
         android:orientation="vertical"
         android:background="@drawable/gray_bg_s_coner"
-        android:layout_width="175dp"
-        android:layout_height="80dp">
+        android:layout_width="195dp"
+        android:layout_height="100dp">
         <TextView
             android:id="@+id/maintitle"
             android:layout_marginTop="12dp"

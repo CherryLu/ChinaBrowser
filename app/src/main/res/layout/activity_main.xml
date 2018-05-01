@@ -9,6 +9,7 @@
         android:layout_height="match_parent"/>
 
     <RelativeLayout
+        android:id="@+id/bottom_title"
         android:layout_width="fill_parent"
         android:layout_height="47dip"
         android:layout_alignParentBottom="true"

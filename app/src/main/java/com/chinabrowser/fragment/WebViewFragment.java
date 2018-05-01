@@ -64,7 +64,7 @@ import cn.sharesdk.wechat.moments.WechatMoments;
  * Created by Administrator on 2018/4/1.
  */
 
-public class WebViewFragment extends BaseFragment {
+public class WebViewFragment extends BaseFragment implements BrowserVideoPlayer.VideoPlayInterface {
     @Bind(R.id.webview)
     WebView webview;
 
@@ -259,9 +259,14 @@ public class WebViewFragment extends BaseFragment {
         } else {
             url = "http://119.23.56.48/" + url;
             LogUtils.e("VIDEO", "url : " + url);
+            if (CommUtils.isWifiConnected(getContext())){
+
+            }
+
             if (videoLayout!=null){
                 videoLayout.setVisibility(View.VISIBLE);
                 video.setActivity(getActivity(),false);
+                video.setVideoPlayInterface(this);
                 video.setData(url,CommUtils.dip2px(getContext(),175));
             }
         }
@@ -558,6 +563,115 @@ public class WebViewFragment extends BaseFragment {
                 initShare();
                 break;
         }
+    }
+
+    private void intoFull(){
+        if (webTitle!=null){
+            webTitle.setVisibility(View.GONE);
+        }
+
+        if (others!=null){
+            others.setVisibility(View.GONE);
+        }
+
+        if (webview!=null){
+            webview.setVisibility(View.GONE);
+        }
+        if (videoLayout!=null){
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+            videoLayout.setLayoutParams(params);
+        }
+
+        if (newsLayout!=null){
+            newsLayout.setVisibility(View.GONE);
+        }
+
+    }
+
+    private void outFull(){
+        if (webTitle!=null){
+            webTitle.setVisibility(View.VISIBLE);
+        }
+
+        if (others!=null){
+            others.setVisibility(View.VISIBLE);
+        }
+
+        if (webview!=null){
+            webview.setVisibility(View.VISIBLE);
+        }
+
+        if (newsLayout!=null){
+            newsLayout.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (video!=null){
+            video.pause();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (video!=null){
+            video.resume();
+        }
+    }
+
+    @Override
+    public void backClick() {
+
+    }
+
+    @Override
+    public void shareClick() {
+        initShare();
+
+    }
+
+    @Override
+    public void tousheClick() {
+
+    }
+
+    @Override
+    public void intoFullScreen() {
+        intoFull();
+    }
+
+    @Override
+    public void intoNormalScreen() {
+        outFull();
+
+    }
+
+    @Override
+    public void playNext() {
+
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void seekStop() {
+
+    }
+
+    @Override
+    public void startPlay() {
+
     }
 
     private class MyWebViewDownLoadListener implements DownloadListener {

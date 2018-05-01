@@ -1,4 +1,11 @@
 <resources>
+    <string name="web_search">搜索</string>
+    <string name="web_into">跳转</string>
+    <string name="setting_loginsuccess">登录成功</string>
+    <string name="setting_loginfail">登录失败</string>
+    <string name="str_remenber_password">记住密码</string>
+    <string name="radio_text">电台</string>
+    <string name="more_text">更多</string>
     <string name="app_name">中华浏览器</string>
     <string name="app_txt">欢迎</string>
     <string name="find_psw">找回密码</string>

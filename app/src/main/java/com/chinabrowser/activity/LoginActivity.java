@@ -68,10 +68,10 @@ public class LoginActivity extends BaseActivity {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case UserManager.MSG_WAHT_MAIL_FAIL:
-                    showToash("登录失败");
+                    showToash(getString(R.string.setting_loginsuccess));
                     break;
                 case UserManager.MSG_WAHT_MAIL_SUCCESS:
-                    showToash("登录成功");
+                    showToash(getString(R.string.setting_loginfail));
                     break;
 
             }

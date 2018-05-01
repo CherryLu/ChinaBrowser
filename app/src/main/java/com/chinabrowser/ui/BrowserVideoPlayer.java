@@ -498,6 +498,15 @@ public class BrowserVideoPlayer extends RelativeLayout implements View.OnClickLi
         start();
         if (!com.chinabrowser.utils.CommUtils.isWifiConnected(getContext())){
             pause();
+            ExitDialog dialog = new ExitDialog(getContext(), "没有连接wifi,是否使用流量播放视频？", "是", "否", new ExitDialog.DialogClick() {
+                @Override
+                public void dialogClick(int which) {
+                    if (which==1){
+                        resume();
+                    }
+                }
+            });
+            dialog.showIt();
         }
 
     }
@@ -601,7 +610,7 @@ public class BrowserVideoPlayer extends RelativeLayout implements View.OnClickLi
     // 进入全屏时候调用
     public void setFullScreen() {
         isFull = true;
-        screenSwitchBtn.setImageResource(R.mipmap.full_screen);
+        screenSwitchBtn.setImageResource(R.mipmap.back_nomal);
         this.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         videoView.requestLayout();
         isFullScreen = true;
@@ -615,15 +624,14 @@ public class BrowserVideoPlayer extends RelativeLayout implements View.OnClickLi
             WindowManager.LayoutParams attrs = mActivity.getWindow().getAttributes();
             attrs.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
             mActivity.getWindow().setAttributes(attrs);
-            mActivity.getWindow().addFlags(
-                    WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+            mActivity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         }
     }
 
     // 退出全屏时候调用
     public void setNormalScreen() {
         isFull = false;
-        screenSwitchBtn.setImageResource(R.mipmap.back_nomal);
+        screenSwitchBtn.setImageResource(R.mipmap.full_screen);
         this.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, mParentHeight));
         videoView.requestLayout();
         isFullScreen = false;
