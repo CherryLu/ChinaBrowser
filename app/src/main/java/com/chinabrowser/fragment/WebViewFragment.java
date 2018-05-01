@@ -120,7 +120,7 @@ public class WebViewFragment extends BaseFragment {
                 case GetNewsDetails.MSG_WHAT_OK:
                     if (getNewsDetails != null && getNewsDetails.newsDetail != null) {
                         NewsDetail newsDetail = getNewsDetails.newsDetail;
-                        //setVideo(newsDetail.vcontent);
+                        setVideo(newsDetail.vcontent);
                         webview.loadData(getHtmlData(newsDetail.content), "text/html; charset=UTF-8", null);
                         webTitle.setText(newsDetail.title);
                         from.setText(newsDetail.copy_from);
