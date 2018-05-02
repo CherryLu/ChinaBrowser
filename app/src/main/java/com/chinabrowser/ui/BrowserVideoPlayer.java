@@ -3,9 +3,7 @@ package com.chinabrowser.ui;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
-import android.content.res.Configuration;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Build;
@@ -23,7 +21,6 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -143,12 +140,14 @@ public class BrowserVideoPlayer extends RelativeLayout implements View.OnClickLi
         mAudioManager = (AudioManager) mContext.getSystemService(AUDIO_SERVICE);
         maxVolme = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
         fromVol = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+
+        initView();
     }
 
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        initView();
+
     }
 
     private View mainView;
@@ -498,7 +497,7 @@ public class BrowserVideoPlayer extends RelativeLayout implements View.OnClickLi
         start();
         if (!com.chinabrowser.utils.CommUtils.isWifiConnected(getContext())){
             pause();
-            ExitDialog dialog = new ExitDialog(getContext(), "没有连接wifi,是否使用流量播放视频？", "是", "否", new ExitDialog.DialogClick() {
+            ExitDialog dialog = new ExitDialog(getContext(), getContext().getString(R.string.str_nowifi)+"\n"+getContext().getString(R.string.str_use4g), getContext().getString(R.string.setting_login_yes), getContext().getString(R.string.setting_login_no), new ExitDialog.DialogClick() {
                 @Override
                 public void dialogClick(int which) {
                     if (which==1){

@@ -10,9 +10,9 @@ import com.chinabrowser.R;
 import com.chinabrowser.bean.Content;
 import com.chinabrowser.bean.Recommend;
 import com.chinabrowser.utils.GlideUtils;
-import com.chinabrowser.utils.LogUtils;
 import com.chinabrowser.utils.Navigator;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,7 +23,7 @@ public class LabelsViewHolder extends BaseViewHolder implements View.OnClickList
     LinearLayout[] linearLayouts = new LinearLayout[6];
     TextView[] textViews = new TextView[6];
     ImageView[] imageViews = new ImageView[6];
-
+    List<Content> contents;
     public LabelsViewHolder(View itemView) {
         super(itemView);
         linearLayouts[0] = (LinearLayout) itemView.findViewById(R.id.layout1);
@@ -55,6 +55,7 @@ public class LabelsViewHolder extends BaseViewHolder implements View.OnClickList
     @Override
     public void setRecommend(Recommend recommend) {
         this.recommend = recommend;
+        contents = new ArrayList<>();
         if (recommend!=null){
             List<Content> datas = recommend.getContents();
             if (datas!=null){
@@ -65,8 +66,7 @@ public class LabelsViewHolder extends BaseViewHolder implements View.OnClickList
                     count = datas.size();
                 }
                 for (int i =0;i<count;i++){
-                    LogUtils.e("LABES",datas.get(i).getImage_url());
-                    LogUtils.e("LABES",datas.get(i).getTitle());
+                    contents.add(datas.get(i));
                     GlideUtils.loadImageView(APP.getContext(),datas.get(i).getCover_image(),imageViews[i]);
                     textViews[i].setText(datas.get(i).getTitle());
                 }
@@ -81,27 +81,37 @@ public class LabelsViewHolder extends BaseViewHolder implements View.OnClickList
         switch (v.getId()){
             case R.id.layout1:
                 if (homeCallBack!=null){
-                    homeCallBack.startContentByurl(recommend.getContents().get(0));
+                    if (contents.size()>=1&&contents.get(0)!=null){
+                        homeCallBack.startContentByurl(recommend.getContents().get(0));
+                    }
                 }
                 break;
             case R.id.layout2:
                 if (homeCallBack!=null){
-                    homeCallBack.startContentByurl(recommend.getContents().get(1));
+                    if (contents.size()>=2&&contents.get(1)!=null){
+                        homeCallBack.startContentByurl(recommend.getContents().get(1));
+                    }
                 }
                 break;
             case R.id.layout3:
                 if (homeCallBack!=null){
-                    homeCallBack.startContentByurl(recommend.getContents().get(2));
+                    if (contents.size()>=3&&contents.get(2)!=null){
+                        homeCallBack.startContentByurl(recommend.getContents().get(2));
+                    }
                 }
                 break;
             case R.id.layout4:
                 if (homeCallBack!=null){
-                    homeCallBack.startContentByurl(recommend.getContents().get(3));
+                    if (contents.size()>=4&&contents.get(3)!=null){
+                        homeCallBack.startContentByurl(recommend.getContents().get(3));
+                    }
                 }
                 break;
             case R.id.layout5:
                 if (homeCallBack!=null){
-                    homeCallBack.startContentByurl(recommend.getContents().get(4));
+                    if (contents.size()>=5&&contents.get(4)!=null){
+                        homeCallBack.startContentByurl(recommend.getContents().get(4));
+                    }
                 }
                 break;
             case R.id.layout6:

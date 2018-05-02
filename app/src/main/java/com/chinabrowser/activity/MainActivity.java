@@ -12,7 +12,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -529,7 +528,9 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
         int height = mOrientation == Configuration.ORIENTATION_PORTRAIT ? mWidth : mHeight;
 
         Bitmap bitmap2 = Bitmap.createBitmap(bitmap, 0, statusBarHeight, width, height - statusBarHeight);
-        view.destroyDrawingCache();
+        if (bitmap!=null){
+            view.destroyDrawingCache();
+        }
         return bitmap2;
     }
 

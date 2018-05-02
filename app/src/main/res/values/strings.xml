@@ -69,6 +69,8 @@
     <string name="str_haveaccount">已有账号！</string>
     <string name="str_comeback">返回登录</string>
     <string name="str_bottomlinr">没有更多内容啦</string>
+    <string name="str_nowifi">没有连接wifi</string>
+    <string name="str_use4g">是否使用流量播放视频</string>
     <string name="history_today">今天</string>
     <string name="history_lastweek">上周</string>
     <string name="history_lastmonth">一个月前</string>
@@ -83,6 +85,7 @@
     <string name="translate_language_en">English (English)</string>
     <string name="translate_language_tr">Türkçe (Turkish)</string>
     <string name="translate_list_title">翻译详情</string>
+    <string name="restartapp">重启APP后生效,是否切换？</string>
 
 
     <!-- 一级分类 -->

@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.chinabrowser.KillSelfService;
 import com.chinabrowser.R;
 import com.chinabrowser.cbinterface.LoginStateInterface;
 import com.chinabrowser.ui.ExitDialog;
@@ -80,6 +81,7 @@ public class SettingActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
         ButterKnife.bind(this);
+        setCurrentLag();
         setSearchName(CommUtils.getCurrentSearch(this));
         title.setText(getString(R.string.setting_title));
         if (UserManager.getInstance().isLogin()) {
@@ -112,6 +114,17 @@ public class SettingActivity extends BaseActivity {
 
             }
         });
+    }
+
+    private void setCurrentLag(){
+       int lag =  CommUtils.getCurrentLag(this);
+        china.setImageResource(R.mipmap.unselected_imag);
+        turkish.setImageResource(R.mipmap.unselected_imag);
+        if (lag==0){
+            china.setImageResource(R.mipmap.selected_imag);
+        }else {
+            turkish.setImageResource(R.mipmap.selected_imag);
+        }
     }
 
     private void setSearchName(int position) {
@@ -157,6 +170,14 @@ public class SettingActivity extends BaseActivity {
         clearAccount.setText(getText(R.string.setting_clear_account));
     }
 
+    private void restartAPP(){
+        Intent intent = new Intent(this, KillSelfService.class);
+        intent.putExtra("PackageName",getPackageName());
+        intent.putExtra("Delayed",500);
+        startService(intent);
+    }
+
+
 
     @OnClick({R.id.back_image, R.id.header_image, R.id.china, R.id.turkish, search_name, R.id.about_us, R.id.loginout, R.id.clear_account, R.id.login_txt, R.id.collection, R.id.history, R.id.search_attentive,R.id.cleardata})
     public void onClick(View view) {
@@ -165,10 +186,28 @@ public class SettingActivity extends BaseActivity {
                 Navigator.finishActivity(this);
                 break;
             case R.id.china:
-                selectLag(0);
+                ExitDialog dialog = new ExitDialog(this, getString(R.string.restartapp), getString(R.string.setting_login_yes), getString(R.string.setting_login_no), new ExitDialog.DialogClick() {
+                    @Override
+                    public void dialogClick(int which) {
+                        if (which==1){
+                            selectLag(0);
+                            restartAPP();
+                        }
+                    }
+                });
+                dialog.showIt();
                 break;
             case R.id.turkish:
-                selectLag(1);
+                ExitDialog dialogs = new ExitDialog(this, getString(R.string.restartapp), getString(R.string.setting_login_yes), getString(R.string.setting_login_no), new ExitDialog.DialogClick() {
+                    @Override
+                    public void dialogClick(int which) {
+                        if (which==1){
+                            selectLag(1);
+                            restartAPP();
+                        }
+                    }
+                });
+                dialogs.showIt();
                 break;
             case R.id.about_us:
                 Navigator.startAboutActivity(this);

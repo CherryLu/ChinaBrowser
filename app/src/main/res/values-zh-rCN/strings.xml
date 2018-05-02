@@ -74,6 +74,9 @@
     <string name="homepage">主页</string>
     <string name="hotnews">新闻列表</string>
     <string name="clearup">清理完成</string>
+    <string name="restartapp">重启APP后生效,是否切换？</string>
+    <string name="str_nowifi">没有连接wifi</string>
+    <string name="str_use4g">是否使用流量播放视频</string>
 
     <string name="setting_login_que">是否退出登录</string>
     <string name="setting_login_yes">是</string>

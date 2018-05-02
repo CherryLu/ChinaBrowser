@@ -95,7 +95,7 @@ public class WebViewFragment extends BaseFragment implements BrowserVideoPlayer.
     TextView time;
     @Bind(R.id.others)
     LinearLayout others;
-    @Bind(R.id.video)
+    //@Bind(R.id.video)
     BrowserVideoPlayer video;
     @Bind(R.id.video_layout)
     RelativeLayout videoLayout;
@@ -242,10 +242,7 @@ public class WebViewFragment extends BaseFragment implements BrowserVideoPlayer.
         if (hidden){
             if (video!=null&&videoLayout.getVisibility()==View.VISIBLE){
                 video.destory();
-            }
-        }else {
-            if (video!=null&&videoLayout.getVisibility()==View.VISIBLE){
-                video.resume();
+                videoLayout.removeAllViews();
             }
         }
         super.onHiddenChanged(hidden);
@@ -259,11 +256,14 @@ public class WebViewFragment extends BaseFragment implements BrowserVideoPlayer.
         } else {
             url = "http://119.23.56.48/" + url;
             LogUtils.e("VIDEO", "url : " + url);
-            if (CommUtils.isWifiConnected(getContext())){
-
-            }
-
             if (videoLayout!=null){
+                if (video!=null){
+                    video.destory();
+                }
+                video = new BrowserVideoPlayer(getContext());
+                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                video.setLayoutParams(params);
+                videoLayout.addView(video);
                 videoLayout.setVisibility(View.VISIBLE);
                 video.setActivity(getActivity(),false);
                 video.setVideoPlayInterface(this);

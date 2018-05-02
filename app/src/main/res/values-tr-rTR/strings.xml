@@ -46,13 +46,16 @@
     <string name="setting_title">Ayarlamak</string>
 
     <string name="setting_login_que">Giriş çıkış</string>
-    <string name="setting_login_yes">,</string>
-    <string name="setting_login_no">Olup olmadığını</string>
+    <string name="setting_login_yes">Evet</string>
+    <string name="setting_login_no">Hayır</string>
     <string name="clearup">Temizleme tamamlandı</string>
     <string name="setting_loginsuccess">Oturum açma başarılı</string>
     <string name="setting_loginfail">Oturum açma başarısız oldu</string>
     <string name="web_search">Arama</string>
     <string name="web_into">Atlamak</string>
+    <string name="restartapp">Uygulamayı yeniden başlattığınızda geçiş yapmak istiyor musunuz?</string>
+    <string name="str_nowifi">Hayır WiFi ekli</string>
+    <string name="str_use4g">Trafik ile video oynamak isteyip istemediğinizi</string>
 
 
     <string name="travel">Turizm</string>

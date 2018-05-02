@@ -5,12 +5,12 @@
     android:layout_height="wrap_content"
     android:background="@android:color/transparent">
     <LinearLayout
-        android:padding="10dp"
         android:orientation="vertical"
         android:background="@drawable/gray_bg_s_coner"
         android:layout_width="195dp"
-        android:layout_height="100dp">
+        android:layout_height="90dp">
         <TextView
+            android:gravity="center"
             android:id="@+id/maintitle"
             android:layout_marginTop="12dp"
             android:layout_gravity="center_horizontal"
@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <View
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="20dp"
             android:background="#999999"
             android:layout_width="match_parent"
             android:layout_height="1dp"/>

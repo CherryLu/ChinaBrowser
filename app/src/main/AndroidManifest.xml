@@ -40,9 +40,11 @@
         <activity android:name=".activity.RecommandActivity"/>
         <activity android:name=".activity.ForgetPswActivity"/>
 
+
         <service
             android:name="cn.anyradio.manager.PlayServer"
             android:process=":play" />
+        <service android:name="com.chinabrowser.KillSelfService"/>
 
     </application>
 
