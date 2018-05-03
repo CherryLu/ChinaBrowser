@@ -32,6 +32,7 @@ import com.chinabrowser.fragment.TranslateFragment;
 import com.chinabrowser.fragment.WebViewFragment;
 import com.chinabrowser.utils.CommUtils;
 import com.chinabrowser.utils.Constant;
+import com.chinabrowser.utils.LabManager;
 import com.chinabrowser.utils.LogUtils;
 import com.chinabrowser.utils.Navigator;
 
@@ -79,7 +80,6 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
 
     private LabFragment labFragment;
 
-    private Fragment[] fragments = new Fragment[3];
     private int current = 0;
 
     @Override
@@ -141,7 +141,7 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
                 homeFragment.setHomeCallBack(this);
                 transaction.show(homeFragment);
                 //transaction.replace(R.id.container,homeFragment).commitAllowingStateLoss();
-                fragments[0] = homeFragment;
+                LabManager.getInstance().getCurrentFragment()[0] = homeFragment;
                 current = 0;
                 break;
             case 1:
@@ -153,7 +153,7 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
                 transaction.add(R.id.container, hotNewsFragment);
                 transaction.show(hotNewsFragment);
                 // transaction.replace(R.id.container, hotNewsFragment).commitAllowingStateLoss();
-                fragments[1] = hotNewsFragment;
+                LabManager.getInstance().getCurrentFragment()[1] = hotNewsFragment;
                 current = 1;
                 break;
             case 2:
@@ -166,10 +166,10 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
                 transaction.show(webViewFragment);
                 //transaction.replace(R.id.container, webViewFragment).commitAllowingStateLoss();
                 if (current == 0) {
-                    fragments[1] = webViewFragment;
+                    LabManager.getInstance().getCurrentFragment()[1] = webViewFragment;
                     current = 1;
                 } else if (current == 1) {
-                    fragments[2] = webViewFragment;
+                    LabManager.getInstance().getCurrentFragment()[2] = webViewFragment;
                     current = 2;
                 }
                 break;
@@ -181,7 +181,7 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
                 }
                 transaction.show(translateFragment);
                 // transaction.replace(R.id.container,translateFragment).commitAllowingStateLoss();
-                fragments[1] = translateFragment;
+                LabManager.getInstance().getCurrentFragment()[1] = translateFragment;
                 current = 1;
                 break;
             case 4: {
@@ -196,7 +196,7 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
                 transaction.add(R.id.container, labFragment);
                 transaction.show(labFragment);
                 //transaction.replace(R.id.container, labFragment).commitAllowingStateLoss();
-                fragments[1] = labFragment;
+                LabManager.getInstance().getCurrentFragment()[1] = labFragment;
                 current = 1;
                 break;
             }
@@ -211,10 +211,10 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
                 transaction.show(webViewFragment);
                 // transaction.replace(R.id.container, webViewFragment).commitAllowingStateLoss();
                 if (current == 0) {
-                    fragments[1] = webViewFragment;
+                    LabManager.getInstance().getCurrentFragment()[1] = webViewFragment;
                     current = 1;
                 } else if (current == 1) {
-                    fragments[2] = webViewFragment;
+                    LabManager.getInstance().getCurrentFragment()[2] = webViewFragment;
                     current = 2;
                 }
                 break;
@@ -227,7 +227,7 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
                 searchFragment.homeCallBack = this;
                 transaction.show(searchFragment);
                 //transaction.replace(R.id.container, searchFragment).commitAllowingStateLoss();
-                fragments[1] = searchFragment;
+                LabManager.getInstance().getCurrentFragment()[1] = searchFragment;
 
                 break;
         }
@@ -248,8 +248,8 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
 
     private void isCangoFroward() {
         if (current == 2) {
-            if (fragments[2] instanceof WebViewFragment) {
-                webViewFragment = (WebViewFragment) fragments[2];
+            if (LabManager.getInstance().getCurrentFragment()[2] instanceof WebViewFragment) {
+                webViewFragment = (WebViewFragment) LabManager.getInstance().getCurrentFragment()[2];
                 if (webViewFragment.canGoForward()) {
                     showCanForword(0);
                 }
@@ -257,13 +257,13 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
                 showCanForword(1);
             }
         } else if (current == 1) {
-            if (fragments[2] != null) {
+            if (LabManager.getInstance().getCurrentFragment()[2] != null) {
                 showCanForword(0);
             } else {
                 showCanForword(1);
             }
         } else if (current == 0) {
-            if (fragments[1] != null) {
+            if (LabManager.getInstance().getCurrentFragment()[1] != null) {
                 showCanForword(0);
             } else {
                 showCanForword(1);
@@ -307,8 +307,8 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        if (fragments[current] instanceof WebViewFragment) {
-            WebViewFragment videoMainView = (WebViewFragment) fragments[current];
+        if (LabManager.getInstance().getCurrentFragment()[current] instanceof WebViewFragment) {
+            WebViewFragment videoMainView = (WebViewFragment) LabManager.getInstance().getCurrentFragment()[current];
             if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
                 // 全屏
                 if (videoMainView != null) {
@@ -346,7 +346,7 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
                 break;
             case R.id.index_bottom_menu_goback:
                 if (current == 1) {
-                    Fragment fragment = fragments[1];
+                    Fragment fragment = LabManager.getInstance().getCurrentFragment()[1];
                     if (fragment instanceof WebViewFragment) {
                         webViewFragment = (WebViewFragment) fragment;
                         if (webViewFragment.canGoBack()) {
@@ -356,7 +356,7 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
                         }
                     }
                 } else if (current == 2) {
-                    Fragment fragment = fragments[2];
+                    Fragment fragment = LabManager.getInstance().getCurrentFragment()[2];
                     if (fragment instanceof WebViewFragment) {
                         webViewFragment = (WebViewFragment) fragment;
                         if (webViewFragment.canGoBack()) {
@@ -364,7 +364,7 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
                         } else {
                             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                             hideAll(transaction);
-                            transaction.show(fragments[1]).commit();
+                            transaction.show(LabManager.getInstance().getCurrentFragment()[1]).commit();
                             //getSupportFragmentManager().beginTransaction().replace(R.id.container, fragments[1]).commitAllowingStateLoss();
                             current = 1;
                         }
@@ -375,10 +375,10 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
                 break;
             case R.id.index_bottom_menu_goforward:
                 if (current == 0) {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.container, fragments[1]).commitAllowingStateLoss();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container, LabManager.getInstance().getCurrentFragment()[1]).commitAllowingStateLoss();
                     current = 1;
                 } else if (current == 1) {
-                    Fragment fragment = fragments[1];
+                    Fragment fragment = LabManager.getInstance().getCurrentFragment()[1];
                     if (fragment instanceof WebViewFragment) {
                         webViewFragment = (WebViewFragment) fragment;
                         if (webViewFragment.canGoForward()) {
@@ -386,7 +386,7 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
                         } else {
                             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                             hideAll(transaction);
-                            transaction.show(fragments[2]).commit();
+                            transaction.show(LabManager.getInstance().getCurrentFragment()[2]).commit();
 
                             //getSupportFragmentManager().beginTransaction().replace(R.id.container, fragments[2]).commitAllowingStateLoss();
                             current = 2;
@@ -450,7 +450,7 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
             super.onBackPressed();
         } else {
             LogUtils.e("ZX", current + "");
-            Fragment fragment = fragments[current - 1];
+            Fragment fragment = LabManager.getInstance().getCurrentFragment()[current - 1];
             if (fragment instanceof HomeFragment) {
                 setContainer(0, null, "", "");
             } else {
@@ -528,9 +528,7 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
         int height = mOrientation == Configuration.ORIENTATION_PORTRAIT ? mWidth : mHeight;
 
         Bitmap bitmap2 = Bitmap.createBitmap(bitmap, 0, statusBarHeight, width, height - statusBarHeight);
-        if (bitmap!=null){
-            view.destroyDrawingCache();
-        }
+        view.destroyDrawingCache();
         return bitmap2;
     }
 

@@ -16,7 +16,9 @@ import com.chinabrowser.net.GetLinkListProtocolPage;
 import com.chinabrowser.net.UpGetBaseUrl;
 import com.chinabrowser.net.UpGetLinkData;
 import com.chinabrowser.utils.CommUtils;
+import com.chinabrowser.utils.CrashHandlerUtil;
 import com.chinabrowser.utils.FileUtils;
+import com.chinabrowser.utils.LabManager;
 import com.mob.MobSDK;
 import com.tencent.smtt.sdk.QbSdk;
 
@@ -54,6 +56,7 @@ public class APP extends Application {
     public static List<HomeTab> homeTabs;
     public static HomeTab homeTab;
 
+
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -85,13 +88,14 @@ public class APP extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        //CrashHandlerUtil.getInstance().init(this);
+        CrashHandlerUtil.getInstance().init(this);
         context = this;
         FileUtils.InitSD();
         initX5WebView();
         MobSDK.init(this);
         getBaseurl();
         getLinkList();
+        LabManager.getInstance();
     }
 
     GetLinkListProtocolPage getLinkListProtocolPage;
