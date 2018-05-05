@@ -35,6 +35,7 @@ import com.chinabrowser.utils.Constant;
 import com.chinabrowser.utils.LabManager;
 import com.chinabrowser.utils.LogUtils;
 import com.chinabrowser.utils.Navigator;
+import com.chinabrowser.utils.StatusBarUtils;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -131,6 +132,7 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
     private void setContainer(int which, Title title, String id, String url) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         hideAll(transaction);
+        StatusBarUtils.setWindowStatusBarColor(this,R.color.color_base);
         switch (which) {
             case 0:
                 // homeFragment = (HomeFragment) retrieveFromCache();
@@ -157,6 +159,7 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
                 current = 1;
                 break;
             case 2:
+                StatusBarUtils.setWindowStatusBarColor(this,R.color.transparent);
                 webViewFragment = new WebViewFragment();
                 Bundle bun = new Bundle();
                 bun.putString("ID", id);
@@ -201,6 +204,7 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
                 break;
             }
             case 5: {
+                StatusBarUtils.setWindowStatusBarColor(this,R.color.transparent);
                 webViewFragment = new WebViewFragment();
                 Bundle bund = new Bundle();
                 bund.putString("URL", url);
@@ -424,7 +428,9 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
                 break;
             case Constant.SEARCHLAYOUT:
                 setContainer(6, null, "", "");
-
+                break;
+            case Constant.SLIDE:
+                setContainer(1, title, "", "");
                 break;
         }
     }

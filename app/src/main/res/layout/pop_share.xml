@@ -19,8 +19,8 @@
             android:layout_height="wrap_content">
             <ImageView
                 android:id="@+id/share1_pic"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:src="@mipmap/share_weixin"/>
             <TextView
                 android:id="@+id/share1_txt"
@@ -41,8 +41,8 @@
             android:layout_height="wrap_content">
             <ImageView
                 android:id="@+id/share2_pic"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:src="@mipmap/share_friend"/>
             <TextView
                 android:id="@+id/share2_txt"
@@ -63,8 +63,8 @@
             android:layout_height="wrap_content">
             <ImageView
                 android:id="@+id/share3_pic"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:src="@mipmap/share_weibo"/>
             <TextView
                 android:id="@+id/share3_txt"
@@ -85,8 +85,8 @@
             android:layout_height="wrap_content">
             <ImageView
                 android:id="@+id/share4_pic"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:src="@mipmap/share_qq"/>
             <TextView
                 android:id="@+id/share4_txt"

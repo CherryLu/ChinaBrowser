@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
     <LinearLayout
         android:background="@color/color_base"
         android:orientation="vertical"
@@ -45,6 +46,7 @@
         </LinearLayout>
     </LinearLayout>
     <TextView
+        android:visibility="gone"
         android:layout_marginTop="24dp"
         android:textSize="15sp"
         android:textColor="#333333"
@@ -53,6 +55,7 @@
         android:layout_height="wrap_content"
         android:text="@string/searech_recommend"/>
     <android.support.v7.widget.RecyclerView
+        android:visibility="gone"
         android:layout_marginLeft="8dp"
         android:id="@+id/list"
         android:layout_width="match_parent"

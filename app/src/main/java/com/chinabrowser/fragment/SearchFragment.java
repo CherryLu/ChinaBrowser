@@ -163,6 +163,7 @@ public class SearchFragment extends BaseFragment {
                 homeCallBack.startContentByurl(content);
             }
         }
+        txtInput.setText("");
 
     }
 

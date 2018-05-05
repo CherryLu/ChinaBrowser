@@ -14,6 +14,11 @@ public class Title implements Serializable {
     private String title_name;
     private String catalog_id;
 
+    public void setCatalog_id(String catalog_id) {
+        this.catalog_id = catalog_id;
+    }
+
+
     public String getTitle_name() {
         return title_name;
     }

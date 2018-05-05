@@ -2,6 +2,7 @@ package com.chinabrowser.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -34,7 +35,13 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HViewHol
     @Override
     public void onBindViewHolder(HViewHolder holder, int position) {
         History history = historys.get(position);
-        holder.title.setText(history.getTitle());
+        if (!TextUtils.isEmpty(history.getTitle())){
+            holder.title.setText(history.getTitle());
+        }else {
+            holder.title.setText(history.getUrl());
+        }
+
+
     }
 
     @Override

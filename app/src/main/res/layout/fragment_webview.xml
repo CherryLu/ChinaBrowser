@@ -21,6 +21,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
+                    android:textStyle="bold"
                     android:paddingLeft="12dp"
                     android:paddingRight="12dp"
                     android:layout_marginTop="55dp"
@@ -87,8 +88,8 @@
                 android:layout_marginBottom="9dp"
                 android:layout_marginTop="9dp"
                 android:layout_marginLeft="32dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:src="@mipmap/un_collection"/>
             <ImageView
                 android:id="@+id/share"
@@ -96,8 +97,8 @@
                 android:layout_marginRight="32dp"
                 android:layout_marginTop="9dp"
                 android:layout_marginLeft="30dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:src="@mipmap/share"/>
         </LinearLayout>
     </RelativeLayout>

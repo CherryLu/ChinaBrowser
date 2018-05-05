@@ -545,7 +545,9 @@ public class BrowserVideoPlayer extends RelativeLayout implements View.OnClickLi
      * 暂停播放
      */
     public void pause() {
-        videoView.pause();
+        if (videoView!=null){
+            videoView.pause();
+        }
         stopDurationTimer();
         if (videoPlayInterface != null) {
             videoPlayInterface.pause();

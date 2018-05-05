@@ -37,6 +37,10 @@ public class RewritePopwindow extends PopupWindow {
         ImageView share3_pic = (ImageView) mView.findViewById(R.id.share3_pic);
         ImageView share4_pic = (ImageView) mView.findViewById(R.id.share4_pic);
 
+        TextView share1_txt =  mView.findViewById(R.id.share1_txt);
+        TextView share2_txt =  mView.findViewById(R.id.share2_txt);
+        TextView share3_txt =  mView.findViewById(R.id.share3_txt);
+        TextView share4_txt =  mView.findViewById(R.id.share4_txt);
 
 
         LinearLayout weiXFriend = (LinearLayout) mView.findViewById(R.id.share1);
@@ -46,14 +50,23 @@ public class RewritePopwindow extends PopupWindow {
 
         if (CommUtils.getCurrentLag(context)==0){
             share1_pic.setImageResource(R.mipmap.share_weixin);
+            share1_txt.setText("微信");
             share2_pic.setImageResource(R.mipmap.share_friend);
+            share2_txt.setText("朋友圈");
             share3_pic.setImageResource(R.mipmap.share_weibo);
+            share3_txt.setText("微博");
             share4_pic.setImageResource(R.mipmap.share_qq);
+            share4_txt.setText("QQ");
             QQZone.setVisibility(View.VISIBLE);
+
+
         }else {
             share1_pic.setImageResource(R.mipmap.google);
+            share1_txt.setText("google+");
             share2_pic.setImageResource(R.mipmap.twitter);
+            share2_txt.setText("twitter");
             share3_pic.setImageResource(R.mipmap.facebook);
+            share3_txt.setText("facebook");
             QQZone.setVisibility(View.GONE);
         }
 

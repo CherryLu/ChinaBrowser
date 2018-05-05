@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
     <include layout="@layout/layout_title"/>
     <LinearLayout
         android:orientation="horizontal"
@@ -15,7 +16,7 @@
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="@color/color_txt_gray"/>
+            android:background="#f4f4f4"/>
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rightlist"
             android:layout_width="match_parent"

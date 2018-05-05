@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.chinabrowser.APP;
 import com.chinabrowser.R;
-import com.chinabrowser.fragment.WebViewFragment;
 import com.chinabrowser.utils.Navigator;
 import com.tencent.smtt.export.external.interfaces.IX5WebChromeClient;
 import com.tencent.smtt.sdk.DownloadListener;
@@ -50,7 +49,7 @@ public class WebDetailActivity extends BaseActivity {
         initWebView(webview);
         id = getIntent().getStringExtra("ID");
         url = getIntent().getStringExtra("URL");
-        webview.loadUrl("http://www.youku.com/");
+        webview.loadUrl("https://www.jd.com/");
     }
 
     private void initWebView(WebView ActionwebView) {

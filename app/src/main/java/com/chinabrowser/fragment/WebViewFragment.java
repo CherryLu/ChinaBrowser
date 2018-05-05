@@ -44,8 +44,12 @@ import com.tencent.smtt.sdk.WebStorage;
 import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebViewClient;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
+import java.net.URLEncoder;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -113,6 +117,35 @@ public class WebViewFragment extends BaseFragment implements BrowserVideoPlayer.
         return "<html>" + head + "<body>" + bodyHTML + "</body></html>";
     }
 
+    public static String formatA(String value) {
+        if (value == null)
+            return "";
+        //html的标签属性肯定是以单引号或双引号包含
+        String pattern = "<a([\\w\\W]*?) href=['|\"]([\\w\\W]*?)['|\"]([\\w\\W]*?)>";
+        Pattern p = Pattern.compile(pattern, Pattern.CASE_INSENSITIVE);
+        Matcher m = p.matcher(value);
+        while (m.find()) {
+            String a = m.group();
+            String _url = m.group(2);
+            String url = _url;
+
+            try {
+                url = URLEncoder.encode(_url, "utf-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            url = "";
+            //将target属性替换为""，以便所有外链都是_blank打开
+            String targetReg = "target=['|\"].*?['|\"']";
+            String prefix = m.group(1).replaceAll(targetReg, "");
+            String suffix = m.group(3).replaceAll(targetReg, "");
+            //整段匹配不会出现错误
+            String _a = "";
+            value = value.replace(a, _a);
+        }
+        return value;
+    }
+
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -121,7 +154,9 @@ public class WebViewFragment extends BaseFragment implements BrowserVideoPlayer.
                     if (getNewsDetails != null && getNewsDetails.newsDetail != null) {
                         NewsDetail newsDetail = getNewsDetails.newsDetail;
                         setVideo(newsDetail.vcontent);
-                        webview.loadData(getHtmlData(newsDetail.content), "text/html; charset=UTF-8", null);
+                        LogUtils.e("getHtmlData",getHtmlData(newsDetail.content));
+                        LogUtils.e("getHtmlData",formatA(getHtmlData(newsDetail.content)));
+                        webview.loadData(formatA(getHtmlData(newsDetail.content)), "text/html; charset=UTF-8", null);
                         webTitle.setText(newsDetail.title);
                         from.setText(newsDetail.copy_from);
                         time.setText(CommUtils.getTime(newsDetail.update_time));
@@ -174,6 +209,8 @@ public class WebViewFragment extends BaseFragment implements BrowserVideoPlayer.
         }
     }
 
+
+
     public String newsId;
     boolean isUrl;
     String url;
@@ -201,7 +238,6 @@ public class WebViewFragment extends BaseFragment implements BrowserVideoPlayer.
             newsId = getArguments().getString("ID");
             getNewsDetails();
         }
-
         return rootView;
     }
 
@@ -506,7 +542,7 @@ public class WebViewFragment extends BaseFragment implements BrowserVideoPlayer.
         ActionwebView.getSettings().setSupportZoom(true); // 支持缩放
         ActionwebView.getSettings().setLoadWithOverviewMode(true);
         ActionwebView.getSettings().setDefaultTextEncodingName("utf-8");
-        String defaultUa = ActionwebView.getSettings().getUserAgentString() + "/GgBroswer";
+        String defaultUa = ActionwebView.getSettings().getUserAgentString();
         ActionwebView.getSettings().setUserAgent(defaultUa);
 
 //        5.0 以上的手机要加这个
@@ -689,8 +725,8 @@ public class WebViewFragment extends BaseFragment implements BrowserVideoPlayer.
 
 
         public boolean shouldOverrideUrlLoading(final WebView view, String url) {
-            view.loadUrl(url);
-            return true;
+            //view.loadUrl(url);
+            return false;
         }
 
         @Override

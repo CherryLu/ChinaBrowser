@@ -76,6 +76,7 @@ public class SettingActivity extends BaseActivity {
     @Bind(R.id.cleardata)
     TextView cleardata;
 
+    LoginStateInterface loginStateInterface;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,10 +97,9 @@ public class SettingActivity extends BaseActivity {
             clearAccount.setVisibility(View.GONE);
         }
 
-        UserManager.getInstance().attach(new LoginStateInterface() {
+        loginStateInterface = new LoginStateInterface() {
             @Override
             public void update(boolean isLogin) {
-
                 if (isLogin) {
                     GlideUtils.loadImageView(SettingActivity.this,UserManager.getInstance().getUserHeader(),headerImage);
                     loginTxt.setText(UserManager.getInstance().getUsername());
@@ -111,9 +111,10 @@ public class SettingActivity extends BaseActivity {
                     loginout.setVisibility(View.GONE);
                     clearAccount.setVisibility(View.GONE);
                 }
-
             }
-        });
+        };
+
+        UserManager.getInstance().attach(loginStateInterface);
     }
 
     private void setCurrentLag(){
@@ -276,5 +277,11 @@ public class SettingActivity extends BaseActivity {
             setSearchName(resultCode);
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        UserManager.getInstance().detach(loginStateInterface);
     }
 }

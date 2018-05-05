@@ -2,15 +2,18 @@ package com.chinabrowser.viewholder;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.chinabrowser.R;
 import com.chinabrowser.adapter.ImagePagerAdapter;
 import com.chinabrowser.bean.Content;
 import com.chinabrowser.bean.Recommend;
+import com.chinabrowser.bean.Title;
 import com.chinabrowser.cbinterface.PagerClick;
 import com.chinabrowser.ui.CustomViewpager;
 import com.chinabrowser.utils.CommUtils;
+import com.chinabrowser.utils.Constant;
 
 import java.util.List;
 
@@ -75,8 +78,22 @@ public class SlidePicViewHolder extends BaseViewHolder implements PagerClick {
     @Override
     public void pagerClick(int position) {
         Content content = recommend.getContents().get(position);
-        if (homeCallBack!=null){
-            homeCallBack.startContent(content);
+        if (TextUtils.isEmpty(content.getAction())){
+            return;
         }
+
+        if (content.getAction().equals("3")){
+            if (homeCallBack!=null){
+                homeCallBack.startContent(content);
+            }
+        }else if (content.getAction().equals("2")){
+            if (homeCallBack!=null){
+                Title title = new Title();
+                title.setTitle_name("");
+                title.setCatalog_id(content.getCatalog_id());
+                homeCallBack.titleClick(Constant.SLIDE,title);
+            }
+        }
+
     }
 }

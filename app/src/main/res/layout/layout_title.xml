@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="40dp"
+    android:layout_height="48dp"
     android:background="@color/color_base">
     <RelativeLayout
         android:paddingLeft="10dp"
@@ -10,8 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <ImageView
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
             android:src="@mipmap/back_translation"
             android:layout_centerVertical="true"
             android:id="@+id/back_image"

@@ -22,6 +22,16 @@ public class Content  {
     private String copy_from;
     private String cover_image;
     private String copy_url;
+    private String action;
+    private String catalog_id;
+
+    public String getCatalog_id() {
+        return catalog_id;
+    }
+
+    public void setCatalog_id(String catalog_id) {
+        this.catalog_id = catalog_id;
+    }
 
     public String getCopy_from() {
         return copy_from;
@@ -127,7 +137,13 @@ public class Content  {
         this.url = url;
     }
 
+    public String getAction() {
+        return action;
+    }
 
+    public void setAction(String action) {
+        this.action = action;
+    }
 
     public void parse(JSONObject jsonObject){
         if (jsonObject!=null){
@@ -141,6 +157,8 @@ public class Content  {
             copy_from = JsonUtils.getString(jsonObject,"copy_from");
             cover_image = JsonUtils.getString(jsonObject,"cover_image");
             copy_url = JsonUtils.getString(jsonObject,"copy_url");
+            action = JsonUtils.getString(jsonObject,"action");
+            catalog_id = JsonUtils.getString(jsonObject,"catalog_id");
         }
     }
 }
