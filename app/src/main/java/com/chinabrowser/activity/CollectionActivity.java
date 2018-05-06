@@ -110,6 +110,7 @@ public class CollectionActivity extends BaseActivity implements DelCollectionCal
             nocollection.setVisibility(View.GONE);
             collection.setVisibility(View.VISIBLE);
             collectionAdapter = new CollectionAdapter(this,collectionItems);
+            collectionAdapter.setCollectionCallBack(this);
             LinearLayoutManager manager = new LinearLayoutManager(this);
             manager.setOrientation(LinearLayoutManager.VERTICAL);
             collection.setLayoutManager(manager);
@@ -132,6 +133,10 @@ public class CollectionActivity extends BaseActivity implements DelCollectionCal
 
     @Override
     public void itemClick(CollectionItem collectionItem) {//点击
+        if (collectionItem!=null){
+            Navigator.startMainActivity(this,2,collectionItem.id);
+        }
+
 
     }
 

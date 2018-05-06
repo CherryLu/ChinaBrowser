@@ -16,8 +16,12 @@
     <string name="setting_loginsuccess">登录成功</string>
     <string name="setting_loginfail">登录失败</string>
     <string name="setting_login_que">是否退出登录</string>
+    <string name="collection_success">收藏成功</string>
+    <string name="collection_cancel">取消收藏</string>
+    <string name="search_title">请输入关键字</string>
     <string name="web_search">搜索</string>
     <string name="web_into">跳转</string>
+    <string name="share_cancel">取消</string>
     <string name="setting_login_yes">是</string>
     <string name="clearup">清理完成</string>
     <string name="setting_login_no">否</string>

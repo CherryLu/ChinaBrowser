@@ -44,8 +44,11 @@
     <string name="str_regist_success">Kayıt başarılı</string>
     <string name="str_regist_fail">Kayıt başarısız oldu</string>
     <string name="setting_title">Ayarlamak</string>
-
+    <string name="collection_success">Koleksiyon başarılı</string>
+    <string name="collection_cancel">Koleksiyonu iptal et</string>
+    <string name="search_title">Lütfen bir anahtar kelime girin</string>
     <string name="setting_login_que">Giriş çıkış</string>
+    <string name="share_cancel">İptal</string>
     <string name="setting_login_yes">Evet</string>
     <string name="setting_login_no">Hayır</string>
     <string name="clearup">Temizleme tamamlandı</string>

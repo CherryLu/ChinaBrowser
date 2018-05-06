@@ -1,5 +1,6 @@
 package com.chinabrowser.cbinterface;
 
+import com.chinabrowser.bean.Content;
 import com.chinabrowser.bean.Recommend;
 
 /**
@@ -9,4 +10,5 @@ import com.chinabrowser.bean.Recommend;
 public interface RightClick {
 
     void itemClick(Recommend recommend);
+    void startUrl(Content content);
 }

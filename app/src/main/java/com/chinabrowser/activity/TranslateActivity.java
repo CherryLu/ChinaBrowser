@@ -37,6 +37,7 @@ import com.chinabrowser.ui.CustomListView;
 import com.chinabrowser.ui.TosAdapterView;
 import com.chinabrowser.ui.TosGallery;
 import com.chinabrowser.ui.WheelView;
+import com.chinabrowser.utils.LogUtils;
 import com.chinabrowser.utils.Navigator;
 import com.chinabrowser.utils.TranslateUtil;
 
@@ -442,17 +443,21 @@ public class TranslateActivity extends BaseActivity implements OnClickListener {
                 public void onClick(View v) {
                     int no = Integer.valueOf(v.getTag().toString());
                     String fileName = String.format(Locale.ENGLISH, STR_ZH, no);
+                    LogUtils.e("ZZXX",fileName);
                     // 播放英语
                     if (TranslateUtil.TRANSLATE_COLUMNS[1].equalsIgnoreCase(mAppSpf.getString(TranslateUtil.SPF_TRANSLATE_TO, TranslateUtil.TRANSLATE_COLUMNS[1]))) {
-                    	fileName = String.format(Locale.ENGLISH, STR_EN, no);
+                    	fileName = String.format(Locale.ENGLISH, STR_TR, no);
+                        LogUtils.e("ZZXX","播放英语 :"+fileName);
                     }
                     // 播放土耳其语音
                     else if (TranslateUtil.TRANSLATE_COLUMNS[2].equalsIgnoreCase(mAppSpf.getString(TranslateUtil.SPF_TRANSLATE_TO, TranslateUtil.TRANSLATE_COLUMNS[1]))) {
                         fileName = String.format(Locale.ENGLISH, STR_TR, no);
+                        LogUtils.e("ZZXX","播放土耳其语音 :"+fileName);
                     }
                     // 播放汉语
                     else if (TranslateUtil.TRANSLATE_COLUMNS[0].equalsIgnoreCase(mAppSpf.getString(TranslateUtil.SPF_TRANSLATE_TO, TranslateUtil.TRANSLATE_COLUMNS[1]))) {
 					    fileName = String.format(Locale.ENGLISH, STR_ZH, no);
+                        LogUtils.e("ZZXX","播放汉语 :"+fileName);
 					}
                     
                     try {

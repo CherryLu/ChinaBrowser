@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chinabrowser.R;
+import com.chinabrowser.utils.Navigator;
 
 /**
  * Created by 95470 on 2018/4/16.
@@ -41,13 +42,13 @@ public class FirstTranslateAdapter extends RecyclerView.Adapter<FirstTranslateAd
     }
 
     @Override
-    public void onBindViewHolder(TViewHolder holder, int position) {
+    public void onBindViewHolder(TViewHolder holder, final int position) {
         holder.pic.setImageResource(mCatIcons[position]);
         holder.name.setText(mCatTitles[position]);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Navigator.startTranslateActivity(v.getContext(),position);
             }
         });
     }

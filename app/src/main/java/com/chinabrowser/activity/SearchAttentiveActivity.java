@@ -63,6 +63,7 @@ public class SearchAttentiveActivity extends BaseActivity {
             selected3.setVisibility(View.VISIBLE);
         }
         result = position;
+        setResult(result);
         CommUtils.setCurrentSearch(this,position);
     }
     @OnClick({R.id.search1, R.id.search2, R.id.search3,R.id.back_image})
@@ -78,7 +79,6 @@ public class SearchAttentiveActivity extends BaseActivity {
                 setDefaltSearch(2);
                 break;
             case R.id.back_image:
-                setResult(result);
                 Navigator.finishActivity(this);
                 break;
         }

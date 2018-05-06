@@ -31,11 +31,11 @@ public class RedPacketCustomDialog extends Dialog implements View.OnClickListene
 		switch (which){
 			case 0:
 				imag.setImageResource(R.mipmap.success_coll);
-				txt.setText("收藏成功");
+				txt.setText(getContext().getText(R.string.collection_success));
 				break;
 			case 1:
 				imag.setImageResource(R.mipmap.cancle_coll);
-				txt.setText("取消收藏");
+				txt.setText(getContext().getText(R.string.collection_cancel));
 				break;
 			case 2:
 

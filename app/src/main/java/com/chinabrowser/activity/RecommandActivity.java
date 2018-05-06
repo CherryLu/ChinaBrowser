@@ -12,6 +12,7 @@ import com.chinabrowser.APP;
 import com.chinabrowser.R;
 import com.chinabrowser.adapter.LeftAdapter;
 import com.chinabrowser.adapter.RightAdapter;
+import com.chinabrowser.bean.Content;
 import com.chinabrowser.bean.Recommend;
 import com.chinabrowser.cbinterface.RightClick;
 import com.chinabrowser.utils.Navigator;
@@ -57,6 +58,7 @@ public class RecommandActivity extends BaseActivity implements RightClick {
         leftlist.setAdapter(leftAdapter);
 
         rightAdapter = new RightAdapter(this, APP.linkDatas.get(0).getContents());
+        rightAdapter.setRightClick(this);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this,3);
         rightlist.setLayoutManager(gridLayoutManager);
         rightlist.setAdapter(rightAdapter);
@@ -72,8 +74,17 @@ public class RecommandActivity extends BaseActivity implements RightClick {
     @Override
     public void itemClick(Recommend recommend) {
         rightAdapter = new RightAdapter(this, recommend.getContents());
+        rightAdapter.setRightClick(this);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this,3);
         rightlist.setLayoutManager(gridLayoutManager);
         rightlist.setAdapter(rightAdapter);
+    }
+
+    @Override
+    public void startUrl(Content content) {
+        if (content!=null){
+            Navigator.startMainActivity(this,1,content.getLink_url());
+        }
+
     }
 }

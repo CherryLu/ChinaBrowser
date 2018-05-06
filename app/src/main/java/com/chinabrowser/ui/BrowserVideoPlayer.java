@@ -559,7 +559,9 @@ public class BrowserVideoPlayer extends RelativeLayout implements View.OnClickLi
      */
     public void resume() {
         startDurationTimer();
-        videoView.start();
+        if (videoView!=null){
+            videoView.start();
+        }
         if (videoPlayInterface != null) {
             videoPlayInterface.resume();
         }

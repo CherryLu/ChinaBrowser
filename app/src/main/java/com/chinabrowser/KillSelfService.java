@@ -39,6 +39,7 @@ public class KillSelfService extends Service {
                 Intent LaunchIntent = getPackageManager().getLaunchIntentForPackage(PackageName);
                 startActivity(LaunchIntent);
                 KillSelfService.this.stopSelf();
+                System.exit(0);
 
             }
         },stopDelayed);

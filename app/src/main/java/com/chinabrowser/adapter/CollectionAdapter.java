@@ -45,7 +45,7 @@ public class CollectionAdapter extends RecyclerView.Adapter<CollectionAdapter.CV
     public void onBindViewHolder(final CViewHolder holder, int position) {
         final CollectionItem collection = collections.get(position);
         holder.title.setText(collection.title);
-        holder.title.setText(collection.copy_url);
+        holder.url.setText(collection.copy_url);
         holder.slip_txt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {//删除收藏

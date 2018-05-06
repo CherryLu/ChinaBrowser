@@ -45,6 +45,17 @@ public class Navigator {
         Intent intent = new Intent(context, MainActivity.class);
         context.startActivity(intent);
     }
+
+    /**
+     * 跳转主页面
+     * @param context
+     */
+    public static void startMainActivity(Context context,int which,String id){
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.putExtra("ISURL",which);
+        intent.putExtra("URL",id);
+        context.startActivity(intent);
+    }
     /**
      * 跳转登录
      * @param context

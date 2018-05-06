@@ -15,7 +15,7 @@
         android:textSize="16sp"
         android:layout_marginTop="20dp"
         android:layout_gravity="center_horizontal"
-        android:text="丝路3.0.1"
+        android:text="@string/app_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <TextView

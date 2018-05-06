@@ -82,13 +82,29 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
     private LabFragment labFragment;
 
     private int current = 0;
-
+    private int isurl;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        hideAll(getSupportFragmentManager().beginTransaction());
+
         setContainer(0, null, "", "");
+        isurl = getIntent().getIntExtra("ISURL",0);
+        if (isurl==1){
+            String url = getIntent().getStringExtra("URL");
+            if (!url.startsWith("https://")) {
+                url = "https://" + url;
+            }
+            setContainer(5,null,"",url);
+        }else if (isurl == 2){
+            String id = getIntent().getStringExtra("URL");
+            setContainer(2,null,id,"");
+        }
+
+
         // 初始横竖屏状况
         mOrientation = getResources().getConfiguration().orientation;
         mWidth = getWindowManager().getDefaultDisplay().getWidth();
@@ -230,6 +246,7 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
                 }
                 searchFragment.homeCallBack = this;
                 transaction.show(searchFragment);
+                current =1;
                 //transaction.replace(R.id.container, searchFragment).commitAllowingStateLoss();
                 LabManager.getInstance().getCurrentFragment()[1] = searchFragment;
 
@@ -349,6 +366,7 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
                 Navigator.startSettingActivity(this);
                 break;
             case R.id.index_bottom_menu_goback:
+                LogUtils.e("ZXZX",current+"");
                 if (current == 1) {
                     Fragment fragment = LabManager.getInstance().getCurrentFragment()[1];
                     if (fragment instanceof WebViewFragment) {
@@ -358,6 +376,8 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
                         } else {
                             setContainer(0, null, "", "");
                         }
+                    }else {
+                        setContainer(0, null, "", "");
                     }
                 } else if (current == 2) {
                     Fragment fragment = LabManager.getInstance().getCurrentFragment()[2];
@@ -378,8 +398,12 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
                 isCangoFroward();
                 break;
             case R.id.index_bottom_menu_goforward:
+
                 if (current == 0) {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.container, LabManager.getInstance().getCurrentFragment()[1]).commitAllowingStateLoss();
+                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                    Fragment fragment = LabManager.getInstance().getCurrentFragment()[1];
+                    hideAll(transaction);
+                    transaction.show(fragment);
                     current = 1;
                 } else if (current == 1) {
                     Fragment fragment = LabManager.getInstance().getCurrentFragment()[1];

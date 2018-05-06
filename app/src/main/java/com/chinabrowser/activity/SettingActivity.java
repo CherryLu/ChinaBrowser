@@ -18,6 +18,7 @@ import com.chinabrowser.utils.AppCacheUtils;
 import com.chinabrowser.utils.CommUtils;
 import com.chinabrowser.utils.Constant;
 import com.chinabrowser.utils.GlideUtils;
+import com.chinabrowser.utils.LogUtils;
 import com.chinabrowser.utils.Navigator;
 import com.chinabrowser.utils.SharedPreferencesUtils;
 import com.chinabrowser.utils.UserManager;
@@ -28,7 +29,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.chinabrowser.R.id.search_name;
 
 /**
  * Created by Administrator on 2018/3/27.
@@ -89,7 +89,7 @@ public class SettingActivity extends BaseActivity {
             loginTxt.setText(UserManager.getInstance().getUsername());
             GlideUtils.loadImageView(this,UserManager.getInstance().getUserHeader(),headerImage);
             loginout.setVisibility(View.VISIBLE);
-            clearAccount.setVisibility(View.VISIBLE);
+            clearAccount.setVisibility(View.GONE);
         } else {
             headerImage.setImageResource(R.mipmap.defaluthead);
             loginTxt.setText(getText(R.string.setting_login));
@@ -104,7 +104,7 @@ public class SettingActivity extends BaseActivity {
                     GlideUtils.loadImageView(SettingActivity.this,UserManager.getInstance().getUserHeader(),headerImage);
                     loginTxt.setText(UserManager.getInstance().getUsername());
                     loginout.setVisibility(View.VISIBLE);
-                    clearAccount.setVisibility(View.VISIBLE);
+                    clearAccount.setVisibility(View.GONE);
                 } else {
                     headerImage.setImageResource(R.mipmap.defaluthead);
                     loginTxt.setText(getText(R.string.setting_login));
@@ -133,7 +133,7 @@ public class SettingActivity extends BaseActivity {
             searchName.setText(getResources().getText(R.string.search1));
         } else if (position == 1) {
             searchName.setText(getResources().getText(R.string.search2));
-        } else if (position == 0) {
+        } else if (position == 2) {
             searchName.setText(getResources().getText(R.string.search3));
         }
     }
@@ -174,13 +174,13 @@ public class SettingActivity extends BaseActivity {
     private void restartAPP(){
         Intent intent = new Intent(this, KillSelfService.class);
         intent.putExtra("PackageName",getPackageName());
-        intent.putExtra("Delayed",500);
+        intent.putExtra("Delayed",100);
         startService(intent);
     }
 
 
 
-    @OnClick({R.id.back_image, R.id.header_image, R.id.china, R.id.turkish, search_name, R.id.about_us, R.id.loginout, R.id.clear_account, R.id.login_txt, R.id.collection, R.id.history, R.id.search_attentive,R.id.cleardata})
+    @OnClick({R.id.back_image, R.id.header_image, R.id.china, R.id.turkish,  R.id.about_us, R.id.loginout, R.id.clear_account, R.id.login_txt, R.id.collection, R.id.history, R.id.search_attentive,R.id.cleardata})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.back_image:

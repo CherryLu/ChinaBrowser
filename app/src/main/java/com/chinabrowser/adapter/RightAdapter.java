@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.chinabrowser.R;
 import com.chinabrowser.bean.Content;
+import com.chinabrowser.cbinterface.RightClick;
 import com.chinabrowser.utils.GlideUtils;
 import com.chinabrowser.utils.LogUtils;
 
@@ -21,6 +22,11 @@ import java.util.List;
 public class RightAdapter extends RecyclerView.Adapter<RightAdapter.RViewHolder> {
     private Context context;
     private List<Content> contents;
+    private RightClick rightClick;
+
+    public void setRightClick(RightClick rightClick) {
+        this.rightClick = rightClick;
+    }
 
     public RightAdapter(Context context, List<Content> contents) {
         this.context = context;
@@ -36,16 +42,18 @@ public class RightAdapter extends RecyclerView.Adapter<RightAdapter.RViewHolder>
 
     @Override
     public void onBindViewHolder(final RViewHolder holder, int position) {
-        Content content = contents.get(position);
+        final Content content = contents.get(position);
         holder.name.setText(content.getTitle());
         GlideUtils.loadImageView(context,content.getCover_image(),holder.cover);
-        /*holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onLongClick(View v) {
-                holder.delete.setVisibility(View.VISIBLE);
-                return true;
+            public void onClick(View view) {
+                if (rightClick!=null){
+                    rightClick.startUrl(content);
+                }
             }
-        });*/
+        });
+
     }
 
     @Override
