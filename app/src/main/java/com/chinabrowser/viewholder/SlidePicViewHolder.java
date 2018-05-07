@@ -93,6 +93,10 @@ public class SlidePicViewHolder extends BaseViewHolder implements PagerClick {
                 title.setCatalog_id(content.getCatalog_id());
                 homeCallBack.titleClick(Constant.SLIDE,title);
             }
+        }else if (content.getAction().equals("1")){
+            if (homeCallBack!=null){
+                homeCallBack.startContentByurl(content);
+            }
         }
 
     }
