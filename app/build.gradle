@@ -115,9 +115,9 @@ MobSDK {
                 enable true
             }
             GooglePlus {
-                appId "browser1332753754"
+                appId "858161778535-jr89k78l5nolmqo5kad47mqe5ntegkas.apps.googleusercontent.com"
                 appSecret "838970271452 "
-                callbackUri "http://www.chinaplus.net.cn"
+                callbackUri "http://localhost"
                 enable true
             }
 

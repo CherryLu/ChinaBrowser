@@ -353,6 +353,7 @@ public class UserManager {
                 break;
             case GOOGLE:
                 platform = ShareSDK.getPlatform(GooglePlus.NAME);
+                //platform.SSOSetting(true);
                 break;
             case TWITTER:
                 platform = ShareSDK.getPlatform(Twitter.NAME);
@@ -407,8 +408,10 @@ public class UserManager {
                     platform = ShareSDK.getPlatform(SinaWeibo.NAME);
                     break;
                 case GOOGLE:
+                    platform = ShareSDK.getPlatform(GooglePlus.NAME);
                     break;
                 case TWITTER:
+                    platform = ShareSDK.getPlatform(Twitter.NAME);
                     break;
                 case FACEBOOK:
                     platform = ShareSDK.getPlatform(Facebook.NAME);

@@ -15,6 +15,7 @@ import com.chinabrowser.activity.RecommandActivity;
 import com.chinabrowser.activity.RegisterActivity;
 import com.chinabrowser.activity.SearchActivity;
 import com.chinabrowser.activity.SearchAttentiveActivity;
+import com.chinabrowser.activity.SelectActivity;
 import com.chinabrowser.activity.SettingActivity;
 import com.chinabrowser.activity.TranslateActivity;
 import com.chinabrowser.activity.WebDetailActivity;
@@ -64,6 +65,12 @@ public class Navigator {
         Intent intent = new Intent(context, LoginActivity.class);
         context.startActivity(intent);
     }
+
+    public static void startSelectionActivity(Context context){
+        Intent intent = new Intent(context, SelectActivity.class);
+        context.startActivity(intent);
+    }
+
 
     /**
      * 跳转注册页面

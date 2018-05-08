@@ -10,6 +10,12 @@
     </style>
 
 
+    <style name="StartTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@mipmap/start_pic</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+
     <!-- 密码可见: CheckBox -->
     <style name="StylePwdCheckboxTheme" parent="@android:style/Widget.CompoundButton.CheckBox">
         <item name="android:button">@drawable/checkbox_pwd_visible_selector</item>

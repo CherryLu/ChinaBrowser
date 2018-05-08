@@ -50,6 +50,7 @@ public class ExitDialog extends Dialog implements View.OnClickListener {
 		setCanceledOnTouchOutside(false);
 		setCancelable(false);
 
+
 	}
 
 
