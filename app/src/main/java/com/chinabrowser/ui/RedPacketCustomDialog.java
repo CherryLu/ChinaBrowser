@@ -38,7 +38,10 @@ public class RedPacketCustomDialog extends Dialog implements View.OnClickListene
 				txt.setText(getContext().getText(R.string.collection_cancel));
 				break;
 			case 2:
-
+				imag.setImageResource(R.mipmap.success_coll);
+				txt.setText(getContext().getText(R.string.setting_clear_success));
+				break;
+			case 3:
 				break;
 		}
 	}

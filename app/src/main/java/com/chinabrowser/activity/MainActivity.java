@@ -2,6 +2,9 @@ package com.chinabrowser.activity;
 
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
@@ -11,6 +14,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -36,6 +40,9 @@ import com.chinabrowser.utils.LabManager;
 import com.chinabrowser.utils.LogUtils;
 import com.chinabrowser.utils.Navigator;
 import com.chinabrowser.utils.StatusBarUtils;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -119,6 +126,7 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
                 APP.homeTab = homeTab;
             }
         }, 500);
+        //getHashKey();
     }
 
     private void hideAll(FragmentTransaction fragmentTransaction) {
@@ -518,6 +526,26 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
         String id = content.getId();
         if (id != null) {
             setContainer(2, null, id, "");
+        }
+    }
+
+    private void getHashKey(){
+        try {
+            int i = 0;
+            PackageInfo info = getPackageManager().getPackageInfo( getPackageName(),  PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                i++;
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                String KeyHash = Base64.encodeToString(md.digest(), Base64.DEFAULT);
+                LogUtils.e("KEY","KeyHash : "+KeyHash);
+            }
+        }
+        catch (PackageManager.NameNotFoundException e) {
+
+        }
+        catch (NoSuchAlgorithmException e) {
+
         }
     }
 

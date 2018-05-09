@@ -1,4 +1,6 @@
 <resources>
+    <string name="net_load">点击屏幕，重新加载</string>
+    <string name="pre_loading">释放即可刷新</string>
     <string name="app_name">中华浏览器</string>
     <string name="app_txt">欢迎</string>
     <string name="select_tip">请选择您的语言</string>
@@ -12,6 +14,7 @@
     <string name="setting_search">默认搜索引擎</string>
     <string name="setting_about">关于我们</string>
     <string name="setting_clear">清除缓存</string>
+    <string name="setting_clear_success">清除缓存成功</string>
     <string name="setting_loginout">退出登录</string>
     <string name="setting_loginsuccess">登录成功</string>
     <string name="setting_loginfail">登录失败</string>
@@ -172,6 +175,7 @@
     <string name="translate_childm_guahao">guahao</string>
     <string name="translate_childm_kanzhen">kanzhen</string>
     <string name="translate_childm_jiaofei">jiaofei</string>
+
 
 
     <string name="about1">"\u3000\u3000"丝路是中国著名门户网站中华旗下的浏览器，是中华网为用户打造的一款全新浏览器。在全新的移动互联网时代，手机等移动端逐渐成为首选的信息入口，这也为手机浏览器的兴起创造了条件。用户对快捷简介精准的个性聚合智能的手机浏览器需求十分强烈。在此背景下，由中国国际广播电台产业运营平台--国广环球传媒控股有限公司下属子公司国广互联科技（北京）有限公司自研的中华浏览器于5月18号正式上线服务。</string>

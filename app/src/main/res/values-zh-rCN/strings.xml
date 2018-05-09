@@ -1,4 +1,6 @@
 <resources>
+    <string name="net_load">点击屏幕，重新加载</string>
+    <string name="pre_loading">释放即可刷新</string>
     <string name="collection_success">收藏成功</string>
     <string name="collection_cancel">取消收藏</string>
     <string name="web_search">搜索</string>
@@ -9,6 +11,7 @@
     <string name="str_remenber_password">记住密码</string>
     <string name="radio_text">电台</string>
     <string name="more_text">更多</string>
+    <string name="setting_clear_success">清除缓存成功</string>
     <string name="app_name">中华浏览器</string>
     <string name="share_cancel">取消</string>
     <string name="app_txt">欢迎</string>

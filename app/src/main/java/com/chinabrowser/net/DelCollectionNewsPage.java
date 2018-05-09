@@ -15,7 +15,7 @@ public class DelCollectionNewsPage extends BaseProtocolPage {
     public final static int MSG_WHAT_ERROE = 10036;
 
     public DelCollectionNewsPage(Object param, Handler handler, BaseActivity activity) {
-        super("http://119.23.56.48:8881/zt/api/zt_collection", param, handler, activity);
+        super("http://turkey2.china-plus.net:8881/zt/api/zt_collection", param, handler, activity);
     }
 
     @Override

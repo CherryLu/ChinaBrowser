@@ -22,7 +22,7 @@ public class UserProtocolPage extends BaseProtocolPage {
     public UserData userData;
 
     public UserProtocolPage(Object param, Handler handler, BaseActivity activity) {
-        super("http://119.23.56.48:8881/zt/api/zt_user", param, handler, activity);
+        super("http://turkey2.china-plus.net:8881/zt/api/zt_user", param, handler, activity);
     }
 
     @Override

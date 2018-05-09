@@ -3,7 +3,6 @@ package com.chinabrowser.net;
 import android.os.Handler;
 
 import com.chinabrowser.activity.BaseActivity;
-import com.chinabrowser.bean.LinkData;
 import com.chinabrowser.bean.Recommend;
 import com.chinabrowser.utils.JsonUtils;
 
@@ -26,7 +25,7 @@ public class GetLinkListProtocolPage extends BaseProtocolPage {
 
 
     public GetLinkListProtocolPage(Object param, Handler handler, BaseActivity activity) {
-        super("http://119.23.56.48:8881/zt/api/zt_news", param, handler, activity);
+        super("http://turkey2.china-plus.net:8881/zt/api/zt_news", param, handler, activity);
     }
 
     @Override

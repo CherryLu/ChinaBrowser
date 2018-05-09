@@ -15,7 +15,7 @@ public class FindPswProtocolPage extends BaseProtocolPage {
     public final static int MSG_WHAT_ERROE = 10037;
 
     public FindPswProtocolPage(Object param, Handler handler, BaseActivity activity) {
-        super("http://119.23.56.48:8881/zt/api/ zt_user", param, handler, activity);
+        super("http://turkey2.china-plus.net:8881/zt/api/ zt_user", param, handler, activity);
     }
 
     @Override

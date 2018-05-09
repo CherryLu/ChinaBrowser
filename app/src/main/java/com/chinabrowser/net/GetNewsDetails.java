@@ -22,7 +22,7 @@ public class GetNewsDetails extends BaseProtocolPage {
     public NewsDetail newsDetail;
 
     public GetNewsDetails(Object param, Handler handler, BaseActivity activity) {
-        super("http://119.23.56.48:8881/zt/api/zt_news", param, handler, activity);
+        super("http://turkey2.china-plus.net:8881/zt/api/zt_news", param, handler, activity);
     }
 
     @Override

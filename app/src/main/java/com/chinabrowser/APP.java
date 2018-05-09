@@ -16,7 +16,6 @@ import com.chinabrowser.net.GetLinkListProtocolPage;
 import com.chinabrowser.net.UpGetBaseUrl;
 import com.chinabrowser.net.UpGetLinkData;
 import com.chinabrowser.utils.CommUtils;
-import com.chinabrowser.utils.CrashHandlerUtil;
 import com.chinabrowser.utils.FileUtils;
 import com.chinabrowser.utils.LabManager;
 import com.mob.MobSDK;
@@ -88,7 +87,7 @@ public class APP extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        CrashHandlerUtil.getInstance().init(this);
+        //CrashHandlerUtil.getInstance().init(this);
         context = this;
         FileUtils.InitSD();
         initX5WebView();

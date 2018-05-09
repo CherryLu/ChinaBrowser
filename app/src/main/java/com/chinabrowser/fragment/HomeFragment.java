@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.chinabrowser.R;
 import com.chinabrowser.adapter.HomeAdapter;
@@ -16,6 +17,7 @@ import com.chinabrowser.bean.Recommend;
 import com.chinabrowser.cbinterface.HomeCallBack;
 import com.chinabrowser.net.HomeProtocolPage;
 import com.chinabrowser.net.UphomePageData;
+import com.chinabrowser.ui.DefineBAGRefreshWithLoadView;
 import com.chinabrowser.utils.CommUtils;
 import com.chinabrowser.utils.Constant;
 
@@ -24,23 +26,39 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 
 /**
  * Created by 95470 on 2018/4/15.
  */
 
-public class HomeFragment extends BaseFragment {
+public class HomeFragment extends BaseFragment implements BGARefreshLayout.BGARefreshLayoutDelegate {
     HomeCallBack homeCallBack;
 
     @Bind(R.id.homelist)
     RecyclerView homelist;
-    private Handler handler = new Handler(){
+    @Bind(R.id.bga_rl)
+    BGARefreshLayout bgaRl;
+    @Bind(R.id.no_content)
+    LinearLayout noContent;
+    private DefineBAGRefreshWithLoadView defineBAGRefreshWithLoadView;
+    private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            switch (msg.what){
+            switch (msg.what) {
                 case HomeProtocolPage.MSG_WHAT_OK:
-                    if (homeProtocolPage!=null&&homeProtocolPage.recommends!=null){
+                    if (homeProtocolPage != null && homeProtocolPage.recommends != null) {
                         setList(homeProtocolPage.recommends);
+                    }
+                    if (bgaRl != null) {
+                        bgaRl.endRefreshing();
+                    }
+                    break;
+                case HomeProtocolPage.MSG_WHAT_ERROE:
+                case HomeProtocolPage.MSG_WHAT_NOTCHANGE:
+                    setList(null);
+                    if (bgaRl != null) {
+                        bgaRl.endRefreshing();
                     }
                     break;
 
@@ -59,36 +77,45 @@ public class HomeFragment extends BaseFragment {
 
 
     }
+
     private HomeProtocolPage homeProtocolPage;
     private UphomePageData uphomePageData;
-    private void getData(){
+
+    private void getData() {
         uphomePageData = new UphomePageData();
-        uphomePageData.ilanguage = CommUtils.getCurrentLag(getContext())+1+"";
-        if (homeProtocolPage==null){
-            homeProtocolPage = new HomeProtocolPage(null,uphomePageData,handler,null);
+        uphomePageData.ilanguage = CommUtils.getCurrentLag(getContext()) + 1 + "";
+        if (homeProtocolPage == null) {
+            homeProtocolPage = new HomeProtocolPage(null, uphomePageData, handler, null);
         }
         homeProtocolPage.refresh(uphomePageData);
     }
+
     HomeAdapter homeAdapter;
-    private void setList(List<Recommend> recommends){
-        if (recommends!=null&&recommends.size()>0){
-            homeAdapter = new HomeAdapter(getContext(),recommends);
+
+    private void setList(List<Recommend> recommends) {
+        if (recommends != null && recommends.size() > 0) {
+            bgaRl.setVisibility(View.VISIBLE);
+            noContent.setVisibility(View.GONE);
+            homeAdapter = new HomeAdapter(getContext(), recommends);
             homeAdapter.setHomeCallBack(homeCallBack);
             LinearLayoutManager manager = new LinearLayoutManager(getContext());
             manager.setOrientation(LinearLayoutManager.VERTICAL);
             homelist.setLayoutManager(manager);
             homelist.setAdapter(homeAdapter);
-        }else {
-            homeAdapter = new HomeAdapter(getContext(),getRecommends());
-            LinearLayoutManager manager = new LinearLayoutManager(getContext());
-            manager.setOrientation(LinearLayoutManager.VERTICAL);
-            homelist.setLayoutManager(manager);
-            homelist.setAdapter(homeAdapter);
+        } else {
+            bgaRl.setVisibility(View.GONE);
+            noContent.setVisibility(View.VISIBLE);
+            noContent.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    getData();
+                }
+            });
         }
 
     }
 
-    private List<Recommend> getRecommends(){
+    private List<Recommend> getRecommends() {
         List<Recommend> recommends = new ArrayList<>();
 
         Recommend search = new Recommend();
@@ -117,12 +144,30 @@ public class HomeFragment extends BaseFragment {
         ButterKnife.bind(this, view);
         homelist = (RecyclerView) view.findViewById(R.id.homelist);
         getData();
+        setBgaRefreshLayout();
         return view;
+    }
+
+    private void setBgaRefreshLayout() {
+        defineBAGRefreshWithLoadView = new DefineBAGRefreshWithLoadView(getContext(), false, true);
+        bgaRl.setRefreshViewHolder(defineBAGRefreshWithLoadView);
+        bgaRl.setDelegate(this);
+        defineBAGRefreshWithLoadView.updateLoadingMoreText("加载更多");
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+    }
+
+    @Override
+    public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
+        getData();
+    }
+
+    @Override
+    public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
+        return false;
     }
 }

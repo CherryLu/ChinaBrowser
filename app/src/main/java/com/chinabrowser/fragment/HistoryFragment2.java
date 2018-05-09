@@ -23,7 +23,7 @@ import butterknife.ButterKnife;
  * Created by Administrator on 2018/4/14.
  */
 
-public class HistoryFragment extends BaseFragment {
+public class HistoryFragment2 extends BaseFragment {
 
     @Bind(R.id.recycleview)
     RecyclerView recycleview;
@@ -42,7 +42,7 @@ public class HistoryFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_history, null);
         ButterKnife.bind(this, rootView);
-        histories = HistoryManager.getInstance().queryDataToday();
+        histories = HistoryManager.getInstance().queryDataWeek();
         if (histories!=null&&histories.size()>0){
             nohistory.setVisibility(View.GONE);
             recycleview.setVisibility(View.VISIBLE);

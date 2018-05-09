@@ -46,7 +46,7 @@ public class RecommandActivity extends BaseActivity implements RightClick {
         setContentView(R.layout.activity_recomend);
         ButterKnife.bind(this);
         initView();
-        title.setText("推荐");
+        title.setText(getText(R.string.searech_recommend));
     }
 
     private void initView(){

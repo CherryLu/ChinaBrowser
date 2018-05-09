@@ -1,10 +1,14 @@
 package com.chinabrowser.ui;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.chinabrowser.R;
 
 import cn.bingoogolapple.refreshlayout.BGARefreshViewHolder;
 
@@ -32,6 +36,7 @@ public class DefineBAGRefreshWithLoadView extends BGARefreshViewHolder {
         super(context, isLoadingMoreEnabled);
         this.mIsLoadingMoreEnabled = isLoadingMoreEnabled;
         this.isRefreshEnabled = isRefreshEnabled;
+        this.context = context;
         setSpringDistanceScale(3.0f);
     }
 
@@ -60,9 +65,11 @@ public class DefineBAGRefreshWithLoadView extends BGARefreshViewHolder {
     /**
      * 定义刷新
      */
+    private AnimationDrawable animDrawable = null;
+    private Context context;
     public View getRefreshHeaderView() {
-      /*  if (this.mRefreshHeaderView == null) {
-            this.mRefreshHeaderView = View.inflate(this.mContext, R.layout.header_bga_dodo, (ViewGroup) null);
+        if (this.mRefreshHeaderView == null) {
+            this.mRefreshHeaderView = View.inflate(this.mContext, R.layout.pulldownlist_refresh_bar, (ViewGroup) null);
             this.mRefreshHeaderView.setBackgroundColor(0);
             if (this.mRefreshViewBackgroundColorRes != -1) {
                 this.mRefreshHeaderView.setBackgroundResource(this.mRefreshViewBackgroundColorRes);
@@ -70,27 +77,31 @@ public class DefineBAGRefreshWithLoadView extends BGARefreshViewHolder {
             if (this.mRefreshViewBackgroundDrawableRes != -1) {
                 this.mRefreshHeaderView.setBackgroundResource(this.mRefreshViewBackgroundDrawableRes);
             }
-            this.mHeaderStatusTv = (TextView) this.mRefreshHeaderView.findViewById(R.id.tv_normal_refresh_header_status);
-            this.mHeaderArrowIv = (ImageView) this.mRefreshHeaderView.findViewById(R.id.iv_normal_refresh_header_arrow);
+            animDrawable = (AnimationDrawable) context.getResources().getDrawable(R.drawable.list_header_loading);
+
+
+            // this.mHeaderStatusTv = (TextView) this.mRefreshHeaderView.findViewById(R.id.tv_normal_refresh_header_status);
+            this.mHeaderArrowIv = (ImageView) this.mRefreshHeaderView.findViewById(R.id.down_image);
+            mHeaderArrowIv.clearAnimation();
+            mHeaderArrowIv.setImageDrawable(animDrawable);
             AnimationDrawable animationDrawable = (AnimationDrawable) this.mHeaderArrowIv.getDrawable();
             animationDrawable.start();
             //   this.mHeaderChrysanthemumIv = (ImageView)this.mRefreshHeaderView.findViewById(R.id.iv_normal_refresh_header_chrysanthemum);
 //            this.mHeaderChrysanthemumAd = (AnimationDrawable)this.mHeaderChrysanthemumIv.getDrawable();
-             this.mHeaderStatusTv.setText(this.mPullDownRefreshText);
+            //this.mHeaderStatusTv.setText(this.mPullDownRefreshText);
         }
         //刷新不可用
         if (!isRefreshEnabled) {
             return null;
         }
-        return this.mRefreshHeaderView;*/
-      return null;
+        return this.mRefreshHeaderView;
     }
 
     //已经开始刷新
     public void changeToRefreshing() {
-        this.mHeaderStatusTv.setText(this.mRefreshingText);
-        //this.mHeaderArrowIv.clearAnimation();
-        this.mHeaderArrowIv.setVisibility(View.GONE);
+       // this.mHeaderStatusTv.setText(this.mRefreshingText);
+        this.mHeaderArrowIv.clearAnimation();
+        //this.mHeaderArrowIv.setVisibility(View.GONE);
 //        this.mHeaderChrysanthemumIv.setVisibility(View.VISIBLE);
         //      this.mHeaderChrysanthemumAd.start();
         AnimationDrawable animationDrawable = (AnimationDrawable) this.mHeaderArrowIv.getDrawable();
@@ -103,26 +114,26 @@ public class DefineBAGRefreshWithLoadView extends BGARefreshViewHolder {
         this.mHeaderStatusTv.setText(this.mPullDownRefreshText);
         //       this.mHeaderChrysanthemumIv.setVisibility(View.GONE);
         //      this.mHeaderChrysanthemumAd.stop();
-//        AnimationDrawable animationDrawable = (AnimationDrawable) this.mHeaderArrowIv.getDrawable();
-//        animationDrawable.start();
+        AnimationDrawable animationDrawable = (AnimationDrawable) this.mHeaderArrowIv.getDrawable();
+       animationDrawable.start();
         this.mHeaderArrowIv.setVisibility(View.GONE);
     }
 
     //下拉到一定程度，可以刷新
     public void changeToReleaseRefresh() {
-        this.mHeaderStatusTv.setText(this.mReleaseRefreshText);
-            //this.mHeaderChrysanthemumIv.setVisibility(View.VISIBLE);
-        //   this.mHeaderChrysanthemumAd.stop();
+     /*   this.mHeaderStatusTv.setText(this.mReleaseRefreshText);
+            this.mHeaderChrysanthemumIv.setVisibility(View.VISIBLE);
+           this.mHeaderChrysanthemumAd.stop();
 
-        this.mHeaderArrowIv.setVisibility(View.GONE);
+        this.mHeaderArrowIv.setVisibility(View.GONE);*/
     }
 
     //结束刷新
     public void onEndRefreshing() {
-        this.mHeaderStatusTv.setText(this.mPullDownRefreshText);
-        //    this.mHeaderChrysanthemumIv.setVisibility(View.GONE);
-        //  this.mHeaderChrysanthemumAd.stop();
-        this.mHeaderArrowIv.setVisibility(View.GONE);
+       /* this.mHeaderStatusTv.setText(this.mPullDownRefreshText);
+           this.mHeaderChrysanthemumIv.setVisibility(View.GONE);
+          this.mHeaderChrysanthemumAd.stop();
+        this.mHeaderArrowIv.setVisibility(View.GONE);*/
     }
 
     @Override
@@ -138,14 +149,14 @@ public class DefineBAGRefreshWithLoadView extends BGARefreshViewHolder {
      * 设置加载
      */
     public void updateLoadingMoreText(String text) {
-        this.mFooterStatusTv.setText(text);
+       // this.mFooterStatusTv.setText(text);
     }
 
     /**
      * 隐藏加载更多图片
      */
     public void hideLoadingMoreImg() {
-        this.mFooterChrysanthemumIv.setVisibility(View.GONE);
+      //  this.mFooterChrysanthemumIv.setVisibility(View.GONE);
 
     }
 
@@ -153,7 +164,7 @@ public class DefineBAGRefreshWithLoadView extends BGARefreshViewHolder {
      * 显示加载更多图片
      */
     public void showLoadingMoreImg() {
-        this.mFooterChrysanthemumIv.setVisibility(View.VISIBLE);
+       // this.mFooterChrysanthemumIv.setVisibility(View.VISIBLE);
     }
 
     /**
@@ -161,11 +172,11 @@ public class DefineBAGRefreshWithLoadView extends BGARefreshViewHolder {
      */
     @Override
     public View getLoadMoreFooterView() {
-       /* if (!this.mIsLoadingMoreEnabled) {
+        if (!this.mIsLoadingMoreEnabled) {
             return null;
         }
         if (this.mLoadMoreFooterView == null) {
-            this.mLoadMoreFooterView = View.inflate(this.mContext, R.layout.footer_bga_dodo, null);
+            this.mLoadMoreFooterView = View.inflate(this.mContext, R.layout.pulldownlist_refresh_bar, null);
             this.mLoadMoreFooterView.setBackgroundColor(Color.TRANSPARENT);
             this.mFooterStatusTv = (TextView) this.mLoadMoreFooterView.findViewById(R.id.tv_normal_refresh_footer_status);
             this.mFooterChrysanthemumIv = (ImageView) this.mLoadMoreFooterView.findViewById(R.id.iv_normal_refresh_footer_chrysanthemum);
@@ -173,8 +184,7 @@ public class DefineBAGRefreshWithLoadView extends BGARefreshViewHolder {
             this.mFooterChrysanthemumAd.start();
             this.mFooterStatusTv.setText(this.mLodingMoreText);
         }
-        return mLoadMoreFooterView;*/
-       return null;
+        return mLoadMoreFooterView;
     }
 
 }

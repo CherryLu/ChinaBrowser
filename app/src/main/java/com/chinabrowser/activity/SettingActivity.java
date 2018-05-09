@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ImageView;
@@ -14,11 +16,11 @@ import com.chinabrowser.KillSelfService;
 import com.chinabrowser.R;
 import com.chinabrowser.cbinterface.LoginStateInterface;
 import com.chinabrowser.ui.ExitDialog;
+import com.chinabrowser.ui.RedPacketCustomDialog;
 import com.chinabrowser.utils.AppCacheUtils;
 import com.chinabrowser.utils.CommUtils;
 import com.chinabrowser.utils.Constant;
 import com.chinabrowser.utils.GlideUtils;
-import com.chinabrowser.utils.LogUtils;
 import com.chinabrowser.utils.Navigator;
 import com.chinabrowser.utils.SharedPreferencesUtils;
 import com.chinabrowser.utils.UserManager;
@@ -77,6 +79,18 @@ public class SettingActivity extends BaseActivity {
     TextView cleardata;
 
     LoginStateInterface loginStateInterface;
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case 200:
+                    RedPacketCustomDialog customDialog = new RedPacketCustomDialog(SettingActivity.this,2);
+                    customDialog.showIt();
+                    break;
+            }
+            super.handleMessage(msg);
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -187,6 +201,9 @@ public class SettingActivity extends BaseActivity {
                 Navigator.finishActivity(this);
                 break;
             case R.id.china:
+                if (CommUtils.getCurrentLag(this)==0){
+                    return;
+                }
                 ExitDialog dialog = new ExitDialog(this, getString(R.string.restartapp), getString(R.string.setting_login_yes), getString(R.string.setting_login_no), new ExitDialog.DialogClick() {
                     @Override
                     public void dialogClick(int which) {
@@ -199,6 +216,9 @@ public class SettingActivity extends BaseActivity {
                 dialog.showIt();
                 break;
             case R.id.turkish:
+                if (CommUtils.getCurrentLag(this)==1){
+                    return;
+                }
                 ExitDialog dialogs = new ExitDialog(this, getString(R.string.restartapp), getString(R.string.setting_login_yes), getString(R.string.setting_login_no), new ExitDialog.DialogClick() {
                     @Override
                     public void dialogClick(int which) {
@@ -235,7 +255,12 @@ public class SettingActivity extends BaseActivity {
 
                 break;
             case R.id.collection:
-                Navigator.startCollectionActicity(this);
+                if (UserManager.getInstance().isLogin()){
+                    Navigator.startCollectionActicity(this);
+                }else {
+                    Navigator.startLoginActivity(this);
+                }
+
                 break;
             case R.id.history:
                 Navigator.startHistoryActivityActicity(this);
@@ -264,7 +289,10 @@ public class SettingActivity extends BaseActivity {
                     @Override
                     public void run() {
                         hideWaitDialog();
-                        showToash(getString(R.string.clearup));
+                        if (handler!=null){
+                            handler.sendEmptyMessage(200);
+                        }
+
                     }
                 });
             }

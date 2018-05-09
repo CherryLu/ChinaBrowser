@@ -11,6 +11,8 @@ import android.widget.TextView;
 import com.chinabrowser.R;
 import com.chinabrowser.adapter.FragmentAdapter;
 import com.chinabrowser.fragment.HistoryFragment;
+import com.chinabrowser.fragment.HistoryFragment2;
+import com.chinabrowser.fragment.HistoryFragment3;
 import com.chinabrowser.utils.Navigator;
 
 import java.util.ArrayList;
@@ -56,21 +58,12 @@ public class HistoryActivity extends BaseActivity {
         fragmentList = new ArrayList<>();
 
         HistoryFragment today = new HistoryFragment();
-        Bundle bundle = new Bundle();
-        bundle.putInt("WHICH",1);
-        today.setArguments(bundle);
         fragmentList.add(today);
 
-        HistoryFragment lastweek = new HistoryFragment();
-        Bundle bundle2 = new Bundle();
-        bundle.putInt("WHICH",2);
-        lastweek.setArguments(bundle2);
+        HistoryFragment2 lastweek = new HistoryFragment2();
         fragmentList.add(lastweek);
 
-        HistoryFragment lastmonth = new HistoryFragment();
-        Bundle bundle3 = new Bundle();
-        bundle.putInt("WHICH",3);
-        lastmonth.setArguments(bundle3);
+        HistoryFragment3 lastmonth = new HistoryFragment3();
         fragmentList.add(lastmonth);
 
         fragmentAdapter = new FragmentAdapter(getSupportFragmentManager(),fragmentList);

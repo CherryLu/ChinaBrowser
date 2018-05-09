@@ -101,9 +101,9 @@ public class LoginActivity extends BaseActivity {
             thirdTwo.setImageResource(R.mipmap.mht);
             thirdThree.setImageResource(R.mipmap.weixin);
         }else {
-            thirdOne.setImageResource(R.mipmap.google);
-            thirdTwo.setImageResource(R.mipmap.twitter);
-            thirdThree.setImageResource(R.mipmap.facebook);
+            thirdOne.setImageResource(R.mipmap.twitter);
+            thirdTwo.setImageResource(R.mipmap.facebook);
+            thirdThree.setImageResource(R.mipmap.google);
         }
     }
 
@@ -158,7 +158,7 @@ public class LoginActivity extends BaseActivity {
                 if (lag==0){
                     UserManager.getInstance().loginByThird(LoginMode.SINA);
                 }else {
-                    UserManager.getInstance().loginByThird(LoginMode.GOOGLE);
+                    UserManager.getInstance().loginByThird(LoginMode.TWITTER);
                 }
 
                 break;
@@ -166,7 +166,7 @@ public class LoginActivity extends BaseActivity {
                 if (lag==0){
                     UserManager.getInstance().loginByThird(LoginMode.QQ);
                 }else {
-                    UserManager.getInstance().loginByThird(LoginMode.TWITTER);
+                    UserManager.getInstance().loginByThird(LoginMode.FACEBOOK);
                 }
 
                 break;
@@ -174,7 +174,7 @@ public class LoginActivity extends BaseActivity {
                 if (lag==0){
                     UserManager.getInstance().loginByThird(LoginMode.WECHAT);
                 }else {
-                    UserManager.getInstance().loginByThird(LoginMode.FACEBOOK);
+                    UserManager.getInstance().loginByThird(LoginMode.GOOGLE);
                 }
 
                 break;

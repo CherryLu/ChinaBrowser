@@ -103,8 +103,8 @@ MobSDK {
                 bypassApproval true
             }
             Facebook {
-                appKey "377369672413351"
-                appSecret "ff65e27b31f1aff02a7dc4b70482ae1e"
+                appKey "151247239024255"
+                appSecret "8ad33fb48c65be43fed023a818701093"
                 callbackUri "https://mob.com"
                 shareByAppClient true
             }

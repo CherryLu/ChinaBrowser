@@ -41,6 +41,7 @@
         <activity android:name=".activity.RecommandActivity"/>
         <activity android:name=".activity.ForgetPswActivity"/>
         <activity android:name=".activity.SelectActivity"/>
+        <activity android:name=".activity.FaceBookActivity"/>
 
 
         <service
