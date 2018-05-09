@@ -11,6 +11,7 @@
         android:layout_height="80dp"
         android:src="@mipmap/browsericon"/>
     <TextView
+        android:id="@+id/name"
         android:textColor="@color/color_txt_deep_black"
         android:textSize="16sp"
         android:layout_marginTop="20dp"
