@@ -53,7 +53,7 @@ public class SearchFragment extends BaseFragment {
         ButterKnife.bind(this, view);
         textright.setVisibility(View.GONE);
         initLis();
-        setListView();
+        //setListView();
         return view;
     }
 
@@ -98,47 +98,6 @@ public class SearchFragment extends BaseFragment {
 
     private List<SearchRecommand> getList(){
         List<SearchRecommand> recommands = new ArrayList<>();
-        for (int i =0;i<11;i++){
-            SearchRecommand recommand = new SearchRecommand();
-            switch (i){
-                case 0:
-                    recommand.setName("淘宝");
-                    recommand.setImages(R.mipmap.taobao);
-                    recommands.add(recommand);
-                    break;
-                case 1:
-                    recommand.setName("网易");
-                    recommand.setImages(R.mipmap.wangyi);
-                    recommands.add(recommand);
-                    break;
-                case 2:
-                    recommand.setName("美团");
-                    recommand.setImages(R.mipmap.meituan);
-                    recommands.add(recommand);
-                    break;
-                case 3:
-                    recommand.setName("优酷");
-                    recommand.setImages(R.mipmap.youku);
-                    recommands.add(recommand);
-                    break;
-                case 4:
-                    recommand.setName("知乎");
-                    recommand.setImages(R.mipmap.zhihu);
-                    recommands.add(recommand);
-                    break;
-                case 5:
-                    recommand.setName("京东");
-                    recommand.setImages(R.mipmap.jingdong);
-                    recommands.add(recommand);
-                    break;
-                case 6:
-                    recommand.setName("腾讯视频");
-                    recommand.setImages(R.mipmap.tengxun);
-                    recommands.add(recommand);
-                    break;
-            }
-
-        }
 
         return recommands;
     }

@@ -21,6 +21,7 @@ public class StartActivity extends BaseActivity {
             switch (msg.what){
                 case 200:
                     Navigator.startSelectionActivity(StartActivity.this);
+                    Navigator.finishActivity(StartActivity.this);
                     break;
             }
             super.handleMessage(msg);

@@ -228,10 +228,19 @@ public class WebViewFragment extends BaseFragment implements BrowserVideoPlayer.
             others.setVisibility(View.GONE);
 
             newsLayout.setVisibility(View.GONE);
+            webview.setPadding(0,0,0,0);
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) webview.getLayoutParams();
+            params.setMargins(0,0,0,0);
+            webview.setLayoutParams(params);
             url = getArguments().getString("URL");
             LogUtils.e("ZX", "url : " + url);
             webview.loadUrl(url);
         } else {
+            webview.setPadding(CommUtils.dip2px(getContext(),12),0,CommUtils.dip2px(getContext(),12),0);
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) webview.getLayoutParams();
+            params.setMargins(0,CommUtils.dip2px(getContext(),20),0,0);
+            webview.setLayoutParams(params);
+
             webTitle.setVisibility(View.VISIBLE);
             others.setVisibility(View.VISIBLE);
             newsLayout.setVisibility(View.VISIBLE);
@@ -290,7 +299,7 @@ public class WebViewFragment extends BaseFragment implements BrowserVideoPlayer.
                 videoLayout.setVisibility(View.GONE);
             }
         } else {
-            url = "http://119.23.56.48/" + url;
+            url = CommUtils.getBaseurl(getContext()) + url;
             LogUtils.e("VIDEO", "url : " + url);
             if (videoLayout!=null){
                 if (video!=null){

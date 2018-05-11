@@ -82,8 +82,9 @@ public class SlidePicViewHolder extends BaseViewHolder implements PagerClick {
             return;
         }
 
-        if (content.getAction().equals("3")){
+        if (content.getAction().equals("1")){
             if (homeCallBack!=null){
+                content.setId(content.getNewsid());
                 homeCallBack.startContent(content);
             }
         }else if (content.getAction().equals("2")){
@@ -93,7 +94,7 @@ public class SlidePicViewHolder extends BaseViewHolder implements PagerClick {
                 title.setCatalog_id(content.getCatalog_id());
                 homeCallBack.titleClick(Constant.SLIDE,title);
             }
-        }else if (content.getAction().equals("1")){
+        }else if (content.getAction().equals("3")){
             if (homeCallBack!=null){
                 homeCallBack.startContentByurl(content);
             }

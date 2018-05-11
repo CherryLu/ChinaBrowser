@@ -24,6 +24,7 @@ public class Content  {
     private String copy_url;
     private String action;
     private String catalog_id;
+    private String newsid;
 
     public String getCatalog_id() {
         return catalog_id;
@@ -35,6 +36,14 @@ public class Content  {
 
     public String getCopy_from() {
         return copy_from;
+    }
+
+    public void setNewsid(String newsid) {
+        this.newsid = newsid;
+    }
+
+    public String getNewsid() {
+        return newsid;
     }
 
     public String getCover_image() {
@@ -159,6 +168,7 @@ public class Content  {
             copy_url = JsonUtils.getString(jsonObject,"copy_url");
             action = JsonUtils.getString(jsonObject,"action");
             catalog_id = JsonUtils.getString(jsonObject,"catalog_id");
+            newsid = JsonUtils.getString(jsonObject,"newsid");
         }
     }
 }

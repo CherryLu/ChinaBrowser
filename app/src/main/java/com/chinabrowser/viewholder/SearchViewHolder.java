@@ -5,7 +5,7 @@ import android.widget.LinearLayout;
 
 import com.chinabrowser.R;
 import com.chinabrowser.bean.Recommend;
-import com.chinabrowser.utils.Constant;
+import com.chinabrowser.utils.Navigator;
 
 /**
  * Created by 95470 on 2018/4/15.
@@ -29,9 +29,7 @@ public class SearchViewHolder extends BaseViewHolder implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.seaecharea:
-                if (homeCallBack!=null){
-                    homeCallBack.titleClick(Constant.SEARCHLAYOUT,null);
-                }
+                Navigator.startSearchActicity(v.getContext());
                 break;
         }
 

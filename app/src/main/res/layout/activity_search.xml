@@ -42,11 +42,10 @@
                 android:layout_marginRight="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="取消"/>
+                android:text=""/>
         </LinearLayout>
     </LinearLayout>
     <TextView
-        android:visibility="gone"
         android:layout_marginTop="24dp"
         android:textSize="15sp"
         android:textColor="#333333"
@@ -55,7 +54,6 @@
         android:layout_height="wrap_content"
         android:text="@string/searech_recommend"/>
     <android.support.v7.widget.RecyclerView
-        android:visibility="gone"
         android:layout_marginLeft="8dp"
         android:id="@+id/list"
         android:layout_width="match_parent"

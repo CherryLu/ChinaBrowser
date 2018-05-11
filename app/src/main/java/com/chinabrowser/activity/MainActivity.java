@@ -102,7 +102,7 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
         isurl = getIntent().getIntExtra("ISURL",0);
         if (isurl==1){
             String url = getIntent().getStringExtra("URL");
-            if (!url.startsWith("https://")) {
+            if (!url.startsWith("https://")&&!url.startsWith("http://")) {
                 url = "https://" + url;
             }
             setContainer(5,null,"",url);
@@ -555,7 +555,7 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
         if (TextUtils.isEmpty(url)) {
             url = content.getCopy_url();
         }
-        if (!url.startsWith("https://")) {
+        if (!url.startsWith("https://")&&!url.startsWith("http://")) {
             url = "https://" + url;
         }
         LogUtils.e("WEB", url);

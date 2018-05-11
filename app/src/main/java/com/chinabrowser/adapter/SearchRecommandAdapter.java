@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import com.chinabrowser.R;
 import com.chinabrowser.bean.SearchRecommand;
+import com.chinabrowser.cbinterface.SearchItemClick;
+import com.chinabrowser.utils.GlideUtils;
 
 import java.util.List;
 
@@ -19,6 +21,11 @@ import java.util.List;
 public class SearchRecommandAdapter extends RecyclerView.Adapter<SearchRecommandAdapter.RViewHolder> {
     Context context;
     List<SearchRecommand> recommands;
+    SearchItemClick itemClick;
+
+    public void setItemClick(SearchItemClick itemClick) {
+        this.itemClick = itemClick;
+    }
 
     public SearchRecommandAdapter(Context context, List<SearchRecommand> recommands) {
         this.context = context;
@@ -36,9 +43,17 @@ public class SearchRecommandAdapter extends RecyclerView.Adapter<SearchRecommand
 
     @Override
     public void onBindViewHolder(RViewHolder holder, int position) {
-        SearchRecommand recommand = recommands.get(position);
+        final SearchRecommand recommand = recommands.get(position);
         holder.name.setText(recommand.getName());
-        holder.cover.setImageResource(recommand.getImages());
+        GlideUtils.loadImageView(context,recommand.getImages(),holder.cover);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (itemClick!=null){
+                    itemClick.ItemClick(recommand);
+                }
+            }
+        });
     }
 
     @Override
