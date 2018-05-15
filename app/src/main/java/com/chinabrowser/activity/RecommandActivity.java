@@ -1,6 +1,8 @@
 package com.chinabrowser.activity;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,6 +17,9 @@ import com.chinabrowser.adapter.RightAdapter;
 import com.chinabrowser.bean.Content;
 import com.chinabrowser.bean.Recommend;
 import com.chinabrowser.cbinterface.RightClick;
+import com.chinabrowser.net.GetLinkListProtocolPage;
+import com.chinabrowser.net.UpGetLinkData;
+import com.chinabrowser.utils.CommUtils;
 import com.chinabrowser.utils.Navigator;
 
 import butterknife.Bind;
@@ -40,13 +45,45 @@ public class RecommandActivity extends BaseActivity implements RightClick {
 
     private LeftAdapter leftAdapter;
     private RightAdapter rightAdapter;
+
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case GetLinkListProtocolPage.MSG_WHAT_OK:
+                    if (getLinkListProtocolPage!=null){
+                        APP.linkDatas =getLinkListProtocolPage.linkDatas;
+                    }
+                    initView();
+                    break;
+                case GetLinkListProtocolPage.MSG_WHAT_ERROE:
+                    break;
+                case GetLinkListProtocolPage.MSG_WHAT_NOTCHANGE:
+                    break;
+
+            }
+            super.handleMessage(msg);
+        }
+    };
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recomend);
         ButterKnife.bind(this);
-        initView();
+        getLinkList();
         title.setText(getText(R.string.searech_recommend));
+    }
+
+    GetLinkListProtocolPage getLinkListProtocolPage;
+    UpGetLinkData upGetLinkData;
+    private void getLinkList(){
+        upGetLinkData = new UpGetLinkData();
+        upGetLinkData.ilanguage = CommUtils.getCurrentLag(this)+1+"";
+        if (getLinkListProtocolPage==null){
+            getLinkListProtocolPage = new GetLinkListProtocolPage(upGetLinkData,handler,null);
+        }
+        getLinkListProtocolPage.refresh(upGetLinkData);
+
     }
 
     private void initView(){

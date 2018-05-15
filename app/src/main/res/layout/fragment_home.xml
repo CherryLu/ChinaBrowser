@@ -5,7 +5,6 @@
     android:layout_height="match_parent">
     <cn.bingoogolapple.refreshlayout.BGARefreshLayout
         android:id="@+id/bga_rl"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <android.support.v7.widget.RecyclerView
@@ -16,6 +15,7 @@
             android:scrollbars="none"/>
     </cn.bingoogolapple.refreshlayout.BGARefreshLayout>
     <LinearLayout
+        android:visibility="gone"
         android:gravity="center"
         android:id="@+id/no_content"
         android:orientation="vertical"
