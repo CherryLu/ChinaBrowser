@@ -183,7 +183,7 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
                 current = 1;
                 break;
             case 2:
-                StatusBarUtils.setWindowStatusBarColor(this,R.color.transparent);
+                StatusBarUtils.setWindowStatusBarColor(this,R.color.color_txt_gray);
                 webViewFragment = new WebViewFragment();
                 Bundle bun = new Bundle();
                 bun.putString("ID", id);
@@ -228,7 +228,7 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
                 break;
             }
             case 5: {
-                StatusBarUtils.setWindowStatusBarColor(this,R.color.transparent);
+                StatusBarUtils.setWindowStatusBarColor(this,R.color.color_txt_gray);
                 webViewFragment = new WebViewFragment();
                 Bundle bund = new Bundle();
                 bund.putString("URL", url);

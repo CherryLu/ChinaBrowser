@@ -55,13 +55,19 @@
                         android:textColor="#999999"/>
                 </LinearLayout>
                 <RelativeLayout
+                    android:gravity="center"
                     android:visibility="gone"
                     android:background="@android:color/black"
                     android:layout_gravity="center_horizontal"
                     android:id="@+id/video_layout"
                     android:orientation="horizontal"
-                    android:layout_width="336dp"
+                    android:layout_width="match_parent"
                     android:layout_height="140dp">
+                    <!--<com.chinabrowser.ui.BrowserVideoPlayer
+                        android:id="@+id/video"
+                        android:layout_centerInParent="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>-->
                 </RelativeLayout>
                 <com.tencent.smtt.sdk.WebView
                     android:paddingLeft="12dp"

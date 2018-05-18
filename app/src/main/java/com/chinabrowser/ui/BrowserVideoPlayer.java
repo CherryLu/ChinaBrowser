@@ -140,7 +140,6 @@ public class BrowserVideoPlayer extends RelativeLayout implements View.OnClickLi
         mAudioManager = (AudioManager) mContext.getSystemService(AUDIO_SERVICE);
         maxVolme = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
         fromVol = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-
         initView();
     }
 

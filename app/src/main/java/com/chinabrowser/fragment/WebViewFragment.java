@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -306,7 +307,7 @@ public class WebViewFragment extends BaseFragment implements BrowserVideoPlayer.
                     video.destory();
                 }
                 video = new BrowserVideoPlayer(getContext());
-                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(CommUtils.dip2px(getContext(),336), CommUtils.dip2px(getContext(),140));
                 video.setLayoutParams(params);
                 videoLayout.addView(video);
                 videoLayout.setVisibility(View.VISIBLE);
@@ -623,9 +624,13 @@ public class WebViewFragment extends BaseFragment implements BrowserVideoPlayer.
             webview.setVisibility(View.GONE);
         }
         if (videoLayout!=null){
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+
+            //2、通过Resources获取
+            DisplayMetrics dm = getResources().getDisplayMetrics();
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(dm.widthPixels,dm.heightPixels);
             videoLayout.setLayoutParams(params);
         }
+
 
         if (newsLayout!=null){
             newsLayout.setVisibility(View.GONE);
@@ -644,6 +649,11 @@ public class WebViewFragment extends BaseFragment implements BrowserVideoPlayer.
 
         if (webview!=null){
             webview.setVisibility(View.VISIBLE);
+        }
+
+        if (videoLayout!=null){
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,CommUtils.dip2px(getContext(),140));
+            videoLayout.setLayoutParams(params);
         }
 
         if (newsLayout!=null){
