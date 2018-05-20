@@ -53,12 +53,20 @@ public class HomeFragment extends BaseFragment implements BGARefreshLayout.BGARe
                     if (bgaRl != null) {
                         bgaRl.endRefreshing();
                     }
+                    if (homeCallBack!=null){
+                        homeCallBack.getPhoto();
+                    }
+
                     break;
                 case HomeProtocolPage.MSG_WHAT_ERROE:
                 case HomeProtocolPage.MSG_WHAT_NOTCHANGE:
                     setList(null);
                     if (bgaRl != null) {
                         bgaRl.endRefreshing();
+                    }
+
+                    if (homeCallBack!=null){
+                        homeCallBack.getPhoto();
                     }
                     break;
 

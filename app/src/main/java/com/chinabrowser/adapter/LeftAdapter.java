@@ -40,17 +40,37 @@ public class LeftAdapter extends RecyclerView.Adapter<LeftAdapter.LViewHolder> {
 
     @Override
     public void onBindViewHolder(LViewHolder holder, int position) {
-        holder.title.setTextColor(context.getResources().getColor(R.color.color_txt_gray));
+
+
         final Recommend recommend = recommends.get(position);
+        if (recommend.isSelect()){
+            holder.title.setTextColor(context.getResources().getColor(R.color.color_txt_deep_black));
+        }else {
+            holder.title.setTextColor(context.getResources().getColor(R.color.color_txt_gray));
+        }
+
+
         holder.title.setText(recommend.getMaintitle().getTitle_name());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setAllFalse();
+                recommend.setSelect(true);
+                notifyDataSetChanged();
                 if (rightClick!=null){
                     rightClick.itemClick(recommend);
                 }
             }
         });
+    }
+
+    private void setAllFalse(){
+        if (recommends==null){
+            return;
+        }
+        for (int i =0;i<recommends.size();i++){
+            recommends.get(i).setSelect(false);
+        }
     }
 
     @Override

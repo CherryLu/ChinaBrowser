@@ -5,6 +5,7 @@
     android:layout_height="wrap_content">
     <include layout="@layout/list_title"/>
     <LinearLayout
+        android:paddingRight="12dp"
         android:id="@+id/root"
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -63,6 +64,7 @@
         android:layout_height="1dp"
         android:background="@color/color_line_gray"/>
     <LinearLayout
+        android:paddingRight="12dp"
         android:id="@+id/root2"
         android:orientation="horizontal"
         android:layout_width="match_parent"

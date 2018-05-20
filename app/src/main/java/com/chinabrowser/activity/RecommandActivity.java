@@ -87,6 +87,7 @@ public class RecommandActivity extends BaseActivity implements RightClick {
     }
 
     private void initView(){
+        APP.linkDatas.get(0).setSelect(true);
         leftAdapter = new LeftAdapter(this, APP.linkDatas);
         leftAdapter.setRightClick(this);
         LinearLayoutManager manager = new LinearLayoutManager(this);

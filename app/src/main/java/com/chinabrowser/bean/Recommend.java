@@ -22,6 +22,15 @@ public class Recommend {
     private Action contentAction;
     private Action titleAction;
     private List<Content> contents;
+    private boolean isSelect;
+
+    public boolean isSelect() {
+        return isSelect;
+    }
+
+    public void setSelect(boolean select) {
+        isSelect = select;
+    }
 
     public Action getTitleAction() {
         return titleAction;

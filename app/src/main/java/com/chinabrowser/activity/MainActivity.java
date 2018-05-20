@@ -118,14 +118,7 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
         mHeight = getWindowManager().getDefaultDisplay().getHeight();
 
 
-        new Handler().postDelayed(new Runnable() {
-            public void run() {
-                HomeTab homeTab = new HomeTab();
-                homeTab.title = getString(R.string.homepage);
-                homeTab.bitmap = takeScreenShot(MainActivity.this);
-                APP.homeTab = homeTab;
-            }
-        }, 500);
+
         //getHashKey();
     }
 
@@ -560,6 +553,18 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
         }
         LogUtils.e("WEB", url);
         setContainer(5, null, "", url);
+    }
+
+    @Override
+    public void getPhoto() {
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                HomeTab homeTab = new HomeTab();
+                homeTab.title = getString(R.string.homepage);
+                homeTab.bitmap = takeScreenShot(MainActivity.this);
+                APP.homeTab = homeTab;
+            }
+        }, 500);
     }
 
     public int mOrientation;            // 横竖屏标识

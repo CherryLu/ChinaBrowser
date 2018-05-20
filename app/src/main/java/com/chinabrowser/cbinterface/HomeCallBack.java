@@ -12,5 +12,5 @@ public interface HomeCallBack {
     void backClick();
     void startContent(Content content);
     void startContentByurl(Content content);
-
+    void getPhoto();
 }

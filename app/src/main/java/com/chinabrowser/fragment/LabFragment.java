@@ -54,10 +54,14 @@ public class LabFragment extends BaseFragment implements HomeTabClick {
         title.setText(getText(R.string.labs));
         if (APP.homeTabs==null){
             APP.homeTabs = new ArrayList<>();
-            HomeTab homeTab = (HomeTab) getArguments().get("PAGE");
-            APP.homeTabs.add(homeTab);
-            LabManager.getInstance().setCurrentLab(0);
         }
+        HomeTab homeTab = (HomeTab) getArguments().get("PAGE");
+        if (APP.homeTabs.size()>0){
+            APP.homeTabs.set(0,homeTab);
+        }else {
+            APP.homeTabs.add(homeTab);
+        }
+        LabManager.getInstance().setCurrentLab(0);
         initList();
         return view;
     }
