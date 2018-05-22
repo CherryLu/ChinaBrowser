@@ -16,6 +16,7 @@ import com.chinabrowser.adapter.LabsManager;
 import com.chinabrowser.bean.HomeTab;
 import com.chinabrowser.cbinterface.HomeTabClick;
 import com.chinabrowser.utils.LabManager;
+import com.chinabrowser.utils.LogUtils;
 
 import java.util.ArrayList;
 
@@ -55,9 +56,15 @@ public class LabFragment extends BaseFragment implements HomeTabClick {
         if (APP.homeTabs==null){
             APP.homeTabs = new ArrayList<>();
         }
-        HomeTab homeTab = (HomeTab) getArguments().get("PAGE");
+        HomeTab homeTab = APP.curhomeTab;
         if (APP.homeTabs.size()>0){
-            APP.homeTabs.set(0,homeTab);
+            APP.homeTabs.remove(0);
+            if (APP.homeTabs.size()>0){
+                APP.homeTabs.add(0,homeTab);
+            }else {
+                APP.homeTabs.add(homeTab);
+            }
+
         }else {
             APP.homeTabs.add(homeTab);
         }

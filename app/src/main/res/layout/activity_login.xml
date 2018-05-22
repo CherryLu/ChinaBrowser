@@ -18,7 +18,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_width="75dp"
                     android:layout_height="75dp"
-                    android:src="@mipmap/browsericon"/>
+                    android:src="@mipmap/logo_conner"/>
                 <LinearLayout
                     android:paddingLeft="50dp"
                     android:paddingRight="50dp"

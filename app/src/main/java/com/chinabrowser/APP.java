@@ -54,6 +54,7 @@ public class APP extends Application {
     public static List<BaseUrl> baseUrls;
     public static List<HomeTab> homeTabs;
     public static HomeTab homeTab;
+    public static HomeTab curhomeTab;
 
 
     private Handler handler = new Handler(){

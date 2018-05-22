@@ -9,7 +9,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:src="@mipmap/browsericon"/>
+        android:src="@mipmap/logo_conner"/>
     <TextView
         android:id="@+id/name"
         android:textColor="@color/color_txt_deep_black"

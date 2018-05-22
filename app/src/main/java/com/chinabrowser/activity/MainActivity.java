@@ -210,9 +210,10 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
                 homeTab.title = "新页签";
                 labFragment = new LabFragment();
                 labFragment.homeCallBack = this;
-                Bundle bundle1 = new Bundle();
-                bundle1.putSerializable("PAGE", homeTab);
-                labFragment.setArguments(bundle1);
+                APP.curhomeTab = homeTab;
+                //Bundle bundle1 = new Bundle();
+                //bundle1.putSerializable("PAGE", homeTab);
+                //labFragment.setArguments(bundle1);
                 transaction.add(R.id.container, labFragment);
                 transaction.show(labFragment);
                 //transaction.replace(R.id.container, labFragment).commitAllowingStateLoss();
