@@ -57,6 +57,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.FaceBookActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".activity.GuideActivity"
+            android:screenOrientation="portrait"/>
 
 
         <service

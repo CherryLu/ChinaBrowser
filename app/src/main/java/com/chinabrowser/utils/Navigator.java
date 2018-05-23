@@ -8,6 +8,7 @@ import com.chinabrowser.R;
 import com.chinabrowser.activity.AboutActivity;
 import com.chinabrowser.activity.CollectionActivity;
 import com.chinabrowser.activity.ForgetPswActivity;
+import com.chinabrowser.activity.GuideActivity;
 import com.chinabrowser.activity.HistoryActivity;
 import com.chinabrowser.activity.LoginActivity;
 import com.chinabrowser.activity.MainActivity;
@@ -171,6 +172,15 @@ public class Navigator {
 
     public static void startFindPSW(Context context){
         Intent intent = new Intent(context, ForgetPswActivity.class);
+        context.startActivity(intent);
+    }
+
+    /**
+     * 跳转引导页面
+     * @param context
+     */
+    public static void startGuide(Context context){
+        Intent intent = new Intent(context, GuideActivity.class);
         context.startActivity(intent);
     }
 

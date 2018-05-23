@@ -8,6 +8,7 @@ import android.view.WindowManager;
 
 import com.chinabrowser.R;
 import com.chinabrowser.utils.Navigator;
+import com.chinabrowser.utils.SharedPreferencesUtils;
 
 /**
  * Created by 95470 on 2018/5/8.
@@ -21,6 +22,11 @@ public class StartActivity extends BaseActivity {
             switch (msg.what){
                 case 200:
                     Navigator.startSelectionActivity(StartActivity.this);
+                    Navigator.finishActivity(StartActivity.this);
+                    break;
+                case 100:
+                    SharedPreferencesUtils.setParam(StartActivity.this,"GUIDE",1);
+                    Navigator.startGuide(StartActivity.this);
                     Navigator.finishActivity(StartActivity.this);
                     break;
             }
@@ -40,6 +46,13 @@ public class StartActivity extends BaseActivity {
         //设置当前窗体为全屏显示
         window.setFlags(flag, flag);
         setContentView(R.layout.activity_start);
-        handler.sendEmptyMessageDelayed(200,1000);
+        int i = (int) SharedPreferencesUtils.getParam(this,"GUIDE",0);
+        if (i==0){
+            handler.sendEmptyMessageDelayed(100,1000);
+        }else {
+            handler.sendEmptyMessageDelayed(200,1000);
+        }
+
+
     }
 }
