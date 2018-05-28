@@ -161,7 +161,7 @@ public class Content  {
             subtitle = JsonUtils.getString(jsonObject,"introduce");
             link_url = JsonUtils.getString(jsonObject,"link_url");
             image_url = JsonUtils.getString(jsonObject,"image_url");
-            time = JsonUtils.getString(jsonObject,"create_time");
+            time = JsonUtils.getString(jsonObject,"update_time");
             attach_file = JsonUtils.getString(jsonObject,"attach_file");
             copy_from = JsonUtils.getString(jsonObject,"copy_from");
             cover_image = JsonUtils.getString(jsonObject,"cover_image");

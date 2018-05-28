@@ -588,6 +588,9 @@ public class CommUtils {
     public static String getTime(String time){
         try {
             Long aLong = Long.parseLong(time);
+            if (aLong<10000000000L){
+                aLong = aLong*1000;
+            }
             Date date = new Date(aLong);
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
           return  format.format(date);
