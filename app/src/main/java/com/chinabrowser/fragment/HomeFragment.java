@@ -15,11 +15,14 @@ import com.chinabrowser.R;
 import com.chinabrowser.adapter.HomeAdapter;
 import com.chinabrowser.bean.Recommend;
 import com.chinabrowser.cbinterface.HomeCallBack;
+import com.chinabrowser.net.GetRecommandList;
 import com.chinabrowser.net.HomeProtocolPage;
+import com.chinabrowser.net.UpRecommand;
 import com.chinabrowser.net.UphomePageData;
 import com.chinabrowser.ui.DefineBAGRefreshWithLoadView;
 import com.chinabrowser.utils.CommUtils;
 import com.chinabrowser.utils.Constant;
+import com.chinabrowser.utils.UserManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,7 +85,7 @@ public class HomeFragment extends BaseFragment implements BGARefreshLayout.BGARe
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        getRecommand();
 
     }
 
@@ -96,6 +99,19 @@ public class HomeFragment extends BaseFragment implements BGARefreshLayout.BGARe
             homeProtocolPage = new HomeProtocolPage(null, uphomePageData, handler, null);
         }
         homeProtocolPage.refresh(uphomePageData);
+    }
+
+    GetRecommandList recommandList;
+    UpRecommand recommand;
+    private void getRecommand(){
+        recommand = new UpRecommand();
+        recommand.ilanguage = CommUtils.getCurrentLag(getContext())+1+"";
+        recommand.suserno = UserManager.getInstance().getUserId();
+        if (recommandList ==null){
+            recommandList = new GetRecommandList(recommand,handler,null);
+        }
+        recommandList.refresh(recommand);
+
     }
 
     HomeAdapter homeAdapter;

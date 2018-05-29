@@ -13,11 +13,14 @@ import com.chinabrowser.bean.HomeTab;
 import com.chinabrowser.bean.Recommend;
 import com.chinabrowser.net.GetBaseUrlPage;
 import com.chinabrowser.net.GetLinkListProtocolPage;
+import com.chinabrowser.net.GetRecommandList;
 import com.chinabrowser.net.UpGetBaseUrl;
 import com.chinabrowser.net.UpGetLinkData;
+import com.chinabrowser.net.UpRecommand;
 import com.chinabrowser.utils.CommUtils;
 import com.chinabrowser.utils.FileUtils;
 import com.chinabrowser.utils.LabManager;
+import com.chinabrowser.utils.UserManager;
 import com.mob.MobSDK;
 import com.tencent.smtt.sdk.QbSdk;
 
@@ -109,6 +112,7 @@ public class APP extends Application {
         getLinkListProtocolPage.refresh(upGetLinkData);
 
     }
+
     GetBaseUrlPage getBaseUrlPage;
     UpGetBaseUrl upGetBaseUrl;
     private void getBaseurl(){
