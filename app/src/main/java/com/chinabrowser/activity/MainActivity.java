@@ -104,7 +104,7 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
         if (isurl==1){
             String url = getIntent().getStringExtra("URL");
             if (!url.startsWith("https://")&&!url.startsWith("http://")) {
-                url = "https://" + url;
+                url = "http://" + url;
             }
             setContainer(5,null,"",url);
         }else if (isurl == 2){
@@ -148,6 +148,9 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
 
 
     private void setContainer(int which, Title title, String id, String url) {
+        if (which!=0&&!APP.isCango){
+            return;
+        }
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         hideAll(transaction);
         StatusBarUtils.setWindowStatusBarColor(this,R.color.color_base);
@@ -557,12 +560,11 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
             url = content.getCopy_url();
         }
         if (!url.startsWith("https://")&&!url.startsWith("http://")) {
-            url = "https://" + url;
+            url = "http://" + url;
         }
         LogUtils.e("WEB", url);
         setContainer(5, null, "", url);
     }
-
     @Override
     public void getPhoto() {
         new Handler().postDelayed(new Runnable() {
@@ -571,6 +573,7 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
                 homeTab.title = getString(R.string.homepage);
                 homeTab.bitmap = takeScreenShot(MainActivity.this);
                 APP.homeTab = homeTab;
+                APP.isCango = true;
             }
         }, 500);
     }

@@ -85,6 +85,7 @@
                    android:text="@string/str_regist_one"/>
 
                    <TextView
+                       android:visibility="gone"
                        android:lines="1"
                        android:id="@+id/user_agreen"
                        android:layout_width="wrap_content"
@@ -94,6 +95,7 @@
                        android:textSize="11sp" />
 
                    <TextView
+                       android:visibility="gone"
                        android:lines="1"
                        android:textColor="@color/color_txt_black"
                        android:textSize="11sp"

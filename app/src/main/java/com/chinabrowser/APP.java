@@ -58,6 +58,7 @@ public class APP extends Application {
     public static List<HomeTab> homeTabs;
     public static HomeTab homeTab;
     public static HomeTab curhomeTab;
+    public static boolean isCango;
 
 
     private Handler handler = new Handler(){

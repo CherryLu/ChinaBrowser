@@ -13,14 +13,14 @@
     <string name="setting_history">历史</string>
     <string name="setting_search">默认搜索引擎</string>
     <string name="setting_about">关于我们</string>
-    <string name="setting_clear">清除缓存</string>
+    <string name="setting_clear">清空缓存</string>
     <string name="setting_clear_success">清除缓存成功</string>
     <string name="setting_loginout">退出登录</string>
     <string name="setting_loginsuccess">登录成功</string>
     <string name="setting_loginfail">登录失败</string>
     <string name="setting_login_que">是否退出登录</string>
     <string name="collection_success">收藏成功</string>
-    <string name="collection_cancel">取消收藏</string>
+    <string name="collection_cancel">取消收藏成功</string>
     <string name="search_title">请输入关键字</string>
     <string name="web_search">搜索</string>
     <string name="web_into">跳转</string>
@@ -30,8 +30,8 @@
     <string name="setting_login_no">否</string>
     <string name="setting_clear_account">用户注销</string>
     <string name="str_user_email2phonenum">邮箱</string>
-    <string name="str_user_name">用户名</string>
-    <string name="str_user_password">密码</string>
+    <string name="str_user_name">请输入您的邮箱</string>
+    <string name="str_user_password">请输入您的密码</string>
     <string name="str_remenber_password">记住密码</string>
     <string name="str_login">登录</string>
     <string name="str_free_register">免费注册</string>
@@ -42,7 +42,7 @@
     <string name="str_userlogin_tab">标签页(窗口)</string>
     <string name="str_userlogin_more">更多服务</string>
     <string name="searech_input">输入关键字</string>
-    <string name="searech_recommend">推荐网站</string>
+    <string name="searech_recommend">推荐网址</string>
     <string name="attentive">默认搜索引擎</string>
     <string name="search1">百度</string>
     <string name="search2">搜狗</string>
@@ -60,8 +60,8 @@
     <string name="str_login_nopsw">密码不能为空</string>
     <string name="str_login_noconpsw">确认密码不能为空</string>
     <string name="str_login_noeque">两次输入密码不相同</string>
-    <string name="str_login_notmail">邮箱格式错误</string>
-    <string name="str_regist_one">注册即表示同意中土浏览器</string>
+    <string name="str_login_notmail">邮箱格式有误，请重新输入</string>
+    <string name="str_regist_one">注册即表示同意中华浏览器《用户服务协议》条款</string>
     <string name="str_regist_two">《用户服务协议》</string>
     <string name="str_regist_three">条款</string>
     <string name="str_regist_success">注册成功</string>
@@ -178,7 +178,7 @@
 
 
 
-    <string name="about1">"\u3000\u3000"丝路是中国著名门户网站中华旗下的浏览器，是中华网为用户打造的一款全新浏览器。在全新的移动互联网时代，手机等移动端逐渐成为首选的信息入口，这也为手机浏览器的兴起创造了条件。用户对快捷简介精准的个性聚合智能的手机浏览器需求十分强烈。在此背景下，由中国国际广播电台产业运营平台--国广环球传媒控股有限公司下属子公司国广互联科技（北京）有限公司自研的中华浏览器于5月18号正式上线服务。</string>
-    <string name="about2">"\u3000\u3000"丝路以手机为入口，实现中华推荐，应用随身，特色收藏的三屏速达；按照前端汇合--内部资源整合--后台整合--前端整合的流程对系统平台进行开发和建设，并致力于打造手机上最好的浏览器</string>
+    <string name="about1">"\u3000\u3000"中华浏览器由中央广播电视总台出品，由国广互联科技（北京）有限公司开发的中国和土耳其之间的官方，权威，双语移动浏览器客户端。客户端集资讯，电台，视频为一身，支持搜索、收藏、分享等功能。是一款界面友好，功能完善，兼容性良好的浏览器产品。</string>
+
 </resources>
 

@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.chinabrowser.APP;
 import com.chinabrowser.R;
 import com.chinabrowser.adapter.HomeAdapter;
 import com.chinabrowser.bean.Recommend;
@@ -71,6 +72,14 @@ public class HomeFragment extends BaseFragment implements BGARefreshLayout.BGARe
                     if (homeCallBack!=null){
                         homeCallBack.getPhoto();
                     }
+                    break;
+                case GetRecommandList.MSG_WHAT_NOTCHANGE:
+                case GetRecommandList.MSG_WHAT_OK:
+                    if (recommandList!=null&&recommandList.contents!=null){
+
+                    }
+                    break;
+                case GetRecommandList.MSG_WHAT_ERROE:
                     break;
 
             }
