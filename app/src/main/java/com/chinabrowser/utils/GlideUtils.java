@@ -23,7 +23,7 @@ public class GlideUtils {
         if (!path.startsWith("http")){
             path = CommUtils.getBaseurl(mContext)+path;
         }
-        Glide.with(mContext).load(path).placeholder(R.mipmap.defult_bg).error(R.mipmap.defult_bg).into(mImageView);
+        Glide.with(mContext).load(path).placeholder(R.mipmap.defalt_pic_b).error(R.mipmap.defalt_pic_b).into(mImageView);
     }
 
     //加载指定大小
