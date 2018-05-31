@@ -45,8 +45,10 @@ public class LeftAdapter extends RecyclerView.Adapter<LeftAdapter.LViewHolder> {
         final Recommend recommend = recommends.get(position);
         if (recommend.isSelect()){
             holder.title.setTextColor(context.getResources().getColor(R.color.color_txt_deep_black));
+            holder.re_view.setVisibility(View.VISIBLE);
         }else {
             holder.title.setTextColor(context.getResources().getColor(R.color.color_txt_gray));
+            holder.re_view.setVisibility(View.GONE);
         }
 
 
@@ -80,9 +82,12 @@ public class LeftAdapter extends RecyclerView.Adapter<LeftAdapter.LViewHolder> {
 
     class LViewHolder extends RecyclerView.ViewHolder{
         TextView title;
+        View re_view;
         public LViewHolder(View itemView) {
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.title);
+            re_view = itemView.findViewById(R.id.re_view);
         }
+
     }
 }

@@ -1,7 +1,7 @@
 <resources>
     <string name="net_load">点击屏幕，重新加载</string>
     <string name="pre_loading">释放即可刷新</string>
-    <string name="app_name">中华浏览器</string>
+    <string name="app_name">ChinaBrowser</string>
     <string name="app_txt">欢迎</string>
     <string name="select_tip">请选择您的语言</string>
     <string name="select_tip2">Dilinizi seçin</string>

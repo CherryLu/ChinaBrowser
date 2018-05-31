@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.chinabrowser.APP;
 import com.chinabrowser.R;
 import com.chinabrowser.adapter.HomeAdapter;
 import com.chinabrowser.bean.Recommend;
@@ -112,6 +111,7 @@ public class HomeFragment extends BaseFragment implements BGARefreshLayout.BGARe
 
     GetRecommandList recommandList;
     UpRecommand recommand;
+
     private void getRecommand(){
         recommand = new UpRecommand();
         recommand.ilanguage = CommUtils.getCurrentLag(getContext())+1+"";
@@ -120,7 +120,6 @@ public class HomeFragment extends BaseFragment implements BGARefreshLayout.BGARe
             recommandList = new GetRecommandList(recommand,handler,null);
         }
         recommandList.refresh(recommand);
-
     }
 
     HomeAdapter homeAdapter;

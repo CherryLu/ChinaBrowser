@@ -4,11 +4,19 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
     <LinearLayout
-        android:paddingLeft="15dp"
+        android:orientation="horizontal"
         android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
+        <View
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:id="@+id/re_view"
+            android:background="@color/color_base"
+            android:layout_width="3dp"
+            android:layout_height="match_parent"/>
         <TextView
+            android:paddingLeft="15dp"
             android:gravity="center"
             android:paddingBottom="17dp"
             android:paddingTop="17dp"

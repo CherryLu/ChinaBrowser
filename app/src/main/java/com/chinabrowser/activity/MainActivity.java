@@ -10,7 +10,6 @@ import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.PersistableBundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -211,7 +210,7 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
             case 4: {
                 HomeTab homeTab = new HomeTab();
                 homeTab.bitmap = takeScreenShot(this);
-                homeTab.title = "新页签";
+                homeTab.title = getString(R.string.homepage);
                 labFragment = new LabFragment();
                 labFragment.homeCallBack = this;
                 APP.curhomeTab = homeTab;

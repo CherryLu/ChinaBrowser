@@ -17,10 +17,11 @@
                 android:scaleType="fitXY"
                 android:layout_centerInParent="true"
                 android:id="@+id/cover"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:src="@mipmap/taobao"/>
             <LinearLayout
+                android:visibility="gone"
                 android:layout_marginLeft="100dp"
                 android:orientation="vertical"
                 android:layout_width="wrap_content"

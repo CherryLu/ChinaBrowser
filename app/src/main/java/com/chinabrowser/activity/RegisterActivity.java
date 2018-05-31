@@ -1,9 +1,13 @@
 package com.chinabrowser.activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -69,6 +73,7 @@ public class RegisterActivity extends BaseActivity {
         setContentView(R.layout.user_register_layout);
         ButterKnife.bind(this);
         title.setText(getResources().getText(R.string.title_register));
+        setText();
         UserManager.getInstance().attach(new LoginStateInterface() {
             @Override
             public void update(boolean isLogin) {
@@ -77,6 +82,13 @@ public class RegisterActivity extends BaseActivity {
                 }
             }
         });
+    }
+
+    private void setText(){
+        String str = userAgreen.getText().toString();
+        SpannableStringBuilder builder = new SpannableStringBuilder(str);
+        builder.setSpan(new ForegroundColorSpan(Color.parseColor("#31a0ff")), 12,20,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        userAgreen.setText(builder);
     }
 
 
