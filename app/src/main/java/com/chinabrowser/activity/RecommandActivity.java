@@ -17,6 +17,7 @@ import com.chinabrowser.adapter.RightAdapter;
 import com.chinabrowser.bean.Content;
 import com.chinabrowser.bean.Recommend;
 import com.chinabrowser.bean.Title;
+import com.chinabrowser.cbinterface.LoginStateInterface;
 import com.chinabrowser.cbinterface.RightClick;
 import com.chinabrowser.net.GetLinkListProtocolPage;
 import com.chinabrowser.net.GetRecommandList;
@@ -24,7 +25,9 @@ import com.chinabrowser.net.SetRecommandList;
 import com.chinabrowser.net.UpGetLinkData;
 import com.chinabrowser.net.UpRecommand;
 import com.chinabrowser.net.UpSetRecommand;
+import com.chinabrowser.ui.RedPacketCustomDialog;
 import com.chinabrowser.utils.CommUtils;
+import com.chinabrowser.utils.LogUtils;
 import com.chinabrowser.utils.Navigator;
 import com.chinabrowser.utils.UserManager;
 
@@ -93,11 +96,14 @@ public class RecommandActivity extends BaseActivity implements RightClick {
                     break;
                 case SetRecommandList.MSG_WHAT_OK:
                     hideWaitDialog();
+                    addSeccess();
                     break;
                 case SetRecommandList.MSG_WHAT_ERROE:
                     hideWaitDialog();
+                    addSeccess();
                     break;
                 case SetRecommandList.MSG_WHAT_NOTCHANGE:
+                    LogUtils.e("ZX","MSG_WHAT_NOTCHANGE");
                     hideWaitDialog();
                     break;
 
@@ -105,6 +111,9 @@ public class RecommandActivity extends BaseActivity implements RightClick {
             super.handleMessage(msg);
         }
     };
+
+    LoginStateInterface loginStateInterface;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,6 +124,19 @@ public class RecommandActivity extends BaseActivity implements RightClick {
         }else {
             getLinkList();
         }
+        setResult(2);
+        loginStateInterface = new LoginStateInterface() {
+            @Override
+            public void update(boolean isLogin) {
+                if (UserManager.getInstance().isLogin()){
+                    getRecommand();
+                }else {
+                    getLinkList();
+                }
+            }
+        };
+
+        UserManager.getInstance().attach(loginStateInterface);
 
         title.setText(getText(R.string.searech_recommend));
     }
@@ -131,6 +153,11 @@ public class RecommandActivity extends BaseActivity implements RightClick {
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        UserManager.getInstance().detach(loginStateInterface);
+    }
 
     GetRecommandList recommandList;
     UpRecommand recommand;
@@ -156,11 +183,33 @@ public class RecommandActivity extends BaseActivity implements RightClick {
 
         rightAdapter = new RightAdapter(this, recommends.get(0).getContents());
         rightAdapter.setRightClick(this);
+        rightAdapter.setWhich(0);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this,3);
         rightlist.setLayoutManager(gridLayoutManager);
         rightlist.setAdapter(rightAdapter);
 
 
+    }
+
+
+    private void addSeccess(){
+        if (which==1){//删除
+            if (deleteConment!=null){
+                rightAdapter.getContents().remove(deleteConment);
+                rightAdapter.notifyDataSetChanged();
+                deleteConment = null;
+            }
+            RedPacketCustomDialog dialog = new RedPacketCustomDialog(this,4);
+            dialog.showIt();
+
+        }else {//添加
+            if (addContent!=null){
+                //APP.recommend.getContents().add(addContent);
+                addContent = null;
+            }
+            RedPacketCustomDialog dialog = new RedPacketCustomDialog(this,3);
+            dialog.showIt();
+        }
     }
 
     @OnClick(R.id.back_image)
@@ -170,13 +219,19 @@ public class RecommandActivity extends BaseActivity implements RightClick {
 
     @Override
     public void itemClick(Recommend recommend,int which) {
-        rightAdapter = new RightAdapter(this, recommend.getContents());
-        rightAdapter.setRightClick(this);
         if (which ==0){
+            rightAdapter = new RightAdapter(this, APP.recommend.getContents());
+            rightAdapter.setRightClick(this);
+            rightAdapter.setWhich(which);
+
             GridLayoutManager gridLayoutManager = new GridLayoutManager(this,3);
             rightlist.setLayoutManager(gridLayoutManager);
             rightlist.setAdapter(rightAdapter);
         }else {
+            rightAdapter = new RightAdapter(this, recommend.getContents());
+            rightAdapter.setRightClick(this);
+            rightAdapter.setWhich(which);
+
             GridLayoutManager gridLayoutManager = new GridLayoutManager(this,2);
             rightlist.setLayoutManager(gridLayoutManager);
             rightlist.setAdapter(rightAdapter);
@@ -193,8 +248,10 @@ public class RecommandActivity extends BaseActivity implements RightClick {
     }
     Content deleteConment;
     Content addContent;
+    private int which;
     @Override
     public void deleteContent(Content content) {//删除接口
+        which = 1;
         if (UserManager.getInstance().isLogin()){
             showWaitDialog("添加中...");
             deleteConment = content;
@@ -208,6 +265,7 @@ public class RecommandActivity extends BaseActivity implements RightClick {
 
     @Override
     public void addContent(Content content) {
+        which = 2;
         showWaitDialog("添加中...");
         if (UserManager.getInstance().isLogin()){
             if (CommUtils.hasSame(content)){

@@ -38,6 +38,10 @@ public class RightAdapter extends RecyclerView.Adapter<RightAdapter.RViewHolder>
         this.contents = contents;
     }
 
+    public List<Content> getContents() {
+        return contents;
+    }
+
     @Override
     public RViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = View.inflate(context,R.layout.right_item,null);
@@ -64,15 +68,21 @@ public class RightAdapter extends RecyclerView.Adapter<RightAdapter.RViewHolder>
                 @Override
                 public boolean onLongClick(View v) {
                     holder.delete.setVisibility(View.VISIBLE);
+                    return true;
+                }
+            });
+            holder.delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
                     if (rightClick!=null){
                         rightClick.deleteContent(content);
                     }
-                    return false;
                 }
             });
 
+
         }else {
-            holder.control.setVisibility(View.GONE);
+            holder.control.setVisibility(View.VISIBLE);
             holder.open.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

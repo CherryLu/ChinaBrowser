@@ -173,7 +173,8 @@
     <string name="translate_childm_guahao">guahao</string>
     <string name="translate_childm_kanzhen">kanzhen</string>
     <string name="translate_childm_jiaofei">jiaofei</string>
-
+    <string name="add_recommand">Eklenmiştir</string>
+    <string name="delete_recommand">Kaldırıldı</string>
     <string name="history_today">Bugün</string>
     <string name="history_lastweek">Geçen hafta</string>
     <string name="history_lastmonth">Bir ay önce</string>

@@ -94,7 +94,8 @@
     <string name="translate_language_tr">Türkçe (Turkish)</string>
     <string name="translate_list_title">翻译详情</string>
     <string name="restartapp">重启APP后生效,是否切换？</string>
-
+    <string name="add_recommand">已添加</string>
+    <string name="delete_recommand">已移除</string>
 
     <!-- 一级分类 -->
     <string name="translate_title">翻译</string>

@@ -3,6 +3,7 @@ package com.chinabrowser.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.Fragment;
 
 import com.chinabrowser.R;
 import com.chinabrowser.activity.AboutActivity;
@@ -168,6 +169,15 @@ public class Navigator {
     public static void startRecommandActivity(Context context){
         Intent intent = new Intent(context, RecommandActivity.class);
         context.startActivity(intent);
+    }
+
+    /**
+     * 跳转推荐页
+     * @param context
+     */
+    public static void startRecommandActivity(Fragment context){
+        Intent intent = new Intent(context.getContext(), RecommandActivity.class);
+        context.startActivityForResult(intent,0);
     }
 
     public static void startFindPSW(Context context){

@@ -1,5 +1,6 @@
 package com.chinabrowser.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -15,6 +16,7 @@ import com.chinabrowser.R;
 import com.chinabrowser.adapter.HomeListAdapter;
 import com.chinabrowser.bean.Recommend;
 import com.chinabrowser.cbinterface.HomeCallBack;
+import com.chinabrowser.cbinterface.LoginStateInterface;
 import com.chinabrowser.itemview.LabelsView;
 import com.chinabrowser.net.GetRecommandList;
 import com.chinabrowser.net.HomeProtocolPage;
@@ -78,15 +80,15 @@ public class HomeFragment extends BaseFragment implements BGARefreshLayout.BGARe
                 case GetRecommandList.MSG_WHAT_OK:
                     LogUtils.e("ZX","GetRecommandList.MSG_WHAT_OK");
                     if (recommandList!=null&&recommandList.contents!=null&&recommandList.contents.size()>0){
-                            if (APP.linkDatas!=null){
-                                APP.linkDatas.clear();
-                            }
-                            APP.linkDatas = new ArrayList<>();
+                            List<Recommend> list = new ArrayList<>();
+                            list = new ArrayList<>();
                             Recommend recommend = new Recommend();
                             recommend.setTitle(getString(R.string.hot_recommnd));
                             recommend.setContents(recommandList.contents);
-                            APP.linkDatas.add(recommend);
-                            APP.recommend = CommUtils.getHotRecommand(APP.linkDatas,getString(R.string.hot_recommnd));
+                            list.add(recommend);
+                            APP.recommend = CommUtils.getHotRecommand(list,getString(R.string.hot_recommnd));
+                    }else {
+                        APP.recommend = CommUtils.getHotRecommand(APP.linkDatas,getString(R.string.hot_recommnd));
                     }
                     initHeader(APP.recommend);
                     break;
@@ -100,8 +102,14 @@ public class HomeFragment extends BaseFragment implements BGARefreshLayout.BGARe
     };
     LabelsView labelsView;
     private void initHeader(Recommend recommend) {
+        LogUtils.e("LAB","initHeader");
+        if (labelsView!=null){
+            homelist.removeHeaderView(labelsView.mVivew);
+        }
         labelsView = new LabelsView(getContext(),homelist);
+        labelsView.setHomeFragment(this);
         labelsView.setRecommend(recommend);
+        labelsView.setHomeCallBack(homeCallBack);
         homelist.addHeaderView(labelsView.mVivew);
 
     }
@@ -185,7 +193,7 @@ public class HomeFragment extends BaseFragment implements BGARefreshLayout.BGARe
 
         return recommends;
     }
-
+    LoginStateInterface loginStateInterface;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -195,6 +203,15 @@ public class HomeFragment extends BaseFragment implements BGARefreshLayout.BGARe
         getRecommand();
         getData();
         setBgaRefreshLayout();
+
+        loginStateInterface = new LoginStateInterface() {
+            @Override
+            public void update(boolean isLogin) {
+                LogUtils.e("getlinklistdefault",isLogin+"");
+                getRecommand();
+            }
+        };
+        UserManager.getInstance().attach(loginStateInterface);
         return view;
     }
 
@@ -208,17 +225,28 @@ public class HomeFragment extends BaseFragment implements BGARefreshLayout.BGARe
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        UserManager.getInstance().detach(loginStateInterface);
         ButterKnife.unbind(this);
     }
 
     @Override
     public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
        getData();
+        getRecommand();
 
     }
 
     @Override
     public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
         return false;
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode==0){
+            getRecommand();
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

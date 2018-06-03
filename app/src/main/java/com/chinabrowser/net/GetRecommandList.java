@@ -76,7 +76,7 @@ public class GetRecommandList extends BaseProtocolPage {
             JSONArray jsonArray = JsonUtils.getJSONArray(obj,"data");
             for (int i = 0;i<jsonArray.length();i++){
                 Content content = new Content();
-                content.parse(JsonUtils.getJsonArray(array,i));
+                content.parse(JsonUtils.getJsonArray(jsonArray,i));
                 contents.add(content);
             }
         }

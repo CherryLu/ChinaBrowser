@@ -12,7 +12,9 @@ import com.chinabrowser.APP;
 import com.chinabrowser.R;
 import com.chinabrowser.bean.Content;
 import com.chinabrowser.bean.Recommend;
+import com.chinabrowser.fragment.HomeFragment;
 import com.chinabrowser.utils.GlideUtils;
+import com.chinabrowser.utils.LogUtils;
 import com.chinabrowser.utils.Navigator;
 
 import java.util.ArrayList;
@@ -28,6 +30,12 @@ public class LabelsView extends BaseView implements View.OnClickListener{
     TextView[] textViews = new TextView[6];
     ImageView[] imageViews = new ImageView[6];
     List<Content> contents;
+    HomeFragment homeFragment;
+
+    public void setHomeFragment(HomeFragment homeFragment) {
+        this.homeFragment = homeFragment;
+    }
+
     public LabelsView(Context context, ViewGroup parent) {
         mContext = context;
         LayoutInflater inflater = (LayoutInflater) context
@@ -77,6 +85,8 @@ public class LabelsView extends BaseView implements View.OnClickListener{
                     contents.add(datas.get(i));
                     GlideUtils.loadImageView(APP.getContext(),datas.get(i).getCover_image(),imageViews[i]);
                     textViews[i].setText(datas.get(i).getTitle());
+                    LogUtils.e("LAB","pic : "+datas.get(i).getCover_image());
+                    LogUtils.e("LAB","txt : "+datas.get(i).getTitle());
                 }
             }
 
@@ -123,7 +133,10 @@ public class LabelsView extends BaseView implements View.OnClickListener{
                 }
                 break;
             case R.id.layout6:
-                Navigator.startRecommandActivity(v.getContext());
+                if (homeFragment!=null){
+                    Navigator.startRecommandActivity(homeFragment);
+                }
+
                 break;
 
         }

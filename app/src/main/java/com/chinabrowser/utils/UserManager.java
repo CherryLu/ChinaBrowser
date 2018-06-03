@@ -142,7 +142,7 @@ public class UserManager {
     }
 
     public String getUserId(){
-        if (userData!=null){
+        if (userData!=null&&isLogin){
             return userData.getSuserno();
         }
 

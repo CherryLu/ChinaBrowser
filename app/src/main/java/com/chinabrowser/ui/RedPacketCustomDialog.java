@@ -41,7 +41,13 @@ public class RedPacketCustomDialog extends Dialog implements View.OnClickListene
 				imag.setImageResource(R.mipmap.success_coll);
 				txt.setText(getContext().getText(R.string.setting_clear_success));
 				break;
-			case 3:
+			case 3://添加成功
+				imag.setImageResource(R.mipmap.success_coll);
+				txt.setText(getContext().getText(R.string.add_recommand));
+				break;
+			case 4://删除成功
+				imag.setImageResource(R.mipmap.success_coll);
+				txt.setText(getContext().getText(R.string.delete_recommand));
 				break;
 		}
 	}
