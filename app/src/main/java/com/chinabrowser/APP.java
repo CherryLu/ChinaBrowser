@@ -13,14 +13,11 @@ import com.chinabrowser.bean.HomeTab;
 import com.chinabrowser.bean.Recommend;
 import com.chinabrowser.net.GetBaseUrlPage;
 import com.chinabrowser.net.GetLinkListProtocolPage;
-import com.chinabrowser.net.GetRecommandList;
 import com.chinabrowser.net.UpGetBaseUrl;
 import com.chinabrowser.net.UpGetLinkData;
-import com.chinabrowser.net.UpRecommand;
 import com.chinabrowser.utils.CommUtils;
 import com.chinabrowser.utils.FileUtils;
 import com.chinabrowser.utils.LabManager;
-import com.chinabrowser.utils.UserManager;
 import com.mob.MobSDK;
 import com.tencent.smtt.sdk.QbSdk;
 
@@ -59,6 +56,7 @@ public class APP extends Application {
     public static HomeTab homeTab;
     public static HomeTab curhomeTab;
     public static boolean isCango;
+    public static Recommend recommend;
 
 
     private Handler handler = new Handler(){
@@ -68,6 +66,7 @@ public class APP extends Application {
                 case GetLinkListProtocolPage.MSG_WHAT_OK:
                     if (getLinkListProtocolPage!=null){
                         APP.linkDatas =getLinkListProtocolPage.linkDatas;
+                        APP.recommend = CommUtils.getHotRecommand(getLinkListProtocolPage.linkDatas,getString(R.string.hot_recommnd));
                     }
                     break;
                 case GetLinkListProtocolPage.MSG_WHAT_NOTCHANGE:

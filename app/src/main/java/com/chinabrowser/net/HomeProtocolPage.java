@@ -2,7 +2,6 @@ package com.chinabrowser.net;
 
 import android.os.Handler;
 
-import com.chinabrowser.APP;
 import com.chinabrowser.activity.BaseActivity;
 import com.chinabrowser.bean.Content;
 import com.chinabrowser.bean.Recommend;
@@ -77,13 +76,13 @@ public class HomeProtocolPage extends BaseProtocolPage {
             return null;
         }
         JSONArray array = getJsonArray(response);
-        Recommend search = new Recommend();
+       /* Recommend search = new Recommend();
         search.setType(Constant.SEARCHLAYOUT);
         Recommend labs = new Recommend();
         labs.setType(Constant.LABS);
         labs.setContents(getContents(APP.linkDatas));
         recommends.add(search);
-        recommends.add(labs);
+        recommends.add(labs);*/
         if (array!=null){
             for (int i =0;i<array.length();i++){
                 JSONObject object = JsonUtils.getJsonArray(array,i);

@@ -7,6 +7,7 @@ import com.chinabrowser.bean.Content;
 import com.chinabrowser.utils.JsonUtils;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,8 +72,9 @@ public class GetRecommandList extends BaseProtocolPage {
         if (response!=null){
             contents = new ArrayList<>();
             JSONArray array = getJsonArray(response);
-
-            for (int i = 0;i<array.length();i++){
+            JSONObject obj = JsonUtils.getJsonArray(array,0);
+            JSONArray jsonArray = JsonUtils.getJSONArray(obj,"data");
+            for (int i = 0;i<jsonArray.length();i++){
                 Content content = new Content();
                 content.parse(JsonUtils.getJsonArray(array,i));
                 contents.add(content);

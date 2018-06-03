@@ -14,6 +14,9 @@ import android.util.DisplayMetrics;
 import android.view.animation.DecelerateInterpolator;
 
 import com.chinabrowser.APP;
+import com.chinabrowser.bean.Content;
+import com.chinabrowser.bean.Recommend;
+import com.chinabrowser.bean.Title;
 import com.chinabrowser.ui.FixedSpeedScroller;
 
 import java.io.ByteArrayInputStream;
@@ -28,7 +31,10 @@ import java.io.ObjectOutputStream;
 import java.lang.reflect.Field;
 import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import static com.chinabrowser.utils.FileUtils.saveAsFile;
@@ -632,6 +638,81 @@ public class CommUtils {
             }
         }
         return "";
+    }
+
+
+   public static List<Content> getContents(List<Recommend> recommends){
+        List<Content> contents = new ArrayList<>();
+        if (recommends==null){
+            return contents;
+        }
+        for (int i =0;i<recommends.size();i++){
+            contents.addAll(recommends.get(i).getContents());
+        }
+
+        Collections.sort(contents);
+
+        return contents;
+
+    }
+
+    public static Recommend getHotRecommand(List<Recommend> recommends,String title){
+        List<Content> contents = new ArrayList<>();
+        if (recommends==null){
+            return null;
+        }
+        for (int i =0;i<recommends.size();i++){
+            contents.addAll(recommends.get(i).getContents());
+        }
+
+        Collections.sort(contents);
+
+        Recommend recommend = new Recommend();
+        Title maintitle = new Title();
+        maintitle.setTitle_name(title);
+        recommend.setMaintitle(maintitle);
+        int count = 0;
+        if (contents.size()>=5){
+            count = 5;
+        }else {
+            count = contents.size();
+        }
+        recommend.setContents(contents.subList(0,count));
+
+        return recommend;
+
+    }
+
+
+    public static String getIds(Content content,int which){
+        Recommend recommend = APP.recommend;
+        StringBuffer sb = new StringBuffer();
+        if (which==0){//删除 隔离某个id
+            recommend.getContents().remove(content);
+        }else {//添加
+            recommend.getContents().add(content);
+        }
+        for (int i =0;i<APP.recommend.getContents().size();i++){
+            sb.append(APP.recommend.getContents().get(i).getId());
+            if (i !=APP.recommend.getContents().size()-1){
+                sb.append(",");
+            }
+        }
+
+        return sb.toString();
+    }
+
+
+    public static boolean hasSame(Content content){
+        boolean hasSame = false;
+        for (int i =0;i<APP.recommend.getContents().size();i++){
+            if (content.getId().equals(APP.recommend.getContents().get(i).getId())){
+                hasSame = true;
+                break;
+            }
+        }
+
+        return hasSame;
     }
 
 }

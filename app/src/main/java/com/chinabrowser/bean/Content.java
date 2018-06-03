@@ -1,5 +1,7 @@
 package com.chinabrowser.bean;
 
+import android.support.annotation.NonNull;
+
 import com.chinabrowser.utils.JsonUtils;
 
 import org.json.JSONObject;
@@ -8,7 +10,7 @@ import org.json.JSONObject;
  * Created by 95470 on 2018/4/15.
  */
 
-public class Content  {
+public class Content implements Comparable<Content>  {
     private String id ;
     private int type ;
     private String title;
@@ -25,6 +27,15 @@ public class Content  {
     private String action;
     private String catalog_id;
     private String newsid;
+    private int sort_order;
+
+    public int getSort_order() {
+        return sort_order;
+    }
+
+    public void setSort_order(int sort_order) {
+        this.sort_order = sort_order;
+    }
 
     public String getCatalog_id() {
         return catalog_id;
@@ -169,6 +180,16 @@ public class Content  {
             action = JsonUtils.getString(jsonObject,"action");
             catalog_id = JsonUtils.getString(jsonObject,"catalog_id");
             newsid = JsonUtils.getString(jsonObject,"newsid");
+            sort_order = JsonUtils.getInt(jsonObject,"sort_order");
         }
+    }
+
+    @Override
+    public int compareTo(@NonNull Content o) {
+        int i = o.getSort_order()-sort_order;
+        if (i==0){
+            return 0;
+        }
+        return i;
     }
 }

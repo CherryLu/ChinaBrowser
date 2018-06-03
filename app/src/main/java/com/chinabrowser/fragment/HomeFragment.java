@@ -4,17 +4,18 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 
+import com.chinabrowser.APP;
 import com.chinabrowser.R;
-import com.chinabrowser.adapter.HomeAdapter;
+import com.chinabrowser.adapter.HomeListAdapter;
 import com.chinabrowser.bean.Recommend;
 import com.chinabrowser.cbinterface.HomeCallBack;
+import com.chinabrowser.itemview.LabelsView;
 import com.chinabrowser.net.GetRecommandList;
 import com.chinabrowser.net.HomeProtocolPage;
 import com.chinabrowser.net.UpRecommand;
@@ -22,6 +23,7 @@ import com.chinabrowser.net.UphomePageData;
 import com.chinabrowser.ui.DefineBAGRefreshWithLoadView;
 import com.chinabrowser.utils.CommUtils;
 import com.chinabrowser.utils.Constant;
+import com.chinabrowser.utils.LogUtils;
 import com.chinabrowser.utils.UserManager;
 
 import java.util.ArrayList;
@@ -39,7 +41,7 @@ public class HomeFragment extends BaseFragment implements BGARefreshLayout.BGARe
     HomeCallBack homeCallBack;
 
     @Bind(R.id.homelist)
-    RecyclerView homelist;
+    ListView homelist;
     @Bind(R.id.bga_rl)
     BGARefreshLayout bgaRl;
     @Bind(R.id.no_content)
@@ -74,17 +76,35 @@ public class HomeFragment extends BaseFragment implements BGARefreshLayout.BGARe
                     break;
                 case GetRecommandList.MSG_WHAT_NOTCHANGE:
                 case GetRecommandList.MSG_WHAT_OK:
-                    if (recommandList!=null&&recommandList.contents!=null){
-
+                    LogUtils.e("ZX","GetRecommandList.MSG_WHAT_OK");
+                    if (recommandList!=null&&recommandList.contents!=null&&recommandList.contents.size()>0){
+                            if (APP.linkDatas!=null){
+                                APP.linkDatas.clear();
+                            }
+                            APP.linkDatas = new ArrayList<>();
+                            Recommend recommend = new Recommend();
+                            recommend.setTitle(getString(R.string.hot_recommnd));
+                            recommend.setContents(recommandList.contents);
+                            APP.linkDatas.add(recommend);
+                            APP.recommend = CommUtils.getHotRecommand(APP.linkDatas,getString(R.string.hot_recommnd));
                     }
+                    initHeader(APP.recommend);
                     break;
                 case GetRecommandList.MSG_WHAT_ERROE:
+
                     break;
 
             }
             super.handleMessage(msg);
         }
     };
+    LabelsView labelsView;
+    private void initHeader(Recommend recommend) {
+        labelsView = new LabelsView(getContext(),homelist);
+        labelsView.setRecommend(recommend);
+        homelist.addHeaderView(labelsView.mVivew);
+
+    }
 
     public void setHomeCallBack(HomeCallBack homeCallBack) {
         this.homeCallBack = homeCallBack;
@@ -93,7 +113,7 @@ public class HomeFragment extends BaseFragment implements BGARefreshLayout.BGARe
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getRecommand();
+
 
     }
 
@@ -122,17 +142,14 @@ public class HomeFragment extends BaseFragment implements BGARefreshLayout.BGARe
         recommandList.refresh(recommand);
     }
 
-    HomeAdapter homeAdapter;
+    HomeListAdapter homeAdapter;
 
     private void setList(List<Recommend> recommends) {
         if (recommends != null && recommends.size() > 0) {
             bgaRl.setVisibility(View.VISIBLE);
             noContent.setVisibility(View.GONE);
-            homeAdapter = new HomeAdapter(getContext(), recommends);
+            homeAdapter = new HomeListAdapter(getContext(), recommends);
             homeAdapter.setHomeCallBack(homeCallBack);
-            LinearLayoutManager manager = new LinearLayoutManager(getContext());
-            manager.setOrientation(LinearLayoutManager.VERTICAL);
-            homelist.setLayoutManager(manager);
             homelist.setAdapter(homeAdapter);
         } else {
             bgaRl.setVisibility(View.GONE);
@@ -174,7 +191,8 @@ public class HomeFragment extends BaseFragment implements BGARefreshLayout.BGARe
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, null);
         ButterKnife.bind(this, view);
-        homelist = (RecyclerView) view.findViewById(R.id.homelist);
+        homelist = view.findViewById(R.id.homelist);
+        getRecommand();
         getData();
         setBgaRefreshLayout();
         return view;
@@ -195,7 +213,8 @@ public class HomeFragment extends BaseFragment implements BGARefreshLayout.BGARe
 
     @Override
     public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
-        getData();
+       getData();
+
     }
 
     @Override

@@ -20,7 +20,7 @@ public class GlideUtils {
 
     //默认加载
     public static void loadImageView(Context mContext, String path, ImageView mImageView) {
-        if (!path.startsWith("http")){
+        if (path!=null&&!path.startsWith("http")){
             path = CommUtils.getBaseurl(mContext)+path;
         }
         Glide.with(mContext).load(path).placeholder(R.mipmap.defalt_pic_b).error(R.mipmap.defalt_pic_b).into(mImageView);

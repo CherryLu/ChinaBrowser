@@ -39,7 +39,7 @@ public class LeftAdapter extends RecyclerView.Adapter<LeftAdapter.LViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(LViewHolder holder, int position) {
+    public void onBindViewHolder(LViewHolder holder, final int position) {
 
 
         final Recommend recommend = recommends.get(position);
@@ -60,7 +60,7 @@ public class LeftAdapter extends RecyclerView.Adapter<LeftAdapter.LViewHolder> {
                 recommend.setSelect(true);
                 notifyDataSetChanged();
                 if (rightClick!=null){
-                    rightClick.itemClick(recommend);
+                    rightClick.itemClick(recommend,position);
                 }
             }
         });

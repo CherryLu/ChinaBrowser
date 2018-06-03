@@ -9,6 +9,9 @@ import com.chinabrowser.bean.Recommend;
 
 public interface RightClick {
 
-    void itemClick(Recommend recommend);
+    void itemClick(Recommend recommend,int which);
     void startUrl(Content content);
+    void deleteContent(Content content);
+    void addContent(Content content);
+
 }

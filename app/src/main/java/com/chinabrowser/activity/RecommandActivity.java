@@ -16,11 +16,19 @@ import com.chinabrowser.adapter.LeftAdapter;
 import com.chinabrowser.adapter.RightAdapter;
 import com.chinabrowser.bean.Content;
 import com.chinabrowser.bean.Recommend;
+import com.chinabrowser.bean.Title;
 import com.chinabrowser.cbinterface.RightClick;
 import com.chinabrowser.net.GetLinkListProtocolPage;
+import com.chinabrowser.net.GetRecommandList;
+import com.chinabrowser.net.SetRecommandList;
 import com.chinabrowser.net.UpGetLinkData;
+import com.chinabrowser.net.UpRecommand;
+import com.chinabrowser.net.UpSetRecommand;
 import com.chinabrowser.utils.CommUtils;
 import com.chinabrowser.utils.Navigator;
+import com.chinabrowser.utils.UserManager;
+
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -46,6 +54,8 @@ public class RecommandActivity extends BaseActivity implements RightClick {
     private LeftAdapter leftAdapter;
     private RightAdapter rightAdapter;
 
+    private List<Recommend> recommends;
+
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -54,11 +64,41 @@ public class RecommandActivity extends BaseActivity implements RightClick {
                     if (getLinkListProtocolPage!=null){
                         APP.linkDatas =getLinkListProtocolPage.linkDatas;
                     }
+                    recommends = APP.linkDatas;
+                    APP.recommend = CommUtils.getHotRecommand(APP.linkDatas,getString(R.string.hot_recommnd));
+                    recommends.set(0,APP.recommend);
                     initView();
                     break;
                 case GetLinkListProtocolPage.MSG_WHAT_ERROE:
                     break;
                 case GetLinkListProtocolPage.MSG_WHAT_NOTCHANGE:
+                    break;
+                case GetRecommandList.MSG_WHAT_NOTCHANGE:
+                case GetRecommandList.MSG_WHAT_OK:
+                    if (recommandList!=null&&recommandList.contents!=null&&recommandList.contents.size()>0){
+                        if (recommandList.contents.size()>0){
+                            Recommend recommend = new Recommend();
+                            Title title = new Title();
+                            title.setTitle_name(getString(R.string.hot_recommnd));
+                            recommend.setMaintitle(title);
+                            recommend.setContents(recommandList.contents);
+                            APP.recommend = recommend;
+                        }
+                    }
+                    recommends = APP.linkDatas;
+                    recommends.set(0,APP.recommend);
+                    initView();
+                    break;
+                case GetRecommandList.MSG_WHAT_ERROE:
+                    break;
+                case SetRecommandList.MSG_WHAT_OK:
+                    hideWaitDialog();
+                    break;
+                case SetRecommandList.MSG_WHAT_ERROE:
+                    hideWaitDialog();
+                    break;
+                case SetRecommandList.MSG_WHAT_NOTCHANGE:
+                    hideWaitDialog();
                     break;
 
             }
@@ -70,7 +110,12 @@ public class RecommandActivity extends BaseActivity implements RightClick {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recomend);
         ButterKnife.bind(this);
-        getLinkList();
+        if (UserManager.getInstance().isLogin()){
+            getRecommand();
+        }else {
+            getLinkList();
+        }
+
         title.setText(getText(R.string.searech_recommend));
     }
 
@@ -86,16 +131,30 @@ public class RecommandActivity extends BaseActivity implements RightClick {
 
     }
 
+
+    GetRecommandList recommandList;
+    UpRecommand recommand;
+
+    private void getRecommand(){
+        recommand = new UpRecommand();
+        recommand.ilanguage = CommUtils.getCurrentLag(this)+1+"";
+        recommand.suserno = UserManager.getInstance().getUserId();
+        if (recommandList ==null){
+            recommandList = new GetRecommandList(recommand,handler,null);
+        }
+        recommandList.refresh(recommand);
+    }
+
     private void initView(){
-        APP.linkDatas.get(0).setSelect(true);
-        leftAdapter = new LeftAdapter(this, APP.linkDatas);
+        recommends.get(0).setSelect(true);
+        leftAdapter = new LeftAdapter(this, recommends);
         leftAdapter.setRightClick(this);
         LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         leftlist.setLayoutManager(manager);
         leftlist.setAdapter(leftAdapter);
 
-        rightAdapter = new RightAdapter(this, APP.linkDatas.get(0).getContents());
+        rightAdapter = new RightAdapter(this, recommends.get(0).getContents());
         rightAdapter.setRightClick(this);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this,3);
         rightlist.setLayoutManager(gridLayoutManager);
@@ -110,12 +169,19 @@ public class RecommandActivity extends BaseActivity implements RightClick {
     }
 
     @Override
-    public void itemClick(Recommend recommend) {
+    public void itemClick(Recommend recommend,int which) {
         rightAdapter = new RightAdapter(this, recommend.getContents());
         rightAdapter.setRightClick(this);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this,3);
-        rightlist.setLayoutManager(gridLayoutManager);
-        rightlist.setAdapter(rightAdapter);
+        if (which ==0){
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(this,3);
+            rightlist.setLayoutManager(gridLayoutManager);
+            rightlist.setAdapter(rightAdapter);
+        }else {
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(this,2);
+            rightlist.setLayoutManager(gridLayoutManager);
+            rightlist.setAdapter(rightAdapter);
+        }
+
     }
 
     @Override
@@ -123,6 +189,52 @@ public class RecommandActivity extends BaseActivity implements RightClick {
         if (content!=null){
             Navigator.startMainActivity(this,1,content.getLink_url());
         }
+
+    }
+    Content deleteConment;
+    Content addContent;
+    @Override
+    public void deleteContent(Content content) {//删除接口
+        if (UserManager.getInstance().isLogin()){
+            showWaitDialog("添加中...");
+            deleteConment = content;
+            setHotRecommand(CommUtils.getIds(content,0));
+        }else {
+            Navigator.startLoginActivity(this);
+        }
+
+
+    }
+
+    @Override
+    public void addContent(Content content) {
+        showWaitDialog("添加中...");
+        if (UserManager.getInstance().isLogin()){
+            if (CommUtils.hasSame(content)){
+                showToash("已添加");
+            }else {
+                addContent = content;
+                setHotRecommand(CommUtils.getIds(content,1));
+            }
+
+        }else {
+            Navigator.startLoginActivity(this);
+        }
+
+    }
+
+    UpSetRecommand upSetRecommand;
+    SetRecommandList setRecommandList;
+    private void setHotRecommand(String ids){
+        upSetRecommand = new UpSetRecommand();
+        upSetRecommand.ilanguage = CommUtils.getCurrentLag(this)+1+"";
+        upSetRecommand.suserno = UserManager.getInstance().getUserId();
+        upSetRecommand.sset = ids;
+        if (setRecommandList==null){
+            setRecommandList = new SetRecommandList(upSetRecommand,handler,null);
+        }
+
+        setRecommandList.refresh(upSetRecommand);
 
     }
 }
