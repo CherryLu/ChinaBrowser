@@ -28,25 +28,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="50dp">
                 <TextView
+                    android:textSize="11sp"
                     android:id="@+id/add"
                     android:layout_marginBottom="5dp"
                     android:textColor="@color/color_base"
                     android:background="@drawable/red_line"
                     android:gravity="center"
                     android:layout_weight="1"
-                    android:layout_width="40dp"
-                    android:layout_height="wrap_content"
-                    android:text="添加"/>
+                    android:layout_width="50dp"
+                    android:layout_height="20dp"
+                    android:text="@string/add"/>
                 <TextView
+                    android:textSize="11sp"
                     android:id="@+id/open"
                     android:layout_marginTop="5dp"
                     android:textColor="@color/color_txt_black"
                     android:background="@drawable/black_line"
                     android:gravity="center"
                     android:layout_weight="1"
-                    android:layout_width="40dp"
-                    android:layout_height="wrap_content"
-                    android:text="打开"/>
+                    android:layout_width="50dp"
+                    android:layout_height="20dp"
+                    android:text="@string/open"/>
 
             </LinearLayout>
             <ImageView
@@ -59,8 +61,7 @@
         </RelativeLayout>
         <TextView
             android:ellipsize="end"
-            android:lines="1"
-            android:maxEms="4"
+            android:lines="2"
             android:paddingLeft="12dp"
             android:id="@+id/name"
             android:layout_marginTop="2dp"

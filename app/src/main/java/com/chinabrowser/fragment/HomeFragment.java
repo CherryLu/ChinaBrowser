@@ -26,6 +26,7 @@ import com.chinabrowser.ui.DefineBAGRefreshWithLoadView;
 import com.chinabrowser.utils.CommUtils;
 import com.chinabrowser.utils.Constant;
 import com.chinabrowser.utils.LogUtils;
+import com.chinabrowser.utils.Navigator;
 import com.chinabrowser.utils.UserManager;
 
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 
 /**
@@ -48,6 +50,8 @@ public class HomeFragment extends BaseFragment implements BGARefreshLayout.BGARe
     BGARefreshLayout bgaRl;
     @Bind(R.id.no_content)
     LinearLayout noContent;
+    @Bind(R.id.seaecharea)
+    LinearLayout seaecharea;
     private DefineBAGRefreshWithLoadView defineBAGRefreshWithLoadView;
     private Handler handler = new Handler() {
         @Override
@@ -60,7 +64,7 @@ public class HomeFragment extends BaseFragment implements BGARefreshLayout.BGARe
                     if (bgaRl != null) {
                         bgaRl.endRefreshing();
                     }
-                    if (homeCallBack!=null){
+                    if (homeCallBack != null) {
                         homeCallBack.getPhoto();
                     }
 
@@ -72,23 +76,23 @@ public class HomeFragment extends BaseFragment implements BGARefreshLayout.BGARe
                         bgaRl.endRefreshing();
                     }
 
-                    if (homeCallBack!=null){
+                    if (homeCallBack != null) {
                         homeCallBack.getPhoto();
                     }
                     break;
                 case GetRecommandList.MSG_WHAT_NOTCHANGE:
                 case GetRecommandList.MSG_WHAT_OK:
-                    LogUtils.e("ZX","GetRecommandList.MSG_WHAT_OK");
-                    if (recommandList!=null&&recommandList.contents!=null&&recommandList.contents.size()>0){
-                            List<Recommend> list = new ArrayList<>();
-                            list = new ArrayList<>();
-                            Recommend recommend = new Recommend();
-                            recommend.setTitle(getString(R.string.hot_recommnd));
-                            recommend.setContents(recommandList.contents);
-                            list.add(recommend);
-                            APP.recommend = CommUtils.getHotRecommand(list,getString(R.string.hot_recommnd));
-                    }else {
-                        APP.recommend = CommUtils.getHotRecommand(APP.linkDatas,getString(R.string.hot_recommnd));
+                    LogUtils.e("ZX", "GetRecommandList.MSG_WHAT_OK");
+                    if (recommandList != null && recommandList.contents != null && recommandList.contents.size() > 0) {
+                        List<Recommend> list = new ArrayList<>();
+                        list = new ArrayList<>();
+                        Recommend recommend = new Recommend();
+                        recommend.setTitle(getString(R.string.hot_recommnd));
+                        recommend.setContents(recommandList.contents);
+                        list.add(recommend);
+                        APP.recommend = CommUtils.getHotRecommand(list, getString(R.string.hot_recommnd));
+                    } else {
+                        APP.recommend = CommUtils.getHotRecommand(APP.linkDatas, getString(R.string.hot_recommnd));
                     }
                     initHeader(APP.recommend);
                     break;
@@ -101,12 +105,13 @@ public class HomeFragment extends BaseFragment implements BGARefreshLayout.BGARe
         }
     };
     LabelsView labelsView;
+
     private void initHeader(Recommend recommend) {
-        LogUtils.e("LAB","initHeader");
-        if (labelsView!=null){
+        LogUtils.e("LAB", "initHeader");
+        if (labelsView != null) {
             homelist.removeHeaderView(labelsView.mVivew);
         }
-        labelsView = new LabelsView(getContext(),homelist);
+        labelsView = new LabelsView(getContext(), homelist);
         labelsView.setHomeFragment(this);
         labelsView.setRecommend(recommend);
         labelsView.setHomeCallBack(homeCallBack);
@@ -140,12 +145,12 @@ public class HomeFragment extends BaseFragment implements BGARefreshLayout.BGARe
     GetRecommandList recommandList;
     UpRecommand recommand;
 
-    private void getRecommand(){
+    private void getRecommand() {
         recommand = new UpRecommand();
-        recommand.ilanguage = CommUtils.getCurrentLag(getContext())+1+"";
+        recommand.ilanguage = CommUtils.getCurrentLag(getContext()) + 1 + "";
         recommand.suserno = UserManager.getInstance().getUserId();
-        if (recommandList ==null){
-            recommandList = new GetRecommandList(recommand,handler,null);
+        if (recommandList == null) {
+            recommandList = new GetRecommandList(recommand, handler, null);
         }
         recommandList.refresh(recommand);
     }
@@ -193,7 +198,9 @@ public class HomeFragment extends BaseFragment implements BGARefreshLayout.BGARe
 
         return recommends;
     }
+
     LoginStateInterface loginStateInterface;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -207,7 +214,7 @@ public class HomeFragment extends BaseFragment implements BGARefreshLayout.BGARe
         loginStateInterface = new LoginStateInterface() {
             @Override
             public void update(boolean isLogin) {
-                LogUtils.e("getlinklistdefault",isLogin+"");
+                LogUtils.e("getlinklistdefault", isLogin + "");
                 getRecommand();
             }
         };
@@ -231,7 +238,7 @@ public class HomeFragment extends BaseFragment implements BGARefreshLayout.BGARe
 
     @Override
     public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
-       getData();
+        getData();
         getRecommand();
 
     }
@@ -244,9 +251,14 @@ public class HomeFragment extends BaseFragment implements BGARefreshLayout.BGARe
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode==0){
+        if (requestCode == 0) {
             getRecommand();
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @OnClick(R.id.seaecharea)
+    public void onClick() {
+        Navigator.startSearchActicity(getContext());
     }
 }

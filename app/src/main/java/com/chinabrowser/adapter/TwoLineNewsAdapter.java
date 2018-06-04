@@ -22,23 +22,23 @@ import java.util.List;
  * Created by 95470 on 2018/4/18.
  */
 
-public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.HViewHolder> {
+public class TwoLineNewsAdapter extends RecyclerView.Adapter<TwoLineNewsAdapter.HViewHolder> {
     private Context context;
     private List<NewsData> newsDatas;
     private PagerClick pagerClick;
 
-    public void setPagerClick(com.chinabrowser.cbinterface.PagerClick pagerClick) {
+    public void setPagerClick(PagerClick pagerClick) {
         this.pagerClick = pagerClick;
     }
 
-    public NewsAdapter(Context context, List<NewsData> newsDatas) {
+    public TwoLineNewsAdapter(Context context, List<NewsData> newsDatas) {
         this.context = context;
         this.newsDatas = newsDatas;
     }
 
     @Override
     public HViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.hotnews_item,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.twolinenews_item,parent,false);
         HViewHolder viewHolder = new HViewHolder(view);
         return viewHolder;
     }
@@ -64,7 +64,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.HViewHolder> {
     public String getData(String str){
         try {
             Long current = Long.parseLong(str);
-
             Date date = new Date(current);
             SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
             return format1.format(date);
@@ -88,7 +87,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.HViewHolder> {
             maintitle = (TextView) itemView.findViewById(R.id.main_title);
             from = (TextView) itemView.findViewById(R.id.from);
             time = (TextView) itemView.findViewById(R.id.time);
-            pic = (ImageView) itemView.findViewById(R.id.main_pic);
+            pic = (ImageView) itemView.findViewById(R.id.pic);
         }
     }
 }

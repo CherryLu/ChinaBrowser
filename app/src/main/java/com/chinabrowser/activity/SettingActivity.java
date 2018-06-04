@@ -1,8 +1,10 @@
 package com.chinabrowser.activity;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -152,6 +154,7 @@ public class SettingActivity extends BaseActivity {
         }
     }
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     private void selectLag(int position) {
         china.setImageResource(R.mipmap.unselected_imag);
         turkish.setImageResource(R.mipmap.unselected_imag);
@@ -160,7 +163,9 @@ public class SettingActivity extends BaseActivity {
             Resources resources = this.getResources();
             DisplayMetrics dm = resources.getDisplayMetrics();
             Configuration config = resources.getConfiguration();
-            config.locale = Locale.CHINESE;
+            Locale locale = new Locale(Locale.CHINESE.getLanguage());
+            config.setLocale(locale);
+            //config.locale = Locale.CHINESE;
             resources.updateConfiguration(config, dm);
             SharedPreferencesUtils.setParam(this, Constant.LAG, 0);
         } else {
@@ -168,7 +173,9 @@ public class SettingActivity extends BaseActivity {
             Resources resources = this.getResources();
             DisplayMetrics dm = resources.getDisplayMetrics();
             Configuration config = resources.getConfiguration();
-            config.locale = new Locale("tr");
+            Locale locale = new Locale("tr");
+            config.setLocale(locale);
+            //config.locale = new Locale("tr");
             resources.updateConfiguration(config, dm);
             SharedPreferencesUtils.setParam(this, Constant.LAG, 1);
         }

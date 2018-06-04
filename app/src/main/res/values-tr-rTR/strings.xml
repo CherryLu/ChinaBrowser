@@ -39,6 +39,8 @@
     <string name="str_regist_three">Terim</string>
     <string name="attentive">Varsayılan arama motoru</string>
     <string name="search1">Google</string>
+    <string name="add">Eklemek</string>
+    <string name="open">Açın</string>
     <string name="search2">Bing</string>
     <string name="search3">Yandex</string>
     <string name="str_bottomlinr">Daha fazla içerik bulunamadı</string>
@@ -182,8 +184,14 @@
     <string name="nocollection">Favori yok</string>
     <string name="searech_input">Bir anahtar kelime girin</string>
 
+    <string name="txt1">Web Adresi: <a href = 'http://turkish.cri.cn'>http://turkish.cri.cn</a> \n <a href = 'http://criturk.com/'>http://criturk.com/</a>\n<a href ='http://turkish.china.com/'>http://turkish.china.com/</a></string>
+    <string name="txt2">Facebook: <a href = "https://www.facebook.com/criturkce">https://www.facebook.com/criturkce</a></string>
+    <string name="txt3">Twitter: <a href = "https://mobile.twitter.com/CRI_Turkish ">https://mobile.twitter.com/CRI_Turkish </a></string>
+    <string name="txt4">Youtube: <a href = "https://www.youtube.com/chinatvturkish ">https://www.youtube.com/chinatvturkish </a></string>
+    <string name="txt5">Instagram: <a href = "https://www.instagram.com/criturkfm/ ">https://www.instagram.com/criturkfm/ </a></string>
     <!--<string name="about1">"\u3000\u3000"丝路是中国著名门户网站中华旗下的浏览器，是中华网为用户打造的一款全新浏览器。在全新的移动互联网时代，手机等移动端逐渐成为首选的信息入口，这也为手机浏览器的兴起创造了条件。用户对快捷简介精准的个性聚合智能的手机浏览器需求十分强烈。在此背景下，由中国国际广播电台产业运营平台&#45;&#45;国广环球传媒控股有限公司下属子公司国广互联科技（北京）有限公司自研的中华浏览器于5月18号正式上线服务。</string>
     <string name="about2">"\u3000\u3000"丝路以手机为入口，实现中华推荐，应用随身，特色收藏的三屏速达；按照前端汇合&#45;&#45;内部资源整合&#45;&#45;后台整合&#45;&#45;前端整合的流程对系统平台进行开发和建设，并致力于打造手机上最好的浏览器</string>-->
-    <string name="about1">"\u3000\u3000"Çin Medya Grubu tarafından üretilen, Chinaplus Technologies (Beijing) Şirketi tarafından geliştirilen China Browser, Çin ve Türkiye arasındaki resmî, yetkili ve çift dilli mobil tarayıcı uygulamasıdır. Haber, radyo ve video unsurlarını bir araya getiren China Browser, arama, saklama ve paylaşma gibi birçok işlevi desteklemektedir. Uygulama, şık tasarıma, kusursuz işleyişe ve yüksek uyumluluğa sahip bir tarayıcıdır.</string>
+    <string name="about1">"\u3000\u3000"中华浏览器由中央广播电视总台出品，由国广互联科技（北京）有限公司开发的中国和土耳其之间的官方，权威，双语移动浏览器客户端。客户端集资讯，电台，视频为一身，支持搜索、收藏、分享等功能。是一款界面友好，功能完善，兼容性良好的浏览器产品。</string>
+    <string name="about2">"\u3000\u3000"Çin Medya Grubu tarafından üretilen, Chinaplus Technologies (Beijing) Şirketi tarafından geliştirilen China Browser, Çin ve Türkiye arasındaki resmî, yetkili ve çift dilli mobil tarayıcı uygulamasıdır. Haber, radyo ve video unsurlarını bir araya getiren China Browser, arama, saklama ve paylaşma gibi birçok işlevi desteklemektedir. Uygulama, şık tasarıma, kusursuz işleyişe ve yüksek uyumluluğa sahip bir tarayıcıdır.</string>
 
 </resources>

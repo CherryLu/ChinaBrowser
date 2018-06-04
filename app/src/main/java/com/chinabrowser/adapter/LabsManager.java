@@ -39,15 +39,17 @@ public class LabsManager extends RecyclerView.Adapter<LabsManager.LViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(LViewHolder holder, final int position) {
+    public void onBindViewHolder(LViewHolder holder, int position) {
+        position = getItemCount()-position-1;
          HomeTab homeTab = homeTabs.get(position);
         holder.tabmanager_lvitem_img.setImageBitmap(homeTab.bitmap);
         holder.tabmanager_lvitem_title.setText(homeTab.title);
+        final int finalPosition = position;
         holder.tabmanager_lvitem_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (homeTabClick!=null){
-                    homeTabClick.itemClick(position);
+                    homeTabClick.itemClick(finalPosition);
                 }
             }
         });
@@ -56,7 +58,7 @@ public class LabsManager extends RecyclerView.Adapter<LabsManager.LViewHolder> {
                 @Override
                 public void onClick(View v) {
                     if (homeTabClick!=null){
-                        homeTabClick.delClick(position);
+                        homeTabClick.delClick(finalPosition);
                     }
                 }
             });

@@ -1,11 +1,13 @@
 package com.chinabrowser.utils;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Looper;
 import android.provider.Settings;
 import android.support.v4.view.ViewPager;
@@ -331,19 +333,24 @@ public class CommUtils {
      * @param context
      * @param position
      */
-    public static void changeLag(Context context,int position){
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+    public static void changeLag(Context context, int position){
         if (position==0){
             Resources resources = context.getResources();
             DisplayMetrics dm = resources.getDisplayMetrics();
             Configuration config = resources.getConfiguration();
-            config.locale = Locale.CHINESE;
+            Locale locale = new Locale(Locale.CHINESE.getLanguage());
+            config.setLocale(locale);
+            //config.locale = Locale.CHINESE;
             resources.updateConfiguration(config, dm);
             SharedPreferencesUtils.setParam(context,Constant.LAG,0);
         }else {
             Resources resources = context.getResources();
             DisplayMetrics dm = resources.getDisplayMetrics();
             Configuration config = resources.getConfiguration();
-            config.locale = new Locale("tr");
+            Locale locale = new Locale("tr");
+            config.setLocale(locale);
+            //config.locale = new Locale("tr");
             resources.updateConfiguration(config, dm);
             SharedPreferencesUtils.setParam(context,Constant.LAG,1);
 

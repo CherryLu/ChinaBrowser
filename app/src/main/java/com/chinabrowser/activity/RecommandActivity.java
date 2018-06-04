@@ -31,6 +31,7 @@ import com.chinabrowser.utils.LogUtils;
 import com.chinabrowser.utils.Navigator;
 import com.chinabrowser.utils.UserManager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -67,9 +68,10 @@ public class RecommandActivity extends BaseActivity implements RightClick {
                     if (getLinkListProtocolPage!=null){
                         APP.linkDatas =getLinkListProtocolPage.linkDatas;
                     }
-                    recommends = APP.linkDatas;
+                    recommends = new ArrayList<>();
                     APP.recommend = CommUtils.getHotRecommand(APP.linkDatas,getString(R.string.hot_recommnd));
-                    recommends.set(0,APP.recommend);
+                    recommends.add(APP.recommend);
+                    recommends.addAll(APP.linkDatas);
                     initView();
                     break;
                 case GetLinkListProtocolPage.MSG_WHAT_ERROE:
@@ -88,8 +90,9 @@ public class RecommandActivity extends BaseActivity implements RightClick {
                             APP.recommend = recommend;
                         }
                     }
-                    recommends = APP.linkDatas;
-                    recommends.set(0,APP.recommend);
+                    recommends = new ArrayList<>();
+                    recommends.add(APP.recommend);
+                    recommends.addAll(APP.linkDatas);
                     initView();
                     break;
                 case GetRecommandList.MSG_WHAT_ERROE:
@@ -279,6 +282,12 @@ public class RecommandActivity extends BaseActivity implements RightClick {
             Navigator.startLoginActivity(this);
         }
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        Navigator.finishActivity(this);
+        super.onBackPressed();
     }
 
     UpSetRecommand upSetRecommand;

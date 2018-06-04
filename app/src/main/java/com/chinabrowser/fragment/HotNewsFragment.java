@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.chinabrowser.R;
 import com.chinabrowser.adapter.NewsAdapter;
+import com.chinabrowser.adapter.TwoLineNewsAdapter;
 import com.chinabrowser.bean.Content;
 import com.chinabrowser.bean.NewsData;
 import com.chinabrowser.bean.Title;
@@ -94,14 +95,24 @@ public class HotNewsFragment extends BaseFragment implements PagerClick {
     }
 
     NewsAdapter newsAdapter;
-
+    TwoLineNewsAdapter lineNewsAdapter;
     private void setList(List<NewsData> newsDatas) {
-        newsAdapter = new NewsAdapter(getContext(), newsDatas);
-        newsAdapter.setPagerClick(this);
-        LinearLayoutManager manager = new LinearLayoutManager(getContext());
-        manager.setOrientation(LinearLayoutManager.VERTICAL);
-        list.setLayoutManager(manager);
-        list.setAdapter(newsAdapter);
+        if (getString(R.string.travel).equals(ti.getTitle_name())){
+            newsAdapter = new NewsAdapter(getContext(), newsDatas);
+            newsAdapter.setPagerClick(this);
+            LinearLayoutManager manager = new LinearLayoutManager(getContext());
+            manager.setOrientation(LinearLayoutManager.VERTICAL);
+            list.setLayoutManager(manager);
+            list.setAdapter(newsAdapter);
+        }else {
+            lineNewsAdapter = new TwoLineNewsAdapter(getContext(), newsDatas);
+            lineNewsAdapter.setPagerClick(this);
+            LinearLayoutManager manager = new LinearLayoutManager(getContext());
+            manager.setOrientation(LinearLayoutManager.VERTICAL);
+            list.setLayoutManager(manager);
+            list.setAdapter(lineNewsAdapter);
+        }
+
     }
 
     @Override

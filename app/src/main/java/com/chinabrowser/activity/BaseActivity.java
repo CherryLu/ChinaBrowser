@@ -1,5 +1,6 @@
 package com.chinabrowser.activity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -7,11 +8,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.widget.Toast;
 
-
 import com.chinabrowser.net.BaseProtocolPage;
 import com.chinabrowser.utils.LogUtils;
+import com.chinabrowser.utils.MyContextWrapper;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import butterknife.ButterKnife;
 
@@ -92,6 +94,16 @@ public class BaseActivity extends AppCompatActivity {
         Message msg = Message.obtain();
         msg.what = MSG_WHAT_HIDE_WAIT_DIALOG;
         fHandler.sendMessage(msg);
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        Locale newLocale = Locale.CHINA;
+      /*  if (CommUtils.getCurrentLag(this)==1){
+            newLocale = new Locale("tr");
+        }*/
+        Context context = MyContextWrapper.wrap(newBase, newLocale);
+        super.attachBaseContext(context);
     }
 
     public void showWaitDialog(String waitMessage){

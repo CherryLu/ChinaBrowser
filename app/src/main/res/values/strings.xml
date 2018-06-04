@@ -57,6 +57,8 @@
     <string name="hotnews">新闻列表</string>
     <string name="more_text">更多</string>
     <string name="radio_text">电台</string>
+    <string name="add">添加</string>
+    <string name="open">打开</string>
     <string name="travel">旅游</string>
     <string name="zhonghuawnag">中华网</string>
     <string name="str_login_noname">用户名不能为空</string>
@@ -180,8 +182,12 @@
     <string name="translate_childm_jiaofei">jiaofei</string>
 
 
-
+    <string name="txt1">Web Adresi: <a href = 'http://turkish.cri.cn'>http://turkish.cri.cn</a> \n <a href = 'http://criturk.com/'>http://criturk.com/</a>\n<a href ='http://turkish.china.com/'>http://turkish.china.com/</a></string>
+    <string name="txt2">Facebook: <a href = "https://www.facebook.com/criturkce">https://www.facebook.com/criturkce</a></string>
+    <string name="txt3">Twitter: <a href = "https://mobile.twitter.com/CRI_Turkish ">https://mobile.twitter.com/CRI_Turkish </a></string>
+    <string name="txt4">Youtube: <a href = "https://www.youtube.com/chinatvturkish ">https://www.youtube.com/chinatvturkish </a></string>
+    <string name="txt5">Instagram: <a href = "https://www.instagram.com/criturkfm/ ">https://www.instagram.com/criturkfm/ </a></string>
     <string name="about1">"\u3000\u3000"中华浏览器由中央广播电视总台出品，由国广互联科技（北京）有限公司开发的中国和土耳其之间的官方，权威，双语移动浏览器客户端。客户端集资讯，电台，视频为一身，支持搜索、收藏、分享等功能。是一款界面友好，功能完善，兼容性良好的浏览器产品。</string>
-
+    <string name="about2">"\u3000\u3000"Çin Medya Grubu tarafından üretilen, Chinaplus Technologies (Beijing) Şirketi tarafından geliştirilen China Browser, Çin ve Türkiye arasındaki resmî, yetkili ve çift dilli mobil tarayıcı uygulamasıdır. Haber, radyo ve video unsurlarını bir araya getiren China Browser, arama, saklama ve paylaşma gibi birçok işlevi desteklemektedir. Uygulama, şık tasarıma, kusursuz işleyişe ve yüksek uyumluluğa sahip bir tarayıcıdır.</string>
 </resources>
 
