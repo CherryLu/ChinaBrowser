@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hot_recommnd">Sıcak öneriler</string>
+    <string name="hot_recommnd">Önerilen websiteleri</string>
     <string name="net_load">Ekrana tıklayın, tekrar yükleyin</string>
     <string name="pre_loading">Bıraktıktan sonra yenilenecek</string>
     <string name="str_remenber_password">Şifreyi kaydet</string>

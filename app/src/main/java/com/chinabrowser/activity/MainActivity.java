@@ -48,6 +48,8 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.chinabrowser.bean.HomeTab.HOMEPAGE;
+
 public class MainActivity extends BaseActivity implements HomeCallBack {
 
 
@@ -90,6 +92,12 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
 
     private int current = 0;
     private int isurl;
+
+    private int currentPage;
+    public Title titleData;// LISTPAG
+    public String newsId;//新闻id
+    public String weburl;//网址url
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -165,6 +173,7 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
                 //transaction.replace(R.id.container,homeFragment).commitAllowingStateLoss();
                 LabManager.getInstance().getCurrentFragment()[0] = homeFragment;
                 current = 0;
+                currentPage = HOMEPAGE;
                 break;
             case 1:
                 hotNewsFragment = new HotNewsFragment();
@@ -177,6 +186,9 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
                 // transaction.replace(R.id.container, hotNewsFragment).commitAllowingStateLoss();
                 LabManager.getInstance().getCurrentFragment()[1] = hotNewsFragment;
                 current = 1;
+
+                currentPage = HomeTab.LISTPAGE;
+                titleData = title;
                 break;
             case 2:
                 StatusBarUtils.setWindowStatusBarColor(this,R.color.color_txt_gray);
@@ -195,6 +207,9 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
                     LabManager.getInstance().getCurrentFragment()[2] = webViewFragment;
                     current = 2;
                 }
+
+                currentPage = HomeTab.NEWSPAGE;
+                newsId = id;
                 break;
             case 3:
                 if (translateFragment == null) {
@@ -206,11 +221,18 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
                 // transaction.replace(R.id.container,translateFragment).commitAllowingStateLoss();
                 LabManager.getInstance().getCurrentFragment()[1] = translateFragment;
                 current = 1;
+
+                currentPage = HomeTab.TRANSLATEPAGE;
+
                 break;
             case 4: {
                 HomeTab homeTab = new HomeTab();
                 homeTab.bitmap = takeScreenShot(this);
                 homeTab.title = getString(R.string.homepage);
+                homeTab.type = currentPage;
+                homeTab.newsId = newsId;
+                homeTab.titleData = titleData;
+                homeTab.url = weburl;
                 labFragment = new LabFragment();
                 labFragment.homeCallBack = this;
                 APP.curhomeTab = homeTab;
@@ -222,6 +244,8 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
                 //transaction.replace(R.id.container, labFragment).commitAllowingStateLoss();
                 LabManager.getInstance().getCurrentFragment()[1] = labFragment;
                 current = 1;
+
+                currentPage = HomeTab.LABPAGE;
                 break;
             }
             case 5: {
@@ -242,6 +266,9 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
                     LabManager.getInstance().getCurrentFragment()[2] = webViewFragment;
                     current = 2;
                 }
+
+                currentPage = HomeTab.URLWEBPAGE;
+                weburl = url;
                 break;
             }
             case 6:
@@ -254,6 +281,8 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
                 current =1;
                 //transaction.replace(R.id.container, searchFragment).commitAllowingStateLoss();
                 LabManager.getInstance().getCurrentFragment()[1] = searchFragment;
+
+                currentPage = HomeTab.SEARCHPAGE;
 
                 break;
         }
@@ -371,7 +400,6 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
                 Navigator.startSettingActivity(this);
                 break;
             case R.id.index_bottom_menu_goback:
-                LogUtils.e("ZXZX",current+"");
                 if (current == 1) {
                     Fragment fragment = LabManager.getInstance().getCurrentFragment()[1];
                     if (fragment instanceof WebViewFragment) {
@@ -433,7 +461,10 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
                 setContainer(0, null, "", "");
                 break;
             case R.id.index_bottom_menu_new_window://添加页签
-                setContainer(4, null, "", "");
+                if (currentPage!=HomeTab.LABPAGE){
+                    setContainer(4, null, "", "");
+                }
+
                 break;
         }
     }
@@ -575,6 +606,35 @@ public class MainActivity extends BaseActivity implements HomeCallBack {
                 APP.isCango = true;
             }
         }, 500);
+    }
+
+    @Override
+    public void fromLabs(HomeTab homeTab) {
+        if (homeTab==null){
+            return;
+        }
+        indexBottomTabCount.setText(APP.homeTabs.size() + "");
+
+        switch (homeTab.type){
+            case 0:
+                setContainer(0, null, "", "");
+                break;
+            case 1:
+                setContainer(1, homeTab.titleData, "", "");
+                break;
+            case 2:
+                setContainer(2,null,homeTab.newsId,"");
+                break;
+            case 3:
+                setContainer(3, null, "", "");
+                break;
+            case 4:
+                setContainer(5,null,"",homeTab.url);
+                break;
+            case 5:
+                setContainer(6, null, "", "");
+                break;
+        }
     }
 
     public int mOrientation;            // 横竖屏标识

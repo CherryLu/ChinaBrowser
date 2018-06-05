@@ -57,6 +57,7 @@ public class APP extends Application {
     public static HomeTab curhomeTab;
     public static boolean isCango;
     public static Recommend recommend;
+    public static int current;
 
 
     private Handler handler = new Handler(){

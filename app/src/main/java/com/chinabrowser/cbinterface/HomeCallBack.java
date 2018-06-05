@@ -1,6 +1,7 @@
 package com.chinabrowser.cbinterface;
 
 import com.chinabrowser.bean.Content;
+import com.chinabrowser.bean.HomeTab;
 import com.chinabrowser.bean.Title;
 
 /**
@@ -13,4 +14,5 @@ public interface HomeCallBack {
     void startContent(Content content);
     void startContentByurl(Content content);
     void getPhoto();
+    void fromLabs(HomeTab homeTab);
 }

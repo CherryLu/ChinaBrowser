@@ -16,7 +16,6 @@ import com.chinabrowser.adapter.LabsManager;
 import com.chinabrowser.bean.HomeTab;
 import com.chinabrowser.cbinterface.HomeTabClick;
 import com.chinabrowser.utils.LabManager;
-import com.chinabrowser.utils.LogUtils;
 
 import java.util.ArrayList;
 
@@ -53,21 +52,24 @@ public class LabFragment extends BaseFragment implements HomeTabClick {
         View view = inflater.inflate(R.layout.fragment_labs, null);
         ButterKnife.bind(this, view);
         title.setText(getText(R.string.labs));
+
+        HomeTab homeTab = APP.curhomeTab;
         if (APP.homeTabs==null){
             APP.homeTabs = new ArrayList<>();
+            APP.homeTabs.add(homeTab);
+        }else {
+            APP.homeTabs.set(APP.current,homeTab);
         }
-        HomeTab homeTab = APP.curhomeTab;
-        if (APP.homeTabs.size()>0){
+       /* if (APP.homeTabs.size()>0){
             APP.homeTabs.remove(0);
             if (APP.homeTabs.size()>0){
                 APP.homeTabs.add(0,homeTab);
             }else {
                 APP.homeTabs.add(homeTab);
             }
-
         }else {
             APP.homeTabs.add(homeTab);
-        }
+        }*/
         LabManager.getInstance().setCurrentLab(0);
         initList();
         return view;
@@ -106,14 +108,18 @@ public class LabFragment extends BaseFragment implements HomeTabClick {
 
     @Override
     public void itemClick(int homeTab) {//跳转主页
-        if (homeTab==0){
+        HomeTab tab = APP.homeTabs.get(homeTab);
+        APP.current = homeTab;
+        if (homeCallBack!=null){
+            homeCallBack.fromLabs(tab);
+        }
+        /*if (homeTab==0){
           getActivity().onBackPressed();
         }else {
-                if (homeCallBack!=null){
-                    homeCallBack.backClick();
-                    //LabManager.getInstance().setCurrentLab(homeTab);
-                }
-        }
+            if (homeCallBack!=null){
+                homeCallBack.backClick();
+            }
+        }*/
     }
 
     @Override

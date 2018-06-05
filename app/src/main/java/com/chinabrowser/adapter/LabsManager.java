@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.chinabrowser.APP;
 import com.chinabrowser.R;
 import com.chinabrowser.bean.HomeTab;
 import com.chinabrowser.cbinterface.HomeTabClick;
@@ -40,11 +41,11 @@ public class LabsManager extends RecyclerView.Adapter<LabsManager.LViewHolder> {
 
     @Override
     public void onBindViewHolder(LViewHolder holder, int position) {
-        position = getItemCount()-position-1;
-         HomeTab homeTab = homeTabs.get(position);
+        int showposition = getItemCount()-position-1;
+         HomeTab homeTab = homeTabs.get(showposition);
         holder.tabmanager_lvitem_img.setImageBitmap(homeTab.bitmap);
         holder.tabmanager_lvitem_title.setText(homeTab.title);
-        final int finalPosition = position;
+        final int finalPosition = showposition;
         holder.tabmanager_lvitem_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,7 +54,8 @@ public class LabsManager extends RecyclerView.Adapter<LabsManager.LViewHolder> {
                 }
             }
         });
-        if (position!=0){
+        if (showposition!= APP.current){
+            holder.tabmanager_lvitem_remove.setVisibility(View.VISIBLE);
             holder.tabmanager_lvitem_remove.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -62,6 +64,8 @@ public class LabsManager extends RecyclerView.Adapter<LabsManager.LViewHolder> {
                     }
                 }
             });
+        }else {
+            holder.tabmanager_lvitem_remove.setVisibility(View.GONE);
         }
 
     }

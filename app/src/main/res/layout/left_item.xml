@@ -16,7 +16,8 @@
             android:layout_width="3dp"
             android:layout_height="match_parent"/>
         <TextView
-            android:paddingLeft="15dp"
+            android:maxLines="2"
+            android:paddingLeft="10dp"
             android:gravity="center"
             android:paddingBottom="17dp"
             android:paddingTop="17dp"

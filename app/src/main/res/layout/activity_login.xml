@@ -132,6 +132,7 @@
                         android:layout_height="1dp"
                         android:background="@color/color_line_gray"/>
                     <TextView
+                        android:visibility="gone"
                         android:textSize="10sp"
                         android:textColor="@color/color_txt_black"
                         android:layout_centerInParent="true"
