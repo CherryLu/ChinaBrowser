@@ -67,7 +67,7 @@ public class APP extends Application {
                 case GetLinkListProtocolPage.MSG_WHAT_OK:
                     if (getLinkListProtocolPage!=null){
                         APP.linkDatas =getLinkListProtocolPage.linkDatas;
-                        APP.recommend = CommUtils.getHotRecommand(getLinkListProtocolPage.linkDatas,getString(R.string.hot_recommnd));
+                        APP.recommend = CommUtils.getHotRecommand(getLinkListProtocolPage.linkDatas,getString(R.string.searech_recommend));
                     }
                     break;
                 case GetLinkListProtocolPage.MSG_WHAT_NOTCHANGE:

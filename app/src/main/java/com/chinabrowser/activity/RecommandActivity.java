@@ -33,6 +33,8 @@ import com.chinabrowser.utils.UserManager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -69,7 +71,7 @@ public class RecommandActivity extends BaseActivity implements RightClick {
                         APP.linkDatas =getLinkListProtocolPage.linkDatas;
                     }
                     recommends = new ArrayList<>();
-                    APP.recommend = CommUtils.getHotRecommand(APP.linkDatas,getString(R.string.hot_recommnd));
+                    APP.recommend = CommUtils.getHotRecommand(APP.linkDatas,getString(R.string.searech_recommend));
                     recommends.add(APP.recommend);
                     recommends.addAll(APP.linkDatas);
                     initView();
@@ -176,7 +178,15 @@ public class RecommandActivity extends BaseActivity implements RightClick {
     }
 
     private void initView(){
-        recommends.get(0).setSelect(true);
+        for (int i =0;i<recommends.size();i++){
+            if (i==0){
+                recommends.get(i).setSelect(true);
+            }else {
+                recommends.get(i).setSelect(false);
+            }
+
+        }
+
         leftAdapter = new LeftAdapter(this, recommends);
         leftAdapter.setRightClick(this);
         LinearLayoutManager manager = new LinearLayoutManager(this);
@@ -202,16 +212,32 @@ public class RecommandActivity extends BaseActivity implements RightClick {
                 rightAdapter.notifyDataSetChanged();
                 deleteConment = null;
             }
-            RedPacketCustomDialog dialog = new RedPacketCustomDialog(this,4);
+            final RedPacketCustomDialog dialog = new RedPacketCustomDialog(this,4);
             dialog.showIt();
+
+            TimerTask task = new TimerTask(){
+                public void run(){
+                    dialog.dismiss();
+                }
+            };
+            Timer timer = new Timer();
+            timer.schedule(task, 1000);
 
         }else {//添加
             if (addContent!=null){
                 //APP.recommend.getContents().add(addContent);
                 addContent = null;
             }
-            RedPacketCustomDialog dialog = new RedPacketCustomDialog(this,3);
+            final RedPacketCustomDialog dialog = new RedPacketCustomDialog(this,3);
             dialog.showIt();
+
+            TimerTask task = new TimerTask(){
+                public void run(){
+                    dialog.dismiss();
+                }
+            };
+            Timer timer = new Timer();
+            timer.schedule(task, 1000);
         }
     }
 

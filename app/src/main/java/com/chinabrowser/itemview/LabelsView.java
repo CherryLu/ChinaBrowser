@@ -13,6 +13,7 @@ import com.chinabrowser.R;
 import com.chinabrowser.bean.Content;
 import com.chinabrowser.bean.Recommend;
 import com.chinabrowser.fragment.HomeFragment;
+import com.chinabrowser.utils.CommUtils;
 import com.chinabrowser.utils.GlideUtils;
 import com.chinabrowser.utils.LogUtils;
 import com.chinabrowser.utils.Navigator;
@@ -59,7 +60,11 @@ public class LabelsView extends BaseView implements View.OnClickListener{
         textViews[5] = (TextView) mVivew.findViewById(R.id.name6);
 
        textViews[5].setText(context.getText(R.string.more_text));
-
+        if (CommUtils.getCurrentLag(context)==1){
+            textViews[5].setTextSize(10);
+        }else {
+            textViews[5].setTextSize(12);
+        }
         imageViews[0] = (ImageView) mVivew.findViewById(R.id.cover1);
         imageViews[1] = (ImageView) mVivew.findViewById(R.id.cover2);
         imageViews[2] = (ImageView) mVivew.findViewById(R.id.cover3);

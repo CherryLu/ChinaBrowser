@@ -184,7 +184,7 @@
 
                 <TextView
                     android:gravity="center"
-                    android:maxEms="4"
+                    android:maxEms="9"
                     android:ellipsize="end"
                     android:lines="1"
                     android:id="@+id/name6"
@@ -192,9 +192,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="10dp"
-                    android:text="更多"
+                    android:text="@string/more_text"
                     android:textColor="@color/color_txt_deep_black"
-                    android:textSize="12sp" />
+                    android:textSize="11sp" />
             </LinearLayout>
 
         </LinearLayout>

@@ -31,6 +31,7 @@ import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import cn.anyradio.manager.PlayManager;
 import cn.anyradio.utils.CommUtils;
 import tv.danmaku.ijk.media.example.widget.media.IjkVideoViewAlone;
 import tv.danmaku.ijk.media.player.IMediaPlayer;
@@ -493,6 +494,9 @@ public class BrowserVideoPlayer extends RelativeLayout implements View.OnClickLi
     public void setData(String url, int parentHeight) {
         this.playUrl = url;
         mParentHeight = parentHeight;
+        if (!PlayManager.getInstance(getContext()).isStop()&&!PlayManager.getInstance(getContext()).isPause()){
+            PlayManager.getInstance(getContext()).pause();
+        }
         start();
         if (!com.chinabrowser.utils.CommUtils.isWifiConnected(getContext())){
             pause();

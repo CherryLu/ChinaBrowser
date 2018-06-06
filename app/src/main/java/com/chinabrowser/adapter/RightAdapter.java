@@ -1,6 +1,7 @@
 package com.chinabrowser.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,8 @@ import com.chinabrowser.cbinterface.RightClick;
 import com.chinabrowser.utils.GlideUtils;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by Administrator on 2018/4/15.
@@ -91,6 +94,18 @@ public class RightAdapter extends RecyclerView.Adapter<RightAdapter.RViewHolder>
             holder.open.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    holder.open.setBackgroundResource(R.drawable.click_red);
+                    holder.open.setTextColor(Color.WHITE);
+
+
+                    TimerTask task = new TimerTask(){
+                        public void run(){
+                            holder.open.setBackgroundResource(R.drawable.black_line);
+                            holder.open.setTextColor(Color.parseColor("#666666"));
+                        }
+                    };
+                    Timer timer = new Timer();
+                    timer.schedule(task, 1000);
                     if (rightClick!=null){
                         rightClick.startUrl(content);
                     }
@@ -99,6 +114,18 @@ public class RightAdapter extends RecyclerView.Adapter<RightAdapter.RViewHolder>
             holder.add.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    holder.add.setBackgroundResource(R.drawable.click_red);
+                    holder.add.setTextColor(Color.WHITE);
+
+                    TimerTask task = new TimerTask(){
+                        public void run(){
+                            holder.add.setBackgroundResource(R.drawable.red_line);
+                            holder.add.setTextColor(Color.RED);
+                        }
+                    };
+                    Timer timer = new Timer();
+                    timer.schedule(task, 1000);
+
                     if (rightClick!=null){
                         rightClick.addContent(content);
                     }

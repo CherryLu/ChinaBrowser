@@ -41,6 +41,8 @@ import com.chinabrowser.utils.LogUtils;
 import com.chinabrowser.utils.Navigator;
 import com.chinabrowser.utils.TranslateUtil;
 
+import cn.anyradio.manager.PlayManager;
+
 /**
  * 情景翻译具体情景界面
  * @author blackieqq
@@ -468,6 +470,22 @@ public class TranslateActivity extends BaseActivity implements OnClickListener {
                         
                         AssetFileDescriptor afd = mAssetManager.openFd(fileName);
                         mPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
+                        boolean isPlaying = false;
+                        if (!PlayManager.getInstance(TranslateActivity.this).isStop()&&!PlayManager.getInstance(TranslateActivity.this).isPause()){
+                            PlayManager.getInstance(TranslateActivity.this).pause();
+                            isPlaying = true;
+                        }
+
+                        final boolean finalIsPlaying = isPlaying;
+                        mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                            @Override
+                            public void onCompletion(MediaPlayer mp) {
+                                if (finalIsPlaying){
+                                    PlayManager.getInstance(TranslateActivity.this).resume();
+                                }
+
+                            }
+                        });
                         mPlayer.prepare();
                         mPlayer.start();
                     } catch (IOException e) {
