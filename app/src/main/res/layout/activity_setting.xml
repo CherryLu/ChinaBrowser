@@ -75,7 +75,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="简体中文"
+                        android:text="@string/language_zh"
                         android:textColor="@color/color_black"
                         android:textSize="14sp" />
 
@@ -92,7 +92,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="36dp"
-                        android:text="@string/select_turkish"
+                        android:text="@string/language_tr"
                         android:textColor="@color/color_black" />
 
                     <ImageView

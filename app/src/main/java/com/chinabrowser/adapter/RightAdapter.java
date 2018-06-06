@@ -59,9 +59,14 @@ public class RightAdapter extends RecyclerView.Adapter<RightAdapter.RViewHolder>
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (rightClick!=null){
-                        rightClick.startUrl(content);
+                    if (holder.delete.getVisibility()==View.GONE){
+                        if (rightClick!=null){
+                            rightClick.startUrl(content);
+                        }
+                    }else {
+                        holder.delete.setVisibility(View.GONE);
                     }
+
                 }
             });
             holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
@@ -99,6 +104,8 @@ public class RightAdapter extends RecyclerView.Adapter<RightAdapter.RViewHolder>
                     }
                 }
             });
+
+
 
         }
 

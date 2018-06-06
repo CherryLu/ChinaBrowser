@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="added">Bu websitesi eklendi</string>
     <string name="hot_recommnd">Önerilen websiteleri</string>
     <string name="net_load">Ekrana tıklayın, tekrar yükleyin</string>
     <string name="pre_loading">Bıraktıktan sonra yenilenecek</string>
@@ -88,6 +89,8 @@
     <string name="add_labs">Yeni sayfa ekle</string>
     <string name="homepage">Ana sayfa</string>
     <string name="hotnews">Haber listesi</string>
+    <string name="language_zh">Çince</string>
+    <string name="language_tr">Türkçe</string>
     <!-- 首页情景翻译模块 -->
     <string name="translate_language_set_from">Kaynak dili</string>
     <string name="translate_language_set_to">Hedef dil</string>

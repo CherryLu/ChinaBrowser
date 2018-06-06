@@ -272,7 +272,7 @@ public class RecommandActivity extends BaseActivity implements RightClick {
         showWaitDialog("添加中...");
         if (UserManager.getInstance().isLogin()){
             if (CommUtils.hasSame(content)){
-                showToash("已添加");
+                showToash(getString(R.string.added));
             }else {
                 addContent = content;
                 setHotRecommand(CommUtils.getIds(content,1));

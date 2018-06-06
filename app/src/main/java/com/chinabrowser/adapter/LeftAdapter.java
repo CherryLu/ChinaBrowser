@@ -64,6 +64,9 @@ public class LeftAdapter extends RecyclerView.Adapter<LeftAdapter.LViewHolder> {
                 }
             }
         });
+
+
+
     }
 
     private void setAllFalse(){
