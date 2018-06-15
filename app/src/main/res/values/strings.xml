@@ -1,4 +1,5 @@
 <resources>
+    <string name="delete">删除</string>
     <string name="hot_recommnd">推荐网址</string>
     <string name="net_load">点击屏幕，重新加载</string>
     <string name="pre_loading">释放即可刷新</string>
@@ -22,7 +23,7 @@
     <string name="setting_login_que">是否退出登录</string>
     <string name="collection_success">收藏成功</string>
     <string name="collection_cancel">取消收藏成功</string>
-    <string name="search_title">请输入关键字</string>
+    <string name="search_title">请输入网址或关键字</string>
     <string name="web_search">搜索</string>
     <string name="add_recommand">已添加</string>
     <string name="delete_recommand">已移除</string>

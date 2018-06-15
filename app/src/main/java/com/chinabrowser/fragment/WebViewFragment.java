@@ -49,6 +49,8 @@ import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
 import java.net.URLEncoder;
 import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -173,22 +175,42 @@ public class WebViewFragment extends BaseFragment implements BrowserVideoPlayer.
                 case GetNewsDetails.MSG_WHAT_ERROE:
                 case GetNewsDetails.MSG_WHAT_NOTCHANGE:
                     break;
-                case CollectionNewsPage.MSG_WHAT_OK:
-                    RedPacketCustomDialog customDialog = new RedPacketCustomDialog(getContext(), 0);
+                case CollectionNewsPage.MSG_WHAT_OK: {
+                    final RedPacketCustomDialog customDialog = new RedPacketCustomDialog(getContext(), 0);
                     customDialog.show();
                     collection.setImageResource(R.mipmap.collection);
                     iscollection = true;
+
+                    TimerTask task = new TimerTask() {
+                        public void run() {
+                            customDialog.dismiss();
+                        }
+                    };
+                    Timer timer = new Timer();
+                    timer.schedule(task, 1000);
+
                     break;
+                }
                 case CollectionNewsPage.MSG_WHAT_ERROE:
                 case CollectionNewsPage.MSG_WHAT_NOTCHANGE:
 
                     break;
-                case DelCollectionNewsPage.MSG_WHAT_OK:
-                    RedPacketCustomDialog custom = new RedPacketCustomDialog(getContext(), 1);
+                case DelCollectionNewsPage.MSG_WHAT_OK:{
+
+
+                    final RedPacketCustomDialog custom = new RedPacketCustomDialog(getContext(), 1);
                     custom.show();
                     collection.setImageResource(R.mipmap.un_collection);
                     iscollection = false;
+                    TimerTask task = new TimerTask(){
+                        public void run(){
+                            custom.dismiss();
+                        }
+                    };
+                    Timer timer = new Timer();
+                    timer.schedule(task, 1000);
                     break;
+                }
                 case DelCollectionNewsPage.MSG_WHAT_ERROE:
                 case DelCollectionNewsPage.MSG_WHAT_NOTCHANGE:
                     break;

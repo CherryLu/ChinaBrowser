@@ -28,6 +28,8 @@ import com.chinabrowser.utils.SharedPreferencesUtils;
 import com.chinabrowser.utils.UserManager;
 
 import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -86,8 +88,15 @@ public class SettingActivity extends BaseActivity {
         public void handleMessage(Message msg) {
             switch (msg.what){
                 case 200:
-                    RedPacketCustomDialog customDialog = new RedPacketCustomDialog(SettingActivity.this,2);
+                    final RedPacketCustomDialog customDialog = new RedPacketCustomDialog(SettingActivity.this,2);
                     customDialog.showIt();
+                    TimerTask task = new TimerTask(){
+                        public void run(){
+                            customDialog.dismiss();
+                        }
+                    };
+                    Timer timer = new Timer();
+                    timer.schedule(task, 1000);
                     break;
             }
             super.handleMessage(msg);

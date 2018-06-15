@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="delete">sil</string>
     <string name="added">Bu websitesi eklendi</string>
     <string name="hot_recommnd">Önerilen websiteleri</string>
     <string name="net_load">Ekrana tıklayın, tekrar yükleyin</string>
@@ -52,7 +53,7 @@
     <string name="setting_title">Ayarlar</string>
     <string name="collection_success">Favorilerime kaydedildi!</string>
     <string name="collection_cancel">Favorilerim iptal edildi</string>
-    <string name="search_title">Anahtar kelime girin</string>
+    <string name="search_title">İnternet adresi veya anahtar kelime girin</string>
     <string name="setting_login_que">Çıkış yapmak istediğinizden emin misiniz?</string>
     <string name="setting_clear_success">Önbelleği temizlendi</string>
     <string name="share_cancel">İptal et</string>

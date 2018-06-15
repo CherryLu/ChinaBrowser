@@ -298,7 +298,8 @@ public class RecommandActivity extends BaseActivity implements RightClick {
         showWaitDialog("添加中...");
         if (UserManager.getInstance().isLogin()){
             if (CommUtils.hasSame(content)){
-                showToash(getString(R.string.added));
+                hasAdd();
+                //showToash(getString(R.string.added));
             }else {
                 addContent = content;
                 setHotRecommand(CommUtils.getIds(content,1));
@@ -308,6 +309,20 @@ public class RecommandActivity extends BaseActivity implements RightClick {
             Navigator.startLoginActivity(this);
         }
 
+    }
+
+
+    private void hasAdd(){
+        final RedPacketCustomDialog dialog = new RedPacketCustomDialog(this,5);
+        dialog.showIt();
+
+        TimerTask task = new TimerTask(){
+            public void run(){
+                dialog.dismiss();
+            }
+        };
+        Timer timer = new Timer();
+        timer.schedule(task, 1000);
     }
 
     @Override

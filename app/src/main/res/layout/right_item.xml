@@ -20,6 +20,40 @@
                 android:layout_height="50dp"
                 android:src="@mipmap/taobao"/>
             <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/controler"
+                android:background="#B3333333"
+                android:layout_alignParentBottom="true"
+                android:orientation="vertical"
+                android:layout_width="50dp"
+                android:layout_height="50dp">
+                <TextView
+                    android:textSize="11sp"
+                    android:id="@+id/delete"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_width="50dp"
+                    android:layout_height="20dp"
+                    android:text="@string/delete"/>
+                <View
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/white"/>
+                <TextView
+                    android:textSize="11sp"
+                    android:id="@+id/cancle"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_width="50dp"
+                    android:layout_height="20dp"
+                    android:text="@string/share_cancel"/>
+
+            </LinearLayout>
+            <LinearLayout
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp"
                 android:id="@+id/control"
@@ -49,15 +83,7 @@
                     android:layout_width="50dp"
                     android:layout_height="20dp"
                     android:text="@string/open"/>
-
             </LinearLayout>
-            <ImageView
-                android:visibility="gone"
-                android:paddingLeft="45dp"
-                android:id="@+id/delete_conner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/conner_delete"/>
         </RelativeLayout>
         <TextView
             android:ellipsize="end"

@@ -52,6 +52,7 @@
             </LinearLayout>
         </RelativeLayout>
         <ImageView
+            android:layout_gravity="center_vertical"
             android:id="@+id/pic"
             android:scaleType="fitXY"
             android:src="@mipmap/defaluthead"
@@ -59,7 +60,8 @@
             android:layout_height="99dp" />
     </LinearLayout>
     <View
-        android:layout_marginTop="12dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/color_line_gray"/>
@@ -111,6 +113,7 @@
             </LinearLayout>
         </RelativeLayout>
         <ImageView
+            android:layout_gravity="center_vertical"
             android:id="@+id/pic2"
             android:scaleType="fitXY"
             android:src="@mipmap/defaluthead"

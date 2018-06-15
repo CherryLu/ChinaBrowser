@@ -8,6 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <LinearLayout
+            android:paddingRight="10dp"
             android:paddingBottom="15dp"
             android:gravity="center"
             android:orientation="horizontal"
@@ -22,6 +23,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <ImageView
+                    android:layout_gravity="center"
                     android:src="@mipmap/defult_bg"
                     android:scaleType="fitXY"
                     android:layout_centerInParent="true"
@@ -52,6 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <ImageView
+                    android:layout_gravity="center"
                     android:src="@mipmap/defult_bg"
                     android:scaleType="fitXY"
                     android:layout_centerInParent="true"
@@ -82,6 +85,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <ImageView
+                    android:layout_gravity="center"
                     android:src="@mipmap/defult_bg"
                     android:scaleType="fitXY"
                     android:layout_centerInParent="true"
@@ -112,6 +116,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <ImageView
+                    android:layout_gravity="center"
                     android:src="@mipmap/defult_bg"
                     android:scaleType="fitXY"
                     android:layout_centerInParent="true"
@@ -144,6 +149,7 @@
                 android:paddingTop="15dp">
 
                 <ImageView
+                    android:layout_gravity="center"
                     android:src="@mipmap/defult_bg"
                     android:scaleType="fitXY"
                     android:id="@+id/cover5"
@@ -175,6 +181,7 @@
                 android:paddingTop="15dp">
 
                 <ImageView
+                    android:layout_gravity="center"
                     android:scaleType="fitXY"
                     android:id="@+id/cover6"
                     android:layout_width="35dp"

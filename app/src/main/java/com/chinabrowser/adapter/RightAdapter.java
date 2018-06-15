@@ -2,6 +2,8 @@ package com.chinabrowser.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,27 +57,41 @@ public class RightAdapter extends RecyclerView.Adapter<RightAdapter.RViewHolder>
     @Override
     public void onBindViewHolder(final RViewHolder holder, int position) {
         final Content content = contents.get(position);
+        final Handler handler = new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                switch (msg.what){
+                    case 200:
+                        holder.open.setBackgroundResource(R.drawable.black_line);
+                        holder.open.setTextColor(Color.parseColor("#666666"));
+                        break;
+                    case 300:
+                        holder.add.setBackgroundResource(R.drawable.red_line);
+                        holder.add.setTextColor(Color.RED);
+                        break;
+                }
+                super.handleMessage(msg);
+            }
+        };
         holder.name.setText(content.getTitle());
         GlideUtils.loadImageView(context,content.getCover_image(),holder.cover);
         if (which==0){
             holder.control.setVisibility(View.GONE);
+            holder.controler.setVisibility(View.GONE);
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (holder.delete.getVisibility()==View.GONE){
-                        if (rightClick!=null){
-                            rightClick.startUrl(content);
-                        }
-                    }else {
-                        holder.delete.setVisibility(View.GONE);
+                    if (rightClick!=null){
+                        rightClick.startUrl(content);
                     }
+
 
                 }
             });
             holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    holder.delete.setVisibility(View.VISIBLE);
+                    holder.controler.setVisibility(View.VISIBLE);
                     return true;
                 }
             });
@@ -85,6 +101,13 @@ public class RightAdapter extends RecyclerView.Adapter<RightAdapter.RViewHolder>
                     if (rightClick!=null){
                         rightClick.deleteContent(content);
                     }
+                }
+            });
+
+            holder.cancle.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    holder.controler.setVisibility(View.GONE);
                 }
             });
 
@@ -100,8 +123,11 @@ public class RightAdapter extends RecyclerView.Adapter<RightAdapter.RViewHolder>
 
                     TimerTask task = new TimerTask(){
                         public void run(){
-                            holder.open.setBackgroundResource(R.drawable.black_line);
-                            holder.open.setTextColor(Color.parseColor("#666666"));
+                            if (handler!=null){
+                                Message message = Message.obtain();
+                                message.what = 200;
+                                handler.sendMessage(message);
+                            }
                         }
                     };
                     Timer timer = new Timer();
@@ -119,8 +145,12 @@ public class RightAdapter extends RecyclerView.Adapter<RightAdapter.RViewHolder>
 
                     TimerTask task = new TimerTask(){
                         public void run(){
-                            holder.add.setBackgroundResource(R.drawable.red_line);
-                            holder.add.setTextColor(Color.RED);
+
+                            if (handler!=null){
+                                Message message = Message.obtain();
+                                message.what = 300;
+                                handler.sendMessage(message);
+                            }
                         }
                     };
                     Timer timer = new Timer();
@@ -148,17 +178,21 @@ public class RightAdapter extends RecyclerView.Adapter<RightAdapter.RViewHolder>
 
     class RViewHolder extends RecyclerView.ViewHolder{
         TextView name;
-        ImageView cover,delete;
-        LinearLayout control;
+        ImageView cover;
+        LinearLayout control,controler;
         TextView add,open;
+        TextView delete,cancle;
       public RViewHolder(View itemView) {
           super(itemView);
           name = (TextView) itemView.findViewById(R.id.name);
           cover = (ImageView) itemView.findViewById(R.id.cover);
-          delete = (ImageView) itemView.findViewById(R.id.delete_conner);
           control = itemView.findViewById(R.id.control);
           add = itemView.findViewById(R.id.add);
           open = itemView.findViewById(R.id.open);
+
+          controler = itemView.findViewById(R.id.controler);
+          delete = itemView.findViewById(R.id.delete);
+          cancle = itemView.findViewById(R.id.cancle);
       }
   }
 }
