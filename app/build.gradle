@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 // 添加插件
 apply plugin: "com.mob.sdk"
+def outputPathName = "D:/zsl/apk/"
 android {
     dataBinding { enabled = true }
     compileSdkVersion 26
@@ -11,23 +12,12 @@ android {
         applicationId "com.chinabrowser"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 48
-        versionName "3.0.0_48"
+        versionCode 49
+        versionName "3.0.0_49"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-    }
-    buildTypes {
-        debug {
-            buildConfigField("boolean", "LOG_DEBUG", "true")
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-        release {
-            buildConfigField("boolean", "LOG_DEBUG", "false")
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
+        manifestPlaceholders = [UMENG_CHANNEL: "umeng"]//添加一个默认渠道号
 
+    }
 
     signingConfigs {
         config {
@@ -49,10 +39,98 @@ android {
             storePassword 'guoguanghulian@0410'
         }
     }
+
+    buildTypes {
+        debug {
+            buildConfigField("boolean", "LOG_DEBUG", "false")
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+        }
+        release {
+            buildConfigField("boolean", "LOG_DEBUG", "false")
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+    }
+    productFlavors {
+        googleplay {
+            manifestPlaceholders = [UMENG_CHANNEL: "6020_5800"]
+        }
+        _360 {
+            manifestPlaceholders = [UMENG_CHANNEL: "6020_5105"]
+        }
+        yingyongbao {
+            manifestPlaceholders = [UMENG_CHANNEL: "6020_5108"]
+        }
+        xiaomi {
+            manifestPlaceholders = [UMENG_CHANNEL: "6020_5111"]
+        }
+        baidu {
+            manifestPlaceholders = [UMENG_CHANNEL: "6020_5134"]
+        }
+        huawei {
+            manifestPlaceholders = [UMENG_CHANNEL: "6020_5113"]
+        }
+        youyi {
+            manifestPlaceholders = [UMENG_CHANNEL: "6020_5115"]
+        }
+        lenovo {
+            manifestPlaceholders = [UMENG_CHANNEL: "6020_5121"]
+        }
+        mumayi {
+            manifestPlaceholders = [UMENG_CHANNEL: "6020_5116"]
+        }
+        jifeng {
+            manifestPlaceholders = [UMENG_CHANNEL: "6020_5106"]
+        }
+        wostore {
+            manifestPlaceholders = [UMENG_CHANNEL: "6020_5106"]
+        }
+        oppo {
+            manifestPlaceholders = [UMENG_CHANNEL: "6020_5114"]
+        }
+        oppo {
+            manifestPlaceholders = [UMENG_CHANNEL: "6020_5114"]
+        }
+        wandoujia {
+            manifestPlaceholders = [UMENG_CHANNEL: "6020_5104"]
+        }
+        meizu {
+            manifestPlaceholders = [UMENG_CHANNEL: "6020_5110"]
+        }
+    }
+
+    productFlavors.all { flavor ->
+        flavor.manifestPlaceholders = [ UMENG_CHANNEL:name ]
+    }
+
+    android.applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def outputFile = outputPathName
+            if (outputFile != null) {
+                File outputDirectory = new File(outputFile);
+                def fileName
+                if (variant.buildType.name == "release") {
+//                    fileName = "app_v${defaultConfig.versionName}_${packageTime()}_${variant.productFlavors[0].name}.apk"
+                    fileName = "ChinaBrowser_${variant.productFlavors[0].name}.apk"
+                } else {
+//                    fileName = "app_v${defaultConfig.versionName}_${packageTime()}_beta.apk"
+                    fileName = "ChinaBrowser_${variant.productFlavors[0].name}_beta.apk"
+                }
+                output.outputFile = new File(outputDirectory, fileName)
+            }
+        }
+    }
+
+
+
+
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -64,6 +142,7 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'cn.bingoogolapple:bga-refreshlayout:1.1.7@aar'
     compile project(':ijkplayer-example')
+    compile 'com.umeng.analytics:analytics:latest.integration'
 }
 
 // 在MobSDK的扩展中注册ShareSDK的相关信息
